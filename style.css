@@ -1,42 +1,37 @@
-/* ===== RESET ===== */
-
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
 
 body {
 
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Arial", sans-serif;
 
-    background: #f5f6f8;
+    background:#0b0f19;
 
-    color: #111;
+    color:white;
 
 }
 
-
-/* ===== HEADER ===== */
 
 
 header {
 
-    background: white;
-
-    border-bottom: 1px solid #ddd;
+    background:#111827;
 
 }
 
 
+
 .top {
 
-    max-width:1200px;
+    max-width:1400px;
 
     margin:auto;
 
-    padding:25px 20px;
+    padding:25px;
 
     display:flex;
 
@@ -49,37 +44,34 @@ header {
 
 .top h1 {
 
-    color:#e30613;
+    font-size:45px;
 
-    font-size:38px;
+    color:#38bdf8;
 
 }
 
 
 .top p {
 
-    color:#555;
+    font-size:20px;
+
+    color:#aaa;
 
 }
 
 
 
-
-
-/* ===== NAVIGATION ===== */
-
-
 nav {
 
-    background:#111;
+    background:#050816;
+
+    padding:20px;
 
     display:flex;
 
     justify-content:center;
 
-    gap:35px;
-
-    padding:15px;
+    gap:40px;
 
 }
 
@@ -91,60 +83,47 @@ nav a {
 
     text-decoration:none;
 
-    font-weight:bold;
+    font-size:18px;
 
-    transition:0.3s;
+    font-weight:bold;
 
 }
 
 
 nav a:hover {
 
-    color:#e30613;
+    color:#38bdf8;
 
 }
 
 
-
-
-
-/* ===== CONTENU ===== */
 
 
 main {
 
-    max-width:1200px;
+    max-width:1400px;
 
     margin:auto;
 
-    padding:30px 20px;
+    padding:40px;
 
 }
 
 
 
 
-
-/* ===== GRANDE NEWS ===== */
+/* GRANDE ACTU */
 
 
 .main-news {
 
-    background:white;
+    background:#111827;
 
-    display:grid;
+    border-radius:20px;
 
-    grid-template-columns:1fr 1fr;
+    overflow:hidden;
 
-    gap:30px;
-
-    padding:25px;
-
-    border-radius:12px;
-
-    margin-bottom:40px;
-
-    box-shadow:0 3px 10px rgba(0,0,0,0.08);
+    margin-bottom:50px;
 
 }
 
@@ -154,11 +133,17 @@ main {
 
     width:100%;
 
-    height:350px;
+    height:550px;
 
     object-fit:cover;
 
-    border-radius:10px;
+}
+
+
+
+.main-news div {
+
+    padding:35px;
 
 }
 
@@ -166,7 +151,9 @@ main {
 
 .main-news span {
 
-    color:#e30613;
+    color:#38bdf8;
+
+    font-size:20px;
 
     font-weight:bold;
 
@@ -176,7 +163,7 @@ main {
 
 .main-news h2 {
 
-    font-size:35px;
+    font-size:45px;
 
     margin:20px 0;
 
@@ -186,11 +173,9 @@ main {
 
 .main-news p {
 
-    color:#555;
+    font-size:22px;
 
-    font-size:18px;
-
-    line-height:1.5;
+    color:#ccc;
 
 }
 
@@ -202,13 +187,13 @@ main {
 
     margin-top:25px;
 
-    background:#e30613;
+    padding:15px 30px;
 
-    color:white;
+    background:#38bdf8;
 
-    padding:12px 20px;
+    color:black;
 
-    border-radius:5px;
+    border-radius:10px;
 
     text-decoration:none;
 
@@ -219,23 +204,17 @@ main {
 
 
 
-
-/* ===== TITRE ===== */
+/* NEWS */
 
 
 .title {
 
-    font-size:30px;
+    font-size:40px;
 
-    margin:30px 0;
+    margin-bottom:30px;
 
 }
 
-
-
-
-
-/* ===== CARTES NEWS ===== */
 
 
 .news-grid {
@@ -244,32 +223,19 @@ main {
 
     grid-template-columns:repeat(3,1fr);
 
-    gap:25px;
+    gap:30px;
 
 }
-
 
 
 
 .news {
 
-    background:white;
+    background:#111827;
 
-    border-radius:12px;
+    border-radius:15px;
 
     overflow:hidden;
-
-    box-shadow:0 3px 10px rgba(0,0,0,0.08);
-
-    transition:0.3s;
-
-}
-
-
-
-.news:hover {
-
-    transform:translateY(-5px);
 
 }
 
@@ -279,7 +245,7 @@ main {
 
     width:100%;
 
-    height:180px;
+    height:260px;
 
     object-fit:cover;
 
@@ -289,9 +255,9 @@ main {
 
 .news h3 {
 
-    font-size:22px;
+    font-size:28px;
 
-    padding:15px;
+    padding:20px;
 
 }
 
@@ -299,9 +265,11 @@ main {
 
 .news p {
 
-    padding:0 15px;
+    padding:0 20px;
 
-    color:#555;
+    color:#bbb;
+
+    font-size:18px;
 
 }
 
@@ -311,9 +279,9 @@ main {
 
     display:block;
 
-    padding:15px;
+    padding:20px;
 
-    color:#e30613;
+    color:#38bdf8;
 
     text-decoration:none;
 
@@ -324,29 +292,25 @@ main {
 
 
 
-
-/* ===== RESUME IA ===== */
+/* IA */
 
 
 .ai-box {
 
-    margin-top:50px;
+    margin-top:60px;
 
-    background:#111;
+    padding:40px;
 
-    color:white;
+    border-radius:20px;
 
-    padding:35px;
-
-    border-radius:15px;
+    background:linear-gradient(135deg,#2563eb,#9333ea);
 
 }
 
 
-
 .ai-box h2 {
 
-    color:#ffcc00;
+    font-size:35px;
 
     margin-bottom:15px;
 
@@ -355,37 +319,29 @@ main {
 
 .ai-box p {
 
-    font-size:18px;
-
-    line-height:1.6;
+    font-size:20px;
 
 }
 
 
 
-
-/* ===== FOOTER ===== */
 
 
 footer {
 
-    margin-top:50px;
+    margin-top:60px;
 
-    background:#111;
-
-    color:white;
+    padding:30px;
 
     text-align:center;
 
-    padding:25px;
+    background:#050816;
 
 }
 
 
 
-
-
-/* ===== MOBILE ===== */
+/* TELEPHONE */
 
 
 @media(max-width:900px){
@@ -395,34 +351,21 @@ footer {
 
     flex-direction:column;
 
-    gap:10px;
-
 }
 
 
+.main-news img {
 
-nav {
-
-    flex-wrap:wrap;
-
-}
-
-
-
-.main-news {
-
-    grid-template-columns:1fr;
+    height:300px;
 
 }
-
 
 
 .main-news h2 {
 
-    font-size:28px;
+    font-size:30px;
 
 }
-
 
 
 .news-grid {
