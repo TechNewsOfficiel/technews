@@ -466,3 +466,14 @@ nav {
 
 
 }
+
+.news-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 25px;
+}
+
+
+.card {
+    width: 100%;
+}
