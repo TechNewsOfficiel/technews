@@ -384,3 +384,96 @@ margin:10px;
     margin-bottom: 20px;
 
 }
+
+/* ===== HEADER AMELIORE ===== */
+
+.header {
+
+    max-width:1200px;
+
+    margin:auto;
+
+    padding:25px 30px;
+
+}
+
+
+.header h1 {
+
+    font-size:46px;
+
+    color:#0b57d0;
+
+    letter-spacing:-1px;
+
+    margin-bottom:8px;
+
+}
+
+
+.header h1::after {
+
+    content:"";
+
+    display:block;
+
+    width:90px;
+
+    height:4px;
+
+    background:#0b57d0;
+
+    margin-top:8px;
+
+    border-radius:5px;
+
+}
+
+
+.header p {
+
+    color:#666;
+
+    font-size:17px;
+
+    margin-top:12px;
+
+}
+
+
+
+/* MENU SOUS LE TITRE */
+
+nav {
+
+    background:#111827;
+
+    padding:15px;
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:35px;
+
+}
+
+
+nav a {
+
+    color:white;
+
+    text-decoration:none;
+
+    font-weight:bold;
+
+    font-size:16px;
+
+}
+
+
+nav a:hover {
+
+    color:#60a5fa;
+
+}
