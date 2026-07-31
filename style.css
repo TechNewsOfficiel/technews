@@ -1,195 +1,116 @@
-/* ===== Base du site ===== */
-
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+
+box-sizing:border-box;
+
 }
+
+
 
 body {
-    background: #0b1120;
-    color: white;
-    line-height: 1.6;
+
+margin:0;
+
+font-family:Arial, sans-serif;
+
+background:#0f172a;
+
+color:white;
+
 }
 
 
-/* ===== Header ===== */
-
-header {
-    text-align: center;
-    padding: 40px 20px;
-    background: linear-gradient(135deg, #111827, #1d4ed8);
-}
-
-.logo {
-    font-size: 45px;
-    font-weight: bold;
-}
-
-header p {
-    margin-top: 10px;
-    color: #dbeafe;
-}
-
-
-
-/* ===== Menu ===== */
 
 nav {
-    display: flex;
-    justify-content: center;
-    gap: 25px;
-    padding: 20px;
-    background: #020617;
-    position: sticky;
-    top: 0;
-    z-index: 10;
+
+background:#020617;
+
+padding:20px;
+
+text-align:center;
+
 }
+
 
 
 nav a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    transition: 0.3s;
+
+color:white;
+
+text-decoration:none;
+
+margin:15px;
+
+font-weight:bold;
+
 }
+
 
 
 nav a:hover {
-    color: #38bdf8;
+
+color:#38bdf8;
+
 }
 
 
 
-/* ===== Bannière ===== */
 
 .hero {
 
-    text-align: center;
-    padding: 80px 20px;
+text-align:center;
 
-    background:
-    linear-gradient(
-    rgba(0,0,0,0.5),
-    rgba(0,0,0,0.7)
-    ),
-    url("https://images.unsplash.com/photo-1518770660439-4636190af475");
+padding:60px 20px;
 
-    background-size: cover;
-    background-position: center;
+background:linear-gradient(135deg,#2563eb,#7c3aed);
 
 }
+
 
 
 .hero h1 {
-    font-size: 45px;
-    margin-bottom: 20px;
-}
 
-
-.hero p {
-    max-width: 700px;
-    margin: auto;
-    font-size: 18px;
-}
-
-
-button {
-
-    margin-top: 25px;
-    padding: 14px 30px;
-
-    border: none;
-    border-radius: 30px;
-
-    background: #2563eb;
-    color:white;
-
-    font-size:16px;
-    cursor:pointer;
-
-    transition:0.3s;
-
-}
-
-
-button:hover {
-
-    background:#38bdf8;
-    transform:scale(1.05);
+font-size:50px;
 
 }
 
 
 
-/* ===== Notifications ===== */
 
+.news {
 
-.notifications,
-.news,
-.ai {
+max-width:1100px;
 
-    max-width:1100px;
-    margin:50px auto;
-    padding:20px;
+margin:40px auto;
 
-}
-
-
-.notifications h2,
-.news h2,
-.ai h2 {
-
-    text-align:center;
-    margin-bottom:30px;
+padding:20px;
 
 }
 
 
 
-.notification {
 
-    background:#111827;
-    border-left:5px solid #38bdf8;
+.news h2 {
 
-    padding:15px;
-    margin:15px 0;
+text-align:center;
 
-    border-radius:10px;
+font-size:35px;
 
 }
 
 
-
-/* ===== Articles ===== */
 
 
 .card {
 
-    display:flex;
-    gap:25px;
+display:flex;
 
-    background:#111827;
+background:#1e293b;
 
-    margin:25px 0;
+margin:30px 0;
 
-    padding:20px;
+border-radius:20px;
 
-    border-radius:20px;
-
-    transition:0.3s;
-
-}
-
-
-
-.card:hover {
-
-    transform:translateY(-5px);
-
-    box-shadow:
-    0 10px 30px rgba(0,0,0,0.4);
+overflow:hidden;
 
 }
 
@@ -197,119 +118,80 @@ button:hover {
 
 .card img {
 
-    width:300px;
-    height:200px;
+width:350px;
 
-    object-fit:cover;
-
-    border-radius:15px;
+object-fit:cover;
 
 }
 
 
 
-.card h3 {
+.card div {
 
-    font-size:25px;
-    margin-bottom:10px;
+padding:25px;
 
 }
+
 
 
 
 .card a {
 
-    color:#38bdf8;
-    text-decoration:none;
-    font-weight:bold;
+color:#38bdf8;
+
+font-weight:bold;
+
+text-decoration:none;
 
 }
 
 
 
-/* ===== IA ===== */
+.card a:hover {
 
-
-.ai {
-
-    text-align:center;
-
-    background:#111827;
-
-    border-radius:20px;
-
-    padding:40px;
+color:white;
 
 }
 
 
-
-.ai p {
-
-    max-width:700px;
-    margin:auto;
-
-}
-
-
-
-/* ===== Footer ===== */
 
 
 footer {
 
-    text-align:center;
+text-align:center;
 
-    padding:30px;
+padding:30px;
 
-    background:#020617;
-
-    color:#94a3b8;
+background:#020617;
 
 }
 
 
 
-
-/* ===== Téléphone ===== */
 
 
 @media(max-width:700px){
 
 
-nav {
-
-    flex-direction:column;
-    align-items:center;
-
-}
-
-
-.hero h1 {
-
-    font-size:32px;
-
-}
-
-
 .card {
 
-    flex-direction:column;
+flex-direction:column;
 
 }
 
 
 .card img {
 
-    width:100%;
-    height:220px;
+width:100%;
+
+height:250px;
 
 }
 
 
-.logo {
+.hero h1 {
 
-    font-size:35px;
+font-size:35px;
 
 }
 
