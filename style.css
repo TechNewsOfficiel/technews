@@ -348,3 +348,39 @@ margin:10px;
 
 
 }
+
+/* Pages catégories sans images */
+
+.no-images {
+
+    grid-template-columns: repeat(3, 1fr);
+
+}
+
+
+.no-images .card {
+
+    min-height: 230px;
+
+}
+
+
+.no-images .content {
+
+    padding: 25px;
+
+}
+
+
+.no-images .card h3 {
+
+    margin-bottom: 15px;
+
+}
+
+
+.no-images .card p {
+
+    margin-bottom: 20px;
+
+}
