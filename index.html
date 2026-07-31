@@ -26,33 +26,49 @@
 TechNews
 </h1>
 
+
 <p>
 L'actualité des technologies, de l'IA et du numérique
 </p>
+
 
 </div>
 
 
 
+
 <nav>
 
-<a href="index.html">Accueil</a>
+<a href="index.html">
+Accueil
+</a>
 
-<a href="ia.html">IA</a>
+<a href="ia.html">
+IA
+</a>
 
-<a href="smartphones.html">Smartphones</a>
+<a href="smartphones.html">
+Smartphones
+</a>
 
-<a href="gaming.html">Gaming</a>
+<a href="gaming.html">
+Gaming
+</a>
 
-<a href="cybersecurite.html">Cybersécurité</a>
+<a href="cybersecurite.html">
+Cybersécurité
+</a>
 
 </nav>
 
 
 
+
 <section class="search-bar">
 
+
 <form id="searchForm">
+
 
 <input 
 type="text"
@@ -60,11 +76,14 @@ id="searchInput"
 placeholder="Rechercher une actualité..."
 >
 
+
 <button type="submit">
 Rechercher
 </button>
 
+
 </form>
+
 
 </section>
 
@@ -78,14 +97,10 @@ Rechercher
 <main>
 
 
+
 <h2 class="title">
 Dernières actualités
 </h2>
-
-
-
-<section class="news-grid" id="articles">
-
 
 
 <article class="card">
@@ -162,7 +177,10 @@ Lire l'article
 
 </article>
 
-  
+
+
+
+
 <article class="card">
 
 <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3">
@@ -237,10 +255,7 @@ Lire l'article
 
 </article>
 
-
-
-
-
+  
 <article class="card">
 
 <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b">
@@ -252,7 +267,7 @@ La sécurité numérique se renforce
 </h3>
 
 <p>
-Les nouvelles solutions protègent mieux les données.
+Les nouvelles solutions protègent mieux les données des utilisateurs.
 </p>
 
 <a href="#">
@@ -321,7 +336,10 @@ Lire l'article
 
 </section>
 
-  
+
+
+
+
 <section class="latest">
 
 
@@ -375,6 +393,7 @@ Les nouvelles technologies transforment notre quotidien.
 
 
 
+
 </main>
 
 
@@ -393,6 +412,7 @@ Les nouvelles technologies transforment notre quotidien.
 
 
 
+
 <script>
 
 
@@ -404,14 +424,14 @@ const articles = document.querySelectorAll(".card");
 
 
 
-form.addEventListener("submit", function(event){
+form.addEventListener("submit", function(e){
 
 
-event.preventDefault();
+e.preventDefault();
 
 
 
-let recherche = input.value.toLowerCase().trim();
+let recherche = input.value.toLowerCase();
 
 
 
@@ -422,10 +442,10 @@ let texte = article.innerText.toLowerCase();
 
 
 
-if(recherche === "" || texte.includes(recherche)){
+if(texte.includes(recherche)){
 
 
-article.style.display = "block";
+article.style.display="block";
 
 
 }
@@ -433,7 +453,7 @@ article.style.display = "block";
 else{
 
 
-article.style.display = "none";
+article.style.display="none";
 
 
 }
@@ -443,7 +463,6 @@ article.style.display = "none";
 
 
 });
-
 
 
 </script>
@@ -455,3 +474,5 @@ article.style.display = "none";
 </body>
 
 </html>
+
+<section class="news-grid" id="articles">
