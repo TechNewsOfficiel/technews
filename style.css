@@ -109,8 +109,6 @@ nav a {
 
     font-weight:bold;
 
-    font-size:16px;
-
 }
 
 
@@ -125,7 +123,7 @@ nav a:hover {
 
 
 
-/* ===== RECHERCHE STYLE YOUTUBE ===== */
+/* ===== BARRE DE RECHERCHE ===== */
 
 
 .search-bar {
@@ -174,17 +172,17 @@ nav a:hover {
 
     padding:14px 25px;
 
-    border:none;
-
     background:#0b57d0;
 
     color:white;
 
-    font-weight:bold;
+    border:none;
 
     border-radius:0 25px 25px 0;
 
     cursor:pointer;
+
+    font-weight:bold;
 
 }
 
@@ -215,11 +213,6 @@ main {
 
 
 
-
-
-/* ===== TITRE ===== */
-
-
 .title {
 
     font-size:32px;
@@ -232,7 +225,7 @@ main {
 
 
 
-/* ===== GRILLE DES ARTICLES ===== */
+/* ===== ARTICLES 3 COLONNES ===== */
 
 
 .news-grid {
@@ -258,7 +251,7 @@ main {
 
     border-radius:12px;
 
-    overflow:hidden;
+    min-height:260px;
 
     box-shadow:0 4px 15px rgba(0,0,0,0.08);
 
@@ -276,21 +269,9 @@ main {
 
 
 
-.card img {
-
-    width:100%;
-
-    height:180px;
-
-    object-fit:cover;
-
-}
-
-
-
 .content {
 
-    padding:20px;
+    padding:25px;
 
 }
 
@@ -298,9 +279,9 @@ main {
 
 .content h3 {
 
-    font-size:22px;
+    font-size:23px;
 
-    margin-bottom:10px;
+    margin-bottom:12px;
 
 }
 
@@ -312,7 +293,7 @@ main {
 
     line-height:1.6;
 
-    margin-bottom:15px;
+    margin-bottom:20px;
 
 }
 
@@ -348,16 +329,16 @@ main {
 
 
 
-/* ===== DERNIERES INFORMATIONS ===== */
+/* ===== DERNIERES INFOS ===== */
 
 
 .latest {
 
     background:white;
 
-    margin-top:45px;
+    margin-top:40px;
 
-    padding:30px;
+    padding:25px;
 
     border-radius:12px;
 
@@ -416,7 +397,7 @@ footer {
 
     text-align:center;
 
-    padding:30px;
+    padding:25px;
 
 }
 
@@ -424,7 +405,7 @@ footer {
 
 
 
-/* ===== TELEPHONE ===== */
+/* ===== MOBILE ===== */
 
 
 @media(max-width:900px){
@@ -444,8 +425,6 @@ nav {
 
     text-align:center;
 
-    gap:15px;
-
 }
 
 
@@ -457,23 +436,4 @@ nav {
 }
 
 
-
-.header h1 {
-
-    font-size:36px;
-
-}
-
-
-}
-
-.news-grid {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 25px;
-}
-
-
-.card {
-    width: 100%;
 }
