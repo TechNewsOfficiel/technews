@@ -449,42 +449,102 @@ nav {
 
 }
 
+/* ===== STYLE ARTICLE ===== */
+
+
 .article-page {
-max-width:900px;
-margin:40px auto;
-background:white;
-padding:30px;
-border-radius:15px;
+
+    max-width:850px;
+    margin:40px auto;
+    background:white;
+    padding:35px;
+    border-radius:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.08);
+
 }
+
 
 
 .article-page h1 {
-font-size:45px;
-line-height:1.2;
+
+    font-size:38px;
+    color:#0b57d0;
+    text-align:center;
+    line-height:1.3;
+    margin-bottom:20px;
+
 }
+
 
 
 .article-page h2 {
-margin-top:35px;
-font-size:28px;
+
+    font-size:26px;
+    color:#0b57d0;
+    margin-top:35px;
+    border-left:5px solid #0b57d0;
+    padding-left:12px;
+
 }
 
-
-.article-page p {
-font-size:19px;
-line-height:1.8;
-}
 
 
 .article-image {
-width:100%;
-height:500px;
-object-fit:cover;
-border-radius:15px;
+
+    display:block;
+    width:70%;
+    max-height:320px;
+    object-fit:cover;
+    margin:25px auto;
+    border-radius:15px;
+
 }
 
 
+
+.date {
+
+    text-align:center;
+    color:#777;
+    font-size:14px;
+    margin-bottom:25px;
+
+}
+
+
+
 .chapeau {
-font-size:24px;
-color:#333;
+
+    font-size:21px;
+    line-height:1.7;
+    background:#eaf2ff;
+    padding:20px;
+    border-radius:12px;
+    color:#174ea6;
+    margin-bottom:30px;
+
+}
+
+
+
+.article-page p {
+
+    font-size:18px;
+    line-height:1.8;
+    color:#333;
+    margin-bottom:20px;
+
+}
+
+
+
+.source {
+
+    margin-top:40px;
+    padding:15px;
+    background:#f1f5f9;
+    border-radius:10px;
+    color:#555;
+    font-size:14px;
+
 }
