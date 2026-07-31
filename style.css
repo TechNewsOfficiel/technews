@@ -1,115 +1,175 @@
-/* Style général */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
+<!DOCTYPE html>
+<html lang="fr">
 
-body {
-    background-color: #0f172a;
-    color: white;
-}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechNews 🚀 - Actualités Tech</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 
-/* Barre du haut */
-header {
-    background: linear-gradient(90deg, #2563eb, #06b6d4);
-    padding: 25px;
-    text-align: center;
-}
+<body>
 
-header h1 {
-    font-size: 40px;
-    margin-bottom: 10px;
-}
+<header>
+    <div class="logo">
+        🚀 TechNews
+    </div>
 
-header p {
-    font-size: 18px;
-}
+    <p>L'actualité technologie expliquée simplement</p>
+</header>
 
-/* Menu */
-nav {
-    background-color: #020617;
-    padding: 15px;
-    text-align: center;
-}
 
-nav a {
-    color: white;
-    text-decoration: none;
-    margin: 0 15px;
-    font-weight: bold;
-}
+<nav>
+    <a href="index.html">Accueil</a>
+    <a href="ia.html">🤖 IA</a>
+    <a href="smartphones.html">📱 Smartphones</a>
+    <a href="gaming.html">🎮 Gaming</a>
+    <a href="cybersecurite.html">🔐 Cybersécurité</a>
+</nav>
 
-nav a:hover {
-    color: #38bdf8;
-}
 
-/* Section principale */
-.container {
-    width: 90%;
-    max-width: 1100px;
-    margin: 40px auto;
-}
+<section class="hero">
 
-/* Cartes des articles */
-.article {
-    background-color: #1e293b;
-    padding: 25px;
-    margin-bottom: 25px;
-    border-radius: 15px;
-    transition: 0.3s;
-}
+    <h1>Bienvenue sur TechNews</h1>
 
-.article:hover {
-    transform: translateY(-5px);
-    background-color: #334155;
-}
+    <p>
+        Découvrez les dernières innovations,
+        les nouvelles intelligences artificielles,
+        les smartphones et le futur du numérique.
+    </p>
 
-.article h2 {
-    color: #38bdf8;
-    margin-bottom: 10px;
-}
+    <button>
+        Découvrir les actualités
+    </button>
 
-.article p {
-    color: #cbd5e1;
-    line-height: 1.6;
-}
+</section>
 
-/* Bouton */
-button {
-    background-color: #2563eb;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-top: 15px;
-}
 
-button:hover {
-    background-color: #1d4ed8;
-}
 
-/* Pied de page */
-footer {
-    background-color: #020617;
-    text-align: center;
-    padding: 20px;
-    margin-top: 50px;
-    color: #94a3b8;
-}
+<section class="notifications">
 
-/* Téléphone */
-@media (max-width: 600px) {
+    <h2>🔔 Notifications</h2>
 
-    header h1 {
-        font-size: 30px;
-    }
+    <div class="notification">
+        🚀 Nouvelle actualité disponible aujourd'hui
+    </div>
 
-    nav a {
-        display: block;
-        margin: 10px;
-    }
+    <div class="notification">
+        🤖 Les dernières avancées en intelligence artificielle
+    </div>
 
-}
+    <div class="notification">
+        📱 Les nouveaux smartphones arrivent bientôt
+    </div>
+
+</section>
+
+
+
+<section class="news">
+
+<h2>📰 Dernières actualités</h2>
+
+
+<article class="card">
+
+<img src="https://images.unsplash.com/photo-1677442136019-21780ecad995">
+
+<div>
+
+<h3>🤖 L'intelligence artificielle du futur</h3>
+
+<p>
+Les nouvelles IA deviennent plus puissantes
+et transforment le monde de la technologie.
+</p>
+
+<a href="#">
+Lire l'article →
+</a>
+
+</div>
+
+</article>
+
+
+
+<article class="card">
+
+<img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9">
+
+<div>
+
+<h3>📱 Les smartphones nouvelle génération</h3>
+
+<p>
+Des appareils plus rapides, plus intelligents
+et avec de nouvelles fonctionnalités.
+</p>
+
+<a href="#">
+Lire l'article →
+</a>
+
+</div>
+
+</article>
+
+
+
+<article class="card">
+
+<img src="https://images.unsplash.com/photo-1542751371-adc38448a05e">
+
+<div>
+
+<h3>🎮 Le futur du gaming</h3>
+
+<p>
+La réalité virtuelle, le cloud gaming
+et l'IA changent les jeux vidéo.
+</p>
+
+<a href="#">
+Lire l'article →
+</a>
+
+</div>
+
+</article>
+
+
+</section>
+
+
+
+<section class="ai">
+
+<h2>🤖 Résumé IA du jour</h2>
+
+<p>
+Chaque jour, une intelligence artificielle pourra
+analyser les informations importantes et créer
+un résumé rapide des meilleures actualités tech.
+</p>
+
+<button>
+Voir le résumé
+</button>
+
+</section>
+
+
+
+<footer>
+
+<p>
+© 2026 TechNews 🚀 - Tous droits réservés
+</p>
+
+</footer>
+
+
+</body>
+
+</html>
