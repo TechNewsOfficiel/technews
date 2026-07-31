@@ -36,31 +36,19 @@ L'actualité des technologies, de l'IA et du numérique
 
 
 
-
 <nav>
 
-<a href="index.html">
-Accueil
-</a>
+<a href="index.html">Accueil</a>
 
-<a href="ia.html">
-IA
-</a>
+<a href="ia.html">IA</a>
 
-<a href="smartphones.html">
-Smartphones
-</a>
+<a href="smartphones.html">Smartphones</a>
 
-<a href="gaming.html">
-Gaming
-</a>
+<a href="gaming.html">Gaming</a>
 
-<a href="cybersecurite.html">
-Cybersécurité
-</a>
+<a href="cybersecurite.html">Cybersécurité</a>
 
 </nav>
-
 
 
 
@@ -99,11 +87,9 @@ Rechercher
 
 
 
-
 <h2 class="title">
 Actualités récentes
 </h2>
-
 
 
 
@@ -114,10 +100,11 @@ Actualités récentes
 
 
 
+
 <article class="card">
 
 
-<img src="https://images.unsplash.com/photo-1677442136019-21780ecad995">
+<img src="https://images.unsplash.com/photo-1677442136019-21780ecad995" alt="Intelligence artificielle">
 
 
 <div class="content">
@@ -148,11 +135,10 @@ Lire l'article
 
 
 
-
 <article class="card">
 
 
-<img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9">
+<img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9" alt="Smartphone">
 
 
 <div class="content">
@@ -183,11 +169,10 @@ Lire l'article
 
 
 
-
 <article class="card">
 
 
-<img src="https://images.unsplash.com/photo-1542751371-adc38448a05e">
+<img src="https://images.unsplash.com/photo-1542751371-adc38448a05e" alt="Gaming">
 
 
 <div class="content">
@@ -214,7 +199,7 @@ Lire l'article
 <article class="card">
 
 
-<img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3">
+<img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3" alt="Cybersécurité">
 
 
 <div class="content">
@@ -249,7 +234,7 @@ Lire l'article
 <article class="card">
 
 
-<img src="https://images.unsplash.com/photo-1518770660439-4636190af475">
+<img src="https://images.unsplash.com/photo-1518770660439-4636190af475" alt="Processeur">
 
 
 <div class="content">
@@ -284,7 +269,7 @@ Lire l'article
 <article class="card">
 
 
-<img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3">
+<img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3" alt="Cloud">
 
 
 <div class="content">
@@ -319,7 +304,7 @@ Lire l'article
 <article class="card">
 
 
-<img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b">
+<img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b" alt="Sécurité numérique">
 
 
 <div class="content">
@@ -354,7 +339,7 @@ Lire l'article
 <article class="card">
 
 
-<img src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b">
+<img src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b" alt="Innovation">
 
 
 <div class="content">
@@ -389,7 +374,7 @@ Lire l'article
 <article class="card">
 
 
-<img src="https://images.unsplash.com/photo-1516321165247-4aa89a48be28">
+<img src="https://images.unsplash.com/photo-1516321165247-4aa89a48be28" alt="Objets connectés">
 
 
 <div class="content">
@@ -475,6 +460,7 @@ Les nouvelles technologies transforment notre quotidien.
 
 
 
+
 </main>
 
 
@@ -496,7 +482,6 @@ Les nouvelles technologies transforment notre quotidien.
 
 
 
-
 <script>
 
 
@@ -508,21 +493,21 @@ const articles = document.querySelectorAll(".card");
 
 
 
-form.addEventListener("submit", function(e){
+form.addEventListener("submit", function(event){
 
 
-e.preventDefault();
+event.preventDefault();
 
 
 
-let recherche = input.value.toLowerCase().trim();
+const recherche = input.value.toLowerCase().trim();
 
 
 
 articles.forEach(function(article){
 
 
-let texte = article.innerText.toLowerCase();
+const texte = article.innerText.toLowerCase();
 
 
 
@@ -532,9 +517,7 @@ if(recherche === "" || texte.includes(recherche)){
 article.style.display = "block";
 
 
-}
-
-else{
+} else {
 
 
 article.style.display = "none";
@@ -551,6 +534,7 @@ article.style.display = "none";
 
 
 </script>
+
 
 
 
