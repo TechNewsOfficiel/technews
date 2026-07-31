@@ -26,11 +26,9 @@
 TechNews
 </h1>
 
-
 <p>
 L'actualité des technologies, de l'IA et du numérique
 </p>
-
 
 </div>
 
@@ -58,31 +56,25 @@ Gaming
 Cybersécurité
 </a>
 
-
 </nav>
 
 
 
 <section class="search-bar">
 
-
 <form id="searchForm">
 
-
 <input 
-type="text" 
+type="text"
 id="searchInput"
 placeholder="Rechercher une actualité..."
 >
-
 
 <button type="submit">
 Rechercher
 </button>
 
-
 </form>
-
 
 </section>
 
@@ -92,34 +84,13 @@ Rechercher
 
 
 
+
 <main>
-
-
-
-<section class="welcome">
-
-
-<h2>
-Dernières actualités
-</h2>
-
-
-<p>
-Les informations essentielles du monde de la technologie.
-</p>
-
-
-</section>
-
-
-
 
 
 <h2 class="title">
 Actualités récentes
 </h2>
-
-
 
 
 
@@ -162,6 +133,8 @@ Lire l'article
 
 
 
+
+
 <article class="card">
 
 
@@ -195,6 +168,8 @@ Lire l'article
 
 
 
+
+
 <article class="card">
 
 
@@ -221,7 +196,9 @@ Lire l'article
 
 </div>
 
-  </article>
+
+</article>
+
   
 <article class="card">
 
@@ -251,6 +228,8 @@ Lire l'article
 
 
 </article>
+
+
 
 
 
@@ -289,6 +268,8 @@ Lire l'article
 
 
 
+
+
 <article class="card">
 
 
@@ -317,6 +298,8 @@ Lire l'article
 
 
 </article>
+
+
 
 
 
@@ -355,6 +338,8 @@ Lire l'article
 
 
 
+
+
 <article class="card">
 
 
@@ -383,6 +368,8 @@ Lire l'article
 
 
 </article>
+
+
 
 
 
@@ -421,11 +408,7 @@ Lire l'article
 
 </section>
 
-
-
-
-
-
+  
 <section class="latest">
 
 
@@ -474,7 +457,6 @@ Les nouvelles technologies transforment notre quotidien.
 </div>
 
 
-
 </section>
 
 
@@ -499,6 +481,8 @@ Les nouvelles technologies transforment notre quotidien.
 
 
 
+
+
 <script>
 
 
@@ -517,7 +501,7 @@ e.preventDefault();
 
 
 
-let recherche = input.value.toLowerCase();
+let recherche = input.value.toLowerCase().trim();
 
 
 
@@ -528,10 +512,10 @@ let texte = article.innerText.toLowerCase();
 
 
 
-if(texte.includes(recherche)){
+if(recherche === "" || texte.includes(recherche)){
 
 
-article.style.display="block";
+article.style.display = "block";
 
 
 }
@@ -539,18 +523,16 @@ article.style.display="block";
 else{
 
 
-article.style.display="none";
+article.style.display = "none";
 
 
 }
 
 
-
 });
 
 
 });
-
 
 
 </script>
@@ -559,8 +541,8 @@ article.style.display="none";
 
 
 
+
+
 </body>
 
 </html>
-
-</article>
