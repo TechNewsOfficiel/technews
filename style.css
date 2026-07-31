@@ -331,3 +331,32 @@ margin:10px;
 
 
 }
+.page-title {
+
+background:white;
+
+padding:25px;
+
+border-radius:10px;
+
+margin-bottom:30px;
+
+}
+
+
+.page-title h2 {
+
+font-size:35px;
+
+margin-bottom:10px;
+
+}
+
+
+.page-title p {
+
+color:#555;
+
+font-size:18px;
+
+}
