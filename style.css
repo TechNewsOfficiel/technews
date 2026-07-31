@@ -1,46 +1,39 @@
-/* ===== RESET ===== */
-
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+
+margin:0;
+padding:0;
+box-sizing:border-box;
+
 }
+
 
 
 body {
 
-    font-family: Arial, Helvetica, sans-serif;
+font-family: Arial, Helvetica, sans-serif;
 
-    background: #f3f4f6;
+background:#f5f6f8;
 
-    color: #1f2937;
-
-    line-height: 1.6;
+color:#222;
 
 }
 
 
 
-/* ===== HEADER ===== */
 
 
-header {
-
-    background: white;
-
-    border-bottom: 1px solid #ddd;
-
-}
-
+/* HEADER */
 
 
 .header {
 
-    max-width: 1300px;
+background:white;
 
-    margin: auto;
+max-width:1200px;
 
-    padding: 25px 30px;
+margin:auto;
+
+padding:30px;
 
 }
 
@@ -48,11 +41,9 @@ header {
 
 .header h1 {
 
-    font-size: 44px;
+font-size:42px;
 
-    color: #1565c0;
-
-    letter-spacing: -1px;
+color:#0b57d0;
 
 }
 
@@ -60,26 +51,27 @@ header {
 
 .header p {
 
-    color: #666;
+color:#666;
 
-    font-size: 18px;
+font-size:18px;
+
+margin-top:5px;
 
 }
 
 
 
 
-
-/* ===== MENU ===== */
+/* MENU */
 
 
 nav {
 
-    background: #111827;
+background:#111827;
 
-    padding: 16px;
+padding:15px;
 
-    text-align: center;
+text-align:center;
 
 }
 
@@ -87,15 +79,13 @@ nav {
 
 nav a {
 
-    color: white;
+color:white;
 
-    text-decoration: none;
+text-decoration:none;
 
-    margin: 0 22px;
+margin:0 20px;
 
-    font-weight: bold;
-
-    font-size: 16px;
+font-weight:bold;
 
 }
 
@@ -103,7 +93,7 @@ nav a {
 
 nav a:hover {
 
-    color: #60a5fa;
+color:#60a5fa;
 
 }
 
@@ -111,39 +101,17 @@ nav a:hover {
 
 
 
-/* ===== CONTENU ===== */
+
+/* CONTENU */
 
 
 main {
 
-    max-width: 1300px;
+max-width:1200px;
 
-    margin: auto;
+margin:auto;
 
-    padding: 30px;
-
-}
-
-
-
-
-
-/* ===== BANDE INFO ===== */
-
-
-.breaking {
-
-    background: #1565c0;
-
-    color: white;
-
-    padding: 14px 20px;
-
-    border-radius: 6px;
-
-    font-weight: bold;
-
-    margin-bottom: 30px;
+padding:30px;
 
 }
 
@@ -151,18 +119,33 @@ main {
 
 
 
-/* ===== ACTUALITE PRINCIPALE ===== */
+.intro {
+
+background:white;
+
+padding:25px;
+
+border-radius:10px;
+
+margin-bottom:35px;
+
+}
 
 
-.top-news {
 
-    display: grid;
+.intro h2 {
 
-    grid-template-columns: 2fr 1fr;
+font-size:30px;
 
-    gap: 25px;
+margin-bottom:10px;
 
-    margin-bottom: 45px;
+}
+
+
+
+.intro p {
+
+color:#666;
 
 }
 
@@ -170,71 +153,11 @@ main {
 
 
 
-.principal {
+.title {
 
-    background: white;
+font-size:32px;
 
-    border-radius: 12px;
-
-    overflow: hidden;
-
-    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-
-}
-
-
-
-.principal img {
-
-    width: 100%;
-
-    height: 320px;
-
-    object-fit: cover;
-
-}
-
-
-
-.principal h2 {
-
-    font-size: 34px;
-
-    padding: 25px 25px 10px;
-
-}
-
-
-
-.principal p {
-
-    padding: 0 25px;
-
-    color: #555;
-
-    font-size: 18px;
-
-}
-
-
-
-.principal a {
-
-    display: inline-block;
-
-    margin: 25px;
-
-    background: #1565c0;
-
-    color: white;
-
-    padding: 12px 22px;
-
-    border-radius: 6px;
-
-    text-decoration: none;
-
-    font-weight: bold;
+margin-bottom:25px;
 
 }
 
@@ -242,80 +165,18 @@ main {
 
 
 
-/* ===== COLONNE DROITE ===== */
 
 
-.side-news {
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 15px;
-
-}
-
-
-
-.side-news article {
-
-    background: white;
-
-    padding: 20px;
-
-    border-radius: 10px;
-
-    border-left: 4px solid #1565c0;
-
-}
-
-
-
-.side-news h3 {
-
-    font-size: 21px;
-
-    margin-bottom: 8px;
-
-}
-
-
-
-.side-news p {
-
-    color: #666;
-
-}
-
-
-
-
-
-/* ===== TITRES ===== */
-
-
-.section-title {
-
-    font-size: 32px;
-
-    margin-bottom: 25px;
-
-}
-
-
-
-
-
-/* ===== CARTES NEWS ===== */
+/* CARTES */
 
 
 .news-grid {
 
-    display: grid;
+display:grid;
 
-    grid-template-columns: repeat(3,1fr);
+grid-template-columns:repeat(3,1fr);
 
-    gap: 25px;
+gap:25px;
 
 }
 
@@ -323,23 +184,13 @@ main {
 
 .card {
 
-    background: white;
+background:white;
 
-    border-radius: 12px;
+border-radius:12px;
 
-    overflow: hidden;
+overflow:hidden;
 
-    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-
-    transition: 0.2s;
-
-}
-
-
-
-.card:hover {
-
-    transform: translateY(-5px);
+box-shadow:0 4px 15px rgba(0,0,0,0.08);
 
 }
 
@@ -347,74 +198,51 @@ main {
 
 .card img {
 
-    width: 100%;
+width:100%;
 
-    height: 190px;
+height:170px;
 
-    object-fit: cover;
-
-}
-
-
-
-.card h3 {
-
-    font-size: 23px;
-
-    padding: 18px 18px 5px;
+object-fit:cover;
 
 }
 
 
 
-.card p {
+.content {
 
-    padding: 0 18px;
-
-    color: #666;
+padding:20px;
 
 }
 
 
 
-.card a {
+.content h3 {
 
-    display:block;
+font-size:22px;
 
-    padding:18px;
-
-    color:#1565c0;
-
-    text-decoration:none;
-
-    font-weight:bold;
+margin-bottom:10px;
 
 }
 
 
 
+.content p {
 
+color:#666;
 
-/* ===== INFO ===== */
-
-
-.info {
-
-    background:white;
-
-    margin-top:45px;
-
-    padding:30px;
-
-    border-radius:12px;
+margin-bottom:15px;
 
 }
 
 
 
-.info h2 {
+.content a {
 
-    margin-bottom:15px;
+color:#0b57d0;
+
+font-weight:bold;
+
+text-decoration:none;
 
 }
 
@@ -422,73 +250,101 @@ main {
 
 
 
-/* ===== FOOTER ===== */
+
+
+/* DERNIERES INFOS */
+
+
+.latest {
+
+background:white;
+
+margin-top:40px;
+
+padding:25px;
+
+border-radius:10px;
+
+}
+
+
+
+.latest h2 {
+
+margin-bottom:20px;
+
+}
+
+
+
+.line {
+
+padding:15px 0;
+
+border-bottom:1px solid #ddd;
+
+}
+
+
+
+.line span {
+
+display:inline-block;
+
+width:8px;
+
+height:8px;
+
+background:#0b57d0;
+
+border-radius:50%;
+
+margin-right:10px;
+
+}
+
+
+
+
+
+/* FOOTER */
 
 
 footer {
 
-    margin-top:50px;
+margin-top:50px;
 
-    background:#111827;
+background:#111827;
 
-    color:white;
+color:white;
 
-    text-align:center;
+text-align:center;
 
-    padding:30px;
+padding:25px;
 
 }
 
 
 
-
-
-/* ===== TABLET / MOBILE ===== */
 
 
 @media(max-width:900px){
 
 
-.top-news {
-
-    grid-template-columns:1fr;
-
-}
-
-
-
 .news-grid {
 
-    grid-template-columns:1fr;
+grid-template-columns:1fr;
 
 }
-
-
-
-.header h1 {
-
-    font-size:35px;
-
-}
-
 
 
 nav a {
 
-    display:block;
+display:block;
 
-    margin:12px;
-
-}
-
-
-
-main {
-
-    padding:15px;
+margin:10px;
 
 }
-
 
 
 }
