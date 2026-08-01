@@ -594,3 +594,76 @@ nav {
     color:#60a5fa;
 
 }
+
+/* ===== CROIX FERMETURE MENU ===== */
+
+#close-menu {
+
+    position:absolute;
+
+    top:20px;
+
+    right:20px;
+
+    background:transparent;
+
+    border:none;
+
+    color:white;
+
+    font-size:38px;
+
+    font-weight:300;
+
+    cursor:pointer;
+
+    padding:0;
+
+    line-height:1;
+
+    transition:0.2s;
+
+}
+
+
+#close-menu:hover {
+
+    color:#60a5fa;
+
+    transform:scale(1.15);
+
+}
+
+
+/* Adaptation écran tablette */
+
+@media(max-width:900px){
+
+    #close-menu {
+
+        font-size:34px;
+
+        top:18px;
+
+        right:18px;
+
+    }
+
+}
+
+
+/* Adaptation téléphone */
+
+@media(max-width:600px){
+
+    #close-menu {
+
+        font-size:30px;
+
+        top:15px;
+
+        right:15px;
+
+    }
+
+}
