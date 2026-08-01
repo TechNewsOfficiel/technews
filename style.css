@@ -8,13 +8,10 @@
 body {
 
     font-family: Arial, Helvetica, sans-serif;
-
     background:#f5f6f8;
-
     color:#222;
 
 }
-
 
 
 /* ===== HEADER ===== */
@@ -23,11 +20,8 @@ body {
 .header {
 
     background:white;
-
     max-width:1200px;
-
     margin:auto;
-
     padding:30px;
 
 }
@@ -36,78 +30,60 @@ body {
 .header h1 {
 
     font-size:46px;
-
     color:#0b57d0;
-
     letter-spacing:-1px;
 
 }
 
 
-
 .header h1::after {
 
     content:"";
-
     display:block;
-
     width:90px;
-
     height:4px;
-
     background:#0b57d0;
-
     margin-top:8px;
-
     border-radius:5px;
 
 }
 
 
-
 .header p {
 
     margin-top:10px;
-
     color:#666;
-
     font-size:18px;
 
 }
 
 
 
-
-
-/* ===== MENU ===== */
+/* ===== BARRE NAVIGATION ===== */
 
 
 nav {
 
     background:#111827;
-
     padding:18px;
 
     display:flex;
-
     justify-content:center;
+    align-items:center;
 
     gap:40px;
 
 }
 
 
-
 nav a {
 
     color:white;
-
     text-decoration:none;
-
     font-weight:bold;
+    transition:0.3s;
 
 }
-
 
 
 nav a:hover {
@@ -118,6 +94,36 @@ nav a:hover {
 
 
 
+/* ===== MENU SANDWICH ===== */
+
+
+#menu-btn {
+
+    background:none;
+    border:none;
+
+    color:white;
+
+    font-size:16px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    font-family:Arial, Helvetica, sans-serif;
+
+    padding:0;
+
+    transition:0.3s;
+
+}
+
+
+#menu-btn:hover {
+
+    color:#60a5fa;
+
+}
+
 
 
 /* ===== RECHERCHE ===== */
@@ -126,25 +132,20 @@ nav a:hover {
 .search-bar {
 
     background:white;
-
     padding:20px;
 
     display:flex;
-
     justify-content:center;
 
 }
 
 
-
 .search-bar form {
 
     width:650px;
-
     display:flex;
 
 }
-
 
 
 .search-bar input {
@@ -160,7 +161,6 @@ nav a:hover {
     font-size:16px;
 
 }
-
 
 
 .search-bar button {
@@ -182,18 +182,11 @@ nav a:hover {
 }
 
 
-
 .search-bar button:hover {
 
     background:#084298;
 
-}
-
-
-
-
-
-/* ===== CONTENU ===== */
+    /* ===== CONTENU PRINCIPAL ===== */
 
 
 main {
@@ -207,7 +200,6 @@ main {
 }
 
 
-
 .title {
 
     font-size:32px;
@@ -218,9 +210,7 @@ main {
 
 
 
-
-
-/* ===== GRILLE ARTICLES ===== */
+/* ===== GRILLE ARTICLES 3 COLONNES ===== */
 
 
 .news-grid {
@@ -232,8 +222,6 @@ main {
     gap:25px;
 
 }
-
-
 
 
 
@@ -255,15 +243,11 @@ main {
 }
 
 
-
 .card:hover {
 
     transform:translateY(-6px);
 
 }
-
-
-
 
 
 .card img {
@@ -278,14 +262,11 @@ main {
 
 
 
-
-
 .content {
 
     padding:20px;
 
 }
-
 
 
 .content h3 {
@@ -297,7 +278,6 @@ main {
 }
 
 
-
 .content p {
 
     color:#666;
@@ -307,7 +287,6 @@ main {
     margin-bottom:18px;
 
 }
-
 
 
 .content a {
@@ -329,7 +308,6 @@ main {
 }
 
 
-
 .content a:hover {
 
     background:#084298;
@@ -338,9 +316,7 @@ main {
 
 
 
-
-
-/* ===== DERNIERES INFOS ===== */
+/* ===== DERNIERES INFORMATIONS ===== */
 
 
 .latest {
@@ -356,13 +332,11 @@ main {
 }
 
 
-
 .latest h2 {
 
     margin-bottom:20px;
 
 }
-
 
 
 .line {
@@ -372,7 +346,6 @@ main {
     border-bottom:1px solid #ddd;
 
 }
-
 
 
 .line span {
@@ -390,8 +363,6 @@ main {
     margin-right:10px;
 
 }
-
-
 
 
 
@@ -414,188 +385,92 @@ footer {
 
 
 
+/* ===== MENU LATERAL ===== */
 
 
-/* ===== MOBILE ===== */
+#side-menu {
 
+    position:fixed;
 
-@media(max-width:900px){
+    top:0;
 
+    left:-300px;
 
-.news-grid {
+    width:280px;
 
-    grid-template-columns:1fr;
+    height:100vh;
+
+    background:#111827;
+
+    padding-top:80px;
+
+    transition:0.3s;
+
+    z-index:3000;
 
 }
 
 
+#side-menu.open {
 
-nav {
+    left:0;
 
-    flex-direction:column;
+}
+
+
+#side-menu h2 {
+
+    color:white;
 
     text-align:center;
 
-}
+    font-size:28px;
 
-
-
-.search-bar form {
-
-    width:100%;
-
-}
-
-
-}
-
-/* ===== STYLE ARTICLE ===== */
-
-
-.article-page {
-
-    max-width:850px;
-    margin:40px auto;
-    background:white;
-    padding:35px;
-    border-radius:20px;
-    box-shadow:0 5px 20px rgba(0,0,0,0.08);
-
-}
-
-
-
-.article-page h1 {
-
-    font-size:38px;
-    color:#0b57d0;
-    text-align:center;
-    line-height:1.3;
-    margin-bottom:20px;
-
-}
-
-
-
-.article-page h2 {
-
-    font-size:26px;
-    color:#0b57d0;
-    margin-top:35px;
-    border-left:5px solid #0b57d0;
-    padding-left:12px;
-
-}
-
-
-
-.article-image {
-
-    display:block;
-    width:70%;
-    max-height:320px;
-    object-fit:cover;
-    margin:25px auto;
-    border-radius:15px;
-
-}
-
-
-
-.date {
-
-    text-align:center;
-    color:#777;
-    font-size:14px;
-    margin-bottom:25px;
-
-}
-
-
-
-.chapeau {
-
-    font-size:21px;
-    line-height:1.7;
-    background:#eaf2ff;
-    padding:20px;
-    border-radius:12px;
-    color:#174ea6;
     margin-bottom:30px;
 
 }
 
 
+#side-menu a {
 
-.article-page p {
-
-    font-size:18px;
-    line-height:1.8;
-    color:#333;
-    margin-bottom:20px;
-
-}
-
-
-
-.source {
-
-    margin-top:40px;
-    padding:15px;
-    background:#f1f5f9;
-    border-radius:10px;
-    color:#555;
-    font-size:14px;
-
-}
-
-nav {
-
-    background:#111827;
-
-    padding:18px;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    gap:40px;
-
-}
-
-
-#menu-btn {
-
-    background:none;
-
-    border:none;
+    display:block;
 
     color:white;
 
-    font-size:16px;
+    text-decoration:none;
 
-    font-weight:bold;
+    padding:15px 25px;
 
-    cursor:pointer;
+    font-size:18px;
 
-    font-family:Arial, Helvetica, sans-serif;
-
-    padding:0;
+    font-weight:normal;
 
     transition:0.3s;
 
 }
 
 
-#menu-btn:hover {
+#side-menu a:hover {
 
-    color:#60a5fa;
+    background:#0b57d0;
 
 }
 
-/* ===== CROIX FERMETURE MENU ===== */
+
+#side-menu hr {
+
+    border:none;
+
+    border-top:1px solid #374151;
+
+    margin:20px;
+
+}
+
+
+
+/* ===== CROIX FERMETURE ===== */
+
 
 #close-menu {
 
@@ -633,11 +508,169 @@ nav {
     transform:scale(1.15);
 
 }
+    /* ===== STYLE PAGE ARTICLE ===== */
 
 
-/* Adaptation écran tablette */
+.article-page {
+
+    max-width:850px;
+
+    margin:40px auto;
+
+    background:white;
+
+    padding:35px;
+
+    border-radius:20px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,0.08);
+
+}
+
+
+
+.article-page h1 {
+
+    font-size:38px;
+
+    color:#0b57d0;
+
+    text-align:center;
+
+    line-height:1.3;
+
+    margin-bottom:20px;
+
+}
+
+
+
+.article-page h2 {
+
+    font-size:26px;
+
+    color:#0b57d0;
+
+    margin-top:35px;
+
+    border-left:5px solid #0b57d0;
+
+    padding-left:12px;
+
+}
+
+
+
+.article-image {
+
+    display:block;
+
+    width:70%;
+
+    max-height:320px;
+
+    object-fit:cover;
+
+    margin:25px auto;
+
+    border-radius:15px;
+
+}
+
+
+
+.date {
+
+    text-align:center;
+
+    color:#777;
+
+    font-size:14px;
+
+    margin-bottom:25px;
+
+}
+
+
+
+.chapeau {
+
+    font-size:21px;
+
+    line-height:1.7;
+
+    background:#eaf2ff;
+
+    padding:20px;
+
+    border-radius:12px;
+
+    color:#174ea6;
+
+    margin-bottom:30px;
+
+}
+
+
+
+.article-page p {
+
+    font-size:18px;
+
+    line-height:1.8;
+
+    color:#333;
+
+    margin-bottom:20px;
+
+}
+
+
+
+.source {
+
+    margin-top:40px;
+
+    padding:15px;
+
+    background:#f1f5f9;
+
+    border-radius:10px;
+
+    color:#555;
+
+    font-size:14px;
+
+}
+
+
+
+/* ===== RESPONSIVE TABLETTE ===== */
+
 
 @media(max-width:900px){
+
+
+    .news-grid {
+
+        grid-template-columns:1fr 1fr;
+
+    }
+
+
+    nav {
+
+        gap:25px;
+
+    }
+
+
+    .search-bar form {
+
+        width:100%;
+
+    }
+
 
     #close-menu {
 
@@ -652,9 +685,70 @@ nav {
 }
 
 
-/* Adaptation téléphone */
+
+/* ===== RESPONSIVE TELEPHONE ===== */
+
 
 @media(max-width:600px){
+
+
+    .header {
+
+        padding:20px;
+
+    }
+
+
+    .header h1 {
+
+        font-size:36px;
+
+    }
+
+
+    main {
+
+        padding:20px;
+
+    }
+
+
+    .news-grid {
+
+        grid-template-columns:1fr;
+
+    }
+
+
+    nav {
+
+        gap:20px;
+
+        padding:15px;
+
+    }
+
+
+    nav a {
+
+        font-size:14px;
+
+    }
+
+
+    .search-bar form {
+
+        width:100%;
+
+    }
+
+
+    .search-bar button {
+
+        padding:12px;
+
+    }
+
 
     #close-menu {
 
@@ -667,71 +761,4 @@ nav {
     }
 
 }
-
-/* ===== CORRECTION MENU LATERAL ===== */
-
-#side-menu {
-
-    position:fixed;
-
-    top:0;
-
-    left:-300px;
-
-    width:280px;
-
-    height:100vh;
-
-    background:#111827;
-
-    padding-top:80px;
-
-    transition:0.3s;
-
-    z-index:3000;
-
-}
-
-
-#side-menu.open {
-
-    left:0;
-
-}
-
-
-#side-menu a {
-
-    display:block;
-
-    color:white;
-
-    text-decoration:none;
-
-    padding:15px 25px;
-
-    font-size:18px;
-
-    font-weight:normal;
-
-}
-
-
-#side-menu a:hover {
-
-    background:#0b57d0;
-
-    color:white;
-
-}
-
-
-#side-menu hr {
-
-    border:none;
-
-    border-top:1px solid #374151;
-
-    margin:20px;
-
 }
