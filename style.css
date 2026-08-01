@@ -589,27 +589,29 @@ background:#084298;
 /* ===== MENU LATERAL ===== */
 
 
-#side-menu {
+#menu-btn {
 
 position:fixed;
 
-top:0;
+top:120px;
 
-left:-300px;
+left:20px;
 
-width:280px;
+font-size:32px;
 
-height:100%;
+background:#0b57d0;
 
-background:#111827;
+color:white;
 
-padding-top:80px;
+border:none;
 
-transition:0.3s;
+padding:10px 16px;
 
-z-index:1500;
+border-radius:10px;
 
-box-shadow:5px 0 20px rgba(0,0,0,0.3);
+cursor:pointer;
+
+z-index:3000;
 
 }
 
