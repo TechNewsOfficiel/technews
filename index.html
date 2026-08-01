@@ -16,6 +16,9 @@
 
 <body>
 
+ <button id="menu-btn" onclick="toggleMenu()">
+☰
+</button>
 
 <header>
 
@@ -538,7 +541,28 @@ article.style.display = "none";
 
 
 
+<script>
 
+function toggleMenu(){
+
+let menu = document.getElementById("side-menu");
+
+
+if(menu.style.left === "0px"){
+
+menu.style.left="-300px";
+
+}
+
+else{
+
+menu.style.left="0px";
+
+}
+
+}
+
+</script>
 
 
 
