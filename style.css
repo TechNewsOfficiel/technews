@@ -758,6 +758,46 @@ font-family:Arial, Helvetica, sans-serif;
 
 padding:0;
 
+    #close-menu {
+
+position:absolute;
+
+top:20px;
+
+right:20px;
+
+background:#0b57d0;
+
+color:white;
+
+border:none;
+
+font-size:25px;
+
+font-weight:bold;
+
+width:45px;
+
+height:45px;
+
+border-radius:8px;
+
+cursor:pointer;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+}
+
+
+#close-menu:hover {
+
+background:#084298;
+
+}
 }
 
 
