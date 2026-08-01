@@ -723,6 +723,23 @@ margin:20px;
 
 }
 
+nav {
+
+background:#111827;
+
+padding:18px;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+gap:40px;
+
+}
+
+
 #menu-btn {
 
 background:none;
@@ -737,44 +754,12 @@ font-weight:bold;
 
 cursor:pointer;
 
-padding:0;
-
 font-family:Arial, Helvetica, sans-serif;
 
-position:relative;
+padding:0;
 
 }
 
-
-/* petite barre blanche en dessous */
-
-#menu-btn::after {
-
-content:"";
-
-position:absolute;
-
-bottom:-8px;
-
-left:0;
-
-width:0;
-
-height:3px;
-
-background:white;
-
-transition:0.3s;
-
-}
-
-
-
-#menu-btn:hover::after {
-
-width:100%;
-
-}
 
 
 #menu-btn:hover {
