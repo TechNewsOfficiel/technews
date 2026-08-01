@@ -20,6 +20,81 @@
 ☰
 </button>
 
+<button id="menu-btn" onclick="toggleMenu()">
+☰
+</button>
+
+
+<div id="side-menu">
+
+<h2>
+TechNews
+</h2>
+
+<a href="#">
+📂 Catégories
+</a>
+
+<a href="#">
+❤️ Favoris
+</a>
+
+<a href="#">
+⭐ Articles populaires
+</a>
+
+<a href="#">
+🕒 Historique
+</a>
+
+<hr>
+
+<a href="#">
+🌍 Langue
+</a>
+
+<a href="#">
+🌙 Mode sombre
+</a>
+
+<a href="#">
+⚙️ Paramètres
+</a>
+
+<a href="#">
+📊 Statistiques du site
+</a>
+
+<hr>
+
+<a href="#">
+❓ FAQ
+</a>
+
+</div>
+ 
+<script>
+
+function toggleMenu(){
+
+let menu = document.getElementById("side-menu");
+
+if(menu.style.left === "0px"){
+
+menu.style.left="-300px";
+
+}
+else{
+
+menu.style.left="0px";
+
+}
+
+}
+
+</script>
+
+ 
 <header>
 
 
