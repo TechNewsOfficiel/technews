@@ -69,10 +69,38 @@ TechNews
 </a>
 
 </div>
- 
+
+
+ <a href="#">
+❓ FAQ
+</a>
+
+</div>
+
+ <script>
+
+function toggleMenu(){
+
+let menu = document.getElementById("side-menu");
+let button = document.getElementById("menu-btn");
+
+menu.classList.toggle("open");
+
+
+if(menu.classList.contains("open")){
+
+button.innerHTML = "✖";
+
+}
+else{
+
+button.innerHTML = "☰";
+
+}
+
+}
 
 </script>
-
  
 <header>
 
