@@ -549,16 +549,20 @@ nav {
 
 }
 
+/* ===== MENU SANDWICH ===== */
+
+
 #menu-btn {
 
 position:absolute;
 
-top:90px;
-left:30px;
+top:35px;
+left:25px;
 
 font-size:32px;
 
 background:#0b57d0;
+
 color:white;
 
 border:none;
@@ -570,5 +574,99 @@ border-radius:10px;
 cursor:pointer;
 
 z-index:2000;
+
+}
+
+
+#menu-btn:hover {
+
+background:#084298;
+
+}
+
+
+
+/* ===== MENU LATERAL ===== */
+
+
+#side-menu {
+
+position:fixed;
+
+top:0;
+
+left:-300px;
+
+width:280px;
+
+height:100%;
+
+background:#111827;
+
+padding-top:80px;
+
+transition:0.3s;
+
+z-index:1500;
+
+box-shadow:5px 0 20px rgba(0,0,0,0.3);
+
+}
+
+
+
+#side-menu.open {
+
+left:0;
+
+}
+
+
+
+#side-menu h2 {
+
+color:white;
+
+text-align:center;
+
+font-size:28px;
+
+margin-bottom:30px;
+
+}
+
+
+
+#side-menu a {
+
+display:block;
+
+padding:16px 25px;
+
+color:white;
+
+text-decoration:none;
+
+font-size:18px;
+
+}
+
+
+
+#side-menu a:hover {
+
+background:#0b57d0;
+
+}
+
+
+
+#side-menu hr {
+
+border:none;
+
+border-top:1px solid #374151;
+
+margin:20px;
 
 }
