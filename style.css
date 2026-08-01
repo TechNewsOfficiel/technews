@@ -549,13 +549,12 @@ nav {
 
 }
 
-/* ===== BOUTON SANDWICH ===== */
-
 #menu-btn {
 
 position:absolute;
-top:35px;
-left:180px;
+
+top:90px;
+left:30px;
 
 font-size:32px;
 
@@ -563,19 +562,13 @@ background:#0b57d0;
 color:white;
 
 border:none;
-padding:8px 14px;
+
+padding:10px 16px;
 
 border-radius:10px;
 
 cursor:pointer;
 
 z-index:2000;
-
-}
-
-
-#menu-btn:hover {
-
-background:#084298;
 
 }
