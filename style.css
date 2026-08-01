@@ -549,374 +549,189 @@ nav {
 
 }
 
-/* ===== MENU SANDWICH ===== */
-
-
-#menu-btn {
-
-position:absolute;
-
-top:35px;
-left:25px;
-
-font-size:32px;
-
-background:#0b57d0;
-
-color:white;
-
-border:none;
-
-padding:10px 16px;
-
-border-radius:10px;
-
-cursor:pointer;
-
-z-index:2000;
-
-}
-
-
-#menu-btn:hover {
-
-background:#084298;
-
-}
-/* ===== MENU SANDWICH DANS NAV ===== */
-
-
 nav {
 
-background:#111827;
+    background:#111827;
 
-padding:18px;
+    padding:18px;
 
-display:flex;
+    display:flex;
 
-justify-content:center;
+    justify-content:center;
 
-align-items:center;
+    align-items:center;
 
-gap:40px;
-
-position:relative;
+    gap:40px;
 
 }
-
 
 
 #menu-btn {
 
-background:#0b57d0;
+    background:none;
 
-color:white;
+    border:none;
 
-border:none;
+    color:white;
 
-font-size:26px;
+    font-size:16px;
 
-padding:8px 14px;
+    font-weight:bold;
 
-border-radius:8px;
+    cursor:pointer;
 
-cursor:pointer;
+    font-family:Arial, Helvetica, sans-serif;
 
-position:absolute;
+    padding:0;
 
-left:25px;
+    transition:0.3s;
 
 }
-
 
 
 #menu-btn:hover {
 
-background:#084298;
+    color:#60a5fa;
 
 }
 
-
-
-/* MENU LATERAL */
-
-
-#side-menu {
-
-position:fixed;
-
-top:0;
-
-left:-300px;
-
-width:280px;
-
-height:100vh;
-
-background:#111827;
-
-padding-top:80px;
-
-transition:0.3s;
-
-z-index:3000;
-
-box-shadow:5px 0 20px rgba(0,0,0,0.3);
-
-}
-
-
-
-#side-menu.open {
-
-left:0;
-
-}
-
-
-
-#side-menu h2 {
-
-color:white;
-
-text-align:center;
-
-font-size:28px;
-
-margin-bottom:30px;
-
-}
-
-
-
-#side-menu a {
-
-display:block;
-
-padding:15px 25px;
-
-color:white;
-
-text-decoration:none;
-
-font-size:18px;
-
-}
-
-
-
-#side-menu a:hover {
-
-background:#0b57d0;
-
-}
-
-
-
-#side-menu hr {
-
-border:none;
-
-border-top:1px solid #374151;
-
-margin:20px;
-
-}
-
-
-/* ===== MENU LATERAL ===== */
-
-
-#menu-btn {
-
-position:fixed;
-
-top:120px;
-
-left:20px;
-
-font-size:32px;
-
-background:#0b57d0;
-
-color:white;
-
-border:none;
-
-padding:10px 16px;
-
-border-radius:10px;
-
-cursor:pointer;
-
-z-index:3000;
-
-}
-
-
-
-#side-menu.open {
-
-left:0;
-
-}
-
-
-
-#side-menu h2 {
-
-color:white;
-
-text-align:center;
-
-font-size:28px;
-
-margin-bottom:30px;
-
-}
-
-
-
-#side-menu a {
-
-display:block;
-
-padding:16px 25px;
-
-color:white;
-
-text-decoration:none;
-
-font-size:18px;
-
-}
-
-
-
-#side-menu a:hover {
-
-background:#0b57d0;
-
-}
-
-
-
-#side-menu hr {
-
-border:none;
-
-border-top:1px solid #374151;
-
-margin:20px;
-
-}
-
+/* ===== CROIX FERMETURE MENU ===== */
 
 #close-menu {
 
-position:absolute;
+    position:absolute;
 
-top:20px;
+    top:20px;
 
-right:20px;
+    right:20px;
 
-background:#0b57d0;
+    background:transparent;
 
-color:white;
+    border:none;
 
-border:none;
+    color:white;
 
-font-size:25px;
+    font-size:38px;
 
-padding:8px 12px;
+    font-weight:300;
 
-border-radius:8px;
+    cursor:pointer;
 
-cursor:pointer;
+    padding:0;
+
+    line-height:1;
+
+    transition:0.2s;
 
 }
 
 
 #close-menu:hover {
 
-background:#084298;
+    color:#60a5fa;
 
-/* BOUTON MENU STYLE SITE INFO */
-
-#menu-btn {
-
-background:none;
-border:none;
-color:white;
-
-font-size:18px;
-font-weight:bold;
-
-cursor:pointer;
-
-display:flex;
-align-items:center;
-gap:10px;
-
-padding:18px 20px;
-
-position:absolute;
-left:20px;
+    transform:scale(1.15);
 
 }
 
 
+/* Adaptation écran tablette */
 
-.hamburger {
+@media(max-width:900px){
 
-font-size:28px;
+    #close-menu {
 
-}
+        font-size:34px;
 
+        top:18px;
 
+        right:18px;
 
-.menu-text {
-
-font-size:16px;
-
-}
-
-
-
-/* petite barre blanche au survol */
-
-#menu-btn::after {
-
-content:"";
-
-position:absolute;
-
-bottom:5px;
-left:20px;
-
-width:0;
-height:3px;
-
-background:white;
-
-transition:0.3s;
+    }
 
 }
 
 
+/* Adaptation téléphone */
 
-#menu-btn:hover::after {
+@media(max-width:600px){
 
-width:70px;
+    #close-menu {
+
+        font-size:30px;
+
+        top:15px;
+
+        right:15px;
+
+    }
+
+}
+
+/* ===== CORRECTION MENU LATERAL ===== */
+
+#side-menu {
+
+    position:fixed;
+
+    top:0;
+
+    left:-300px;
+
+    width:280px;
+
+    height:100vh;
+
+    background:#111827;
+
+    padding-top:80px;
+
+    transition:0.3s;
+
+    z-index:3000;
 
 }
 
 
+#side-menu.open {
 
-#menu-btn:hover {
-
-color:#60a5fa;
+    left:0;
 
 }
+
+
+#side-menu a {
+
+    display:block;
+
+    color:white;
+
+    text-decoration:none;
+
+    padding:15px 25px;
+
+    font-size:18px;
+
+    font-weight:normal;
+
+}
+
+
+#side-menu a:hover {
+
+    background:#0b57d0;
+
+    color:white;
+
+}
+
+
+#side-menu hr {
+
+    border:none;
+
+    border-top:1px solid #374151;
+
+    margin:20px;
 
 }
