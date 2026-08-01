@@ -841,4 +841,82 @@ cursor:pointer;
 
 background:#084298;
 
+/* BOUTON MENU STYLE SITE INFO */
+
+#menu-btn {
+
+background:none;
+border:none;
+color:white;
+
+font-size:18px;
+font-weight:bold;
+
+cursor:pointer;
+
+display:flex;
+align-items:center;
+gap:10px;
+
+padding:18px 20px;
+
+position:absolute;
+left:20px;
+
+}
+
+
+
+.hamburger {
+
+font-size:28px;
+
+}
+
+
+
+.menu-text {
+
+font-size:16px;
+
+}
+
+
+
+/* petite barre blanche au survol */
+
+#menu-btn::after {
+
+content:"";
+
+position:absolute;
+
+bottom:5px;
+left:20px;
+
+width:0;
+height:3px;
+
+background:white;
+
+transition:0.3s;
+
+}
+
+
+
+#menu-btn:hover::after {
+
+width:70px;
+
+}
+
+
+
+#menu-btn:hover {
+
+color:#60a5fa;
+
+}
+
 }
