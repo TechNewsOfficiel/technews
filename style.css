@@ -810,3 +810,35 @@ border-top:1px solid #374151;
 margin:20px;
 
 }
+
+
+#close-menu {
+
+position:absolute;
+
+top:20px;
+
+right:20px;
+
+background:#0b57d0;
+
+color:white;
+
+border:none;
+
+font-size:25px;
+
+padding:8px 12px;
+
+border-radius:8px;
+
+cursor:pointer;
+
+}
+
+
+#close-menu:hover {
+
+background:#084298;
+
+}
