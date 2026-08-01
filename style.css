@@ -667,3 +667,71 @@ nav {
     }
 
 }
+
+/* ===== CORRECTION MENU LATERAL ===== */
+
+#side-menu {
+
+    position:fixed;
+
+    top:0;
+
+    left:-300px;
+
+    width:280px;
+
+    height:100vh;
+
+    background:#111827;
+
+    padding-top:80px;
+
+    transition:0.3s;
+
+    z-index:3000;
+
+}
+
+
+#side-menu.open {
+
+    left:0;
+
+}
+
+
+#side-menu a {
+
+    display:block;
+
+    color:white;
+
+    text-decoration:none;
+
+    padding:15px 25px;
+
+    font-size:18px;
+
+    font-weight:normal;
+
+}
+
+
+#side-menu a:hover {
+
+    background:#0b57d0;
+
+    color:white;
+
+}
+
+
+#side-menu hr {
+
+    border:none;
+
+    border-top:1px solid #374151;
+
+    margin:20px;
+
+}
