@@ -17,44 +17,14 @@
 <body>
 
 
-
-<button id="menu-btn" onclick="toggleMenu()">
-☰
-</button>
-
-
-<nav>
- 
-<a href="index.html">
-Accueil
-</a>
-
-<a href="ia.html">
-IA
-</a>
-
-<a href="smartphones.html">
-Smartphones
-</a>
-
-<a href="gaming.html">
-Gaming
-</a>
-
-<a href="cybersecurite.html">
-Cybersécurité
-</a>
-
-</nav>
-
-
+<!-- MENU LATERAL -->
 
 <div id="side-menu">
 
 <button id="close-menu" onclick="toggleMenu()">
 ✖
 </button>
- 
+
 <h2>
 TechNews
 </h2>
@@ -109,17 +79,7 @@ TechNews
 
 
 
-<script>
 
-function toggleMenu(){
-
-let menu = document.getElementById("side-menu");
-
-menu.classList.toggle("open");
-
-}
-
-</script>
 <header>
 
 
@@ -135,6 +95,14 @@ L'actualité des technologies, de l'IA et du numérique
 
 </div>
 
+
+
+<nav>
+
+
+<button id="menu-btn" onclick="toggleMenu()">
+☰
+</button>
 
 
 <a href="index.html">
@@ -157,7 +125,9 @@ Gaming
 Cybersécurité
 </a>
 
+
 </nav>
+
 
 
 <div class="search-bar">
@@ -170,15 +140,21 @@ id="searchInput"
 placeholder="Rechercher une actualité..."
 >
 
+
 <button type="submit">
 🔎 Rechercher
 </button>
+
 
 </form>
 
 </div>
 
+
 </header>
+
+
+
 
 <main>
 
@@ -193,32 +169,29 @@ Actualités récentes
 
 
 
-
-
 <article class="card">
-
 
 <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485">
 
 
 <div class="content">
 
-
 <h3>
 L'intelligence artificielle continue d'évoluer
 </h3>
 
- 
+
 <p>
 Les nouvelles IA deviennent plus puissantes et transforment notre quotidien.
 </p>
+
 
 <a href="article-ia.html">
 Lire l'article
 </a>
 
-</div>
 
+</div>
 
 </article>
 
@@ -226,16 +199,12 @@ Lire l'article
 
 
 
-
-
 <article class="card">
-
 
 <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9">
 
 
 <div class="content">
-
 
 <h3>
 Les smartphones du futur
@@ -254,23 +223,12 @@ Lire l'article
 
 </div>
 
-
-</article>
-
-
-
-
-
-
-
-<article class="card">
-
+ <article class="card">
 
 <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e">
 
 
 <div class="content">
-
 
 <h3>
 Le futur du gaming
@@ -289,18 +247,17 @@ Lire l'article
 
 </div>
 
-
 </article>
 
-  
-<article class="card">
 
+
+
+<article class="card">
 
 <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3">
 
 
 <div class="content">
-
 
 <h3>
 La cybersécurité devient essentielle
@@ -319,23 +276,17 @@ Lire l'article
 
 </div>
 
-
 </article>
-
-
-
 
 
 
 
 <article class="card">
 
-
 <img src="https://images.unsplash.com/photo-1518770660439-4636190af475">
 
 
 <div class="content">
-
 
 <h3>
 Les nouveaux processeurs arrivent
@@ -354,23 +305,17 @@ Lire l'article
 
 </div>
 
-
 </article>
-
-
-
 
 
 
 
 <article class="card">
 
-
 <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3">
 
 
 <div class="content">
-
 
 <h3>
 Le cloud continue sa progression
@@ -389,23 +334,17 @@ Lire l'article
 
 </div>
 
-
 </article>
-
-
-
 
 
 
 
 <article class="card">
 
-
 <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b">
 
 
 <div class="content">
-
 
 <h3>
 La sécurité numérique se renforce
@@ -424,23 +363,17 @@ Lire l'article
 
 </div>
 
-
 </article>
-
-
-
 
 
 
 
 <article class="card">
 
-
 <img src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b">
 
 
 <div class="content">
-
 
 <h3>
 Les innovations de demain
@@ -459,23 +392,17 @@ Lire l'article
 
 </div>
 
-
 </article>
-
-
-
 
 
 
 
 <article class="card">
 
-
 <img src="https://images.unsplash.com/photo-1516321165247-4aa89a48be28">
 
 
 <div class="content">
-
 
 <h3>
 Les objets connectés progressent
@@ -494,14 +421,14 @@ Lire l'article
 
 </div>
 
-
 </article>
-
 
 
 </section>
 
-  
+
+
+
 <section class="latest">
 
 
@@ -550,8 +477,8 @@ Les nouvelles technologies transforment notre quotidien.
 </div>
 
 
-</section>
 
+</section>
 
 
 </main>
@@ -559,14 +486,11 @@ Les nouvelles technologies transforment notre quotidien.
 
 
 
-
 <footer>
-
 
 <p>
 © 2026 TechNews - Tous droits réservés
 </p>
-
 
 </footer>
 
@@ -574,9 +498,19 @@ Les nouvelles technologies transforment notre quotidien.
 
 
 
-
-
 <script>
+
+
+function toggleMenu(){
+
+let menu = document.getElementById("side-menu");
+
+menu.classList.toggle("open");
+
+}
+
+
+
 
 
 const form = document.getElementById("searchForm");
@@ -608,7 +542,7 @@ let texte = article.innerText.toLowerCase();
 if(recherche === "" || texte.includes(recherche)){
 
 
-article.style.display = "block";
+article.style.display="block";
 
 
 }
@@ -616,7 +550,7 @@ article.style.display = "block";
 else{
 
 
-article.style.display = "none";
+article.style.display="none";
 
 
 }
@@ -632,8 +566,8 @@ article.style.display = "none";
 
 
 
-
-
 </body>
 
 </html>
+
+</article>
