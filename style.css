@@ -771,18 +771,6 @@ body.sombre button {
 
 }
 
-#darkMode,
-#darkModeMenu {
-
-    background:#0b57d0;
-    color:white;
-    border:none;
-    padding:10px 15px;
-    border-radius:8px;
-    cursor:pointer;
-    font-weight:bold;
-
-}
 
 
 #darkMode:hover,
