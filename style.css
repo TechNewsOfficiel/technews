@@ -1183,3 +1183,58 @@ body.sombre .line {
     background:#16a34a;
 
 }
+
+/* ===== BOUTON FAVORI ARTICLE ===== */
+
+.favorite-btn {
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    background:#0b57d0;
+
+    color:white;
+
+    border:none;
+
+    padding:12px 22px;
+
+    border-radius:25px;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.3s;
+
+    margin-top:25px;
+
+}
+
+
+.favorite-btn:hover {
+
+    background:#084298;
+
+    transform:translateY(-3px);
+
+}
+
+
+.favorite-btn.active {
+
+    background:#e11d48;
+
+}
+
+
+.favorite-btn span {
+
+    font-size:20px;
+
+}
