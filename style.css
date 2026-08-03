@@ -1030,3 +1030,110 @@ body.sombre .search-bar button:hover {
     background:#0b57d0;
 
 }
+
+/* ===== MODE SOMBRE ===== */
+
+body.sombre {
+
+    background:#121212;
+    color:white;
+
+}
+
+
+/* Fonds des parties principales */
+
+body.sombre .header,
+body.sombre .search-bar,
+body.sombre .card,
+body.sombre .latest,
+body.sombre .article-page {
+
+    background:#1e1e1e;
+
+}
+
+
+/* Barre de recherche */
+
+body.sombre .search-bar input {
+
+    background:#2a2a2a;
+    color:white;
+    border:1px solid #555;
+
+}
+
+
+/* Textes */
+
+body.sombre p,
+body.sombre .content p {
+
+    color:#ddd;
+
+}
+
+
+/* Titres */
+
+body.sombre h1,
+body.sombre h2,
+body.sombre h3 {
+
+    color:white;
+
+}
+
+
+/* Boutons articles */
+
+body.sombre .content a {
+
+    background:#2563eb;
+    color:white;
+
+}
+
+
+/* Dernières infos */
+
+body.sombre .line {
+
+    border-bottom:1px solid #444;
+
+}
+
+
+/* ===== BOUTON MODE SOMBRE DU MENU ===== */
+
+#darkModeMenu {
+
+    display:block;
+
+    width:100%;
+
+    background:#111827;
+
+    border:none;
+
+    color:white;
+
+    text-align:left;
+
+    padding:15px 25px;
+
+    font-size:18px;
+
+    font-family:Arial, Helvetica, sans-serif;
+
+    cursor:pointer;
+
+}
+
+
+#darkModeMenu:hover {
+
+    background:#0b57d0;
+
+}
