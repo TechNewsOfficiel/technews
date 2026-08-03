@@ -792,7 +792,31 @@ body.sombre a {
 
     width:100%;
 
-    background:#111827;
+  #darkMode {
+
+    display:block;
+
+    width:100%;
+
+    background:transparent;
+
+    border:none;
+
+    color:white;
+
+    text-align:left;
+
+    padding:15px 25px;
+
+    font-size:18px;
+
+    font-weight:normal;
+
+    cursor:pointer;
+
+    font-family:Arial, Helvetica, sans-serif;
+
+}
 
     border:none;
 
