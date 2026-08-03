@@ -782,42 +782,7 @@ body.sombre a {
 }
 
 
-/* ===== BOUTON MODE SOMBRE DANS LE MENU ===== */
 
-#darkMode {
-
-    display:block;
-
-    width:100%;
-
-    background:#111827;
-
-    border:none;
-
-    color:white;
-
-    text-align:left;
-
-    padding:15px 25px;
-
-    font-size:18px;
-
-    font-weight:normal;
-
-    cursor:pointer;
-
-    font-family:Arial, Helvetica, sans-serif;
-
-}
-
-
-#darkMode:hover {
-
-    background:#0b57d0;
-
-    color:white;
-
-}
 
 /* ===== BOUTON MODE SOMBRE MENU ===== */
 
