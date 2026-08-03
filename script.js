@@ -1,45 +1,28 @@
-// ===== MENU LATERAL =====
+// =========================
+// MENU LATERAL
+// =========================
 
 function toggleMenu(){
 
     const menu = document.getElementById("side-menu");
     const button = document.getElementById("menu-btn");
 
+    if(!menu) return;
 
     menu.classList.toggle("open");
 
 
     if(menu.classList.contains("open")){
 
-        button.style.display = "none";
-
-    }
-    else{
-
-        button.style.display = "block";
-
-    }
-
-}
-
-
-
-// ===== MENU LATERAL =====
-
-function toggleMenu(){
-
-    const menu = document.getElementById("side-menu");
-    const button = document.getElementById("menu-btn");
-
-    menu.classList.toggle("open");
-
-    if(menu.classList.contains("open")){
-
-        button.style.display = "none";
+        if(button){
+            button.style.display = "none";
+        }
 
     } else {
 
-        button.style.display = "block";
+        if(button){
+            button.style.display = "block";
+        }
 
     }
 
@@ -47,63 +30,38 @@ function toggleMenu(){
 
 
 
-// ===== MODE SOMBRE =====
-
-const darkButton = document.getElementById("darkModeMenu");
 
 
-if(darkButton){
-
-    darkButton.addEventListener("click", function(){
-
-        document.body.classList.toggle("sombre");
+// =========================
+// MODE SOMBRE
+// =========================
 
 
-        if(document.body.classList.contains("sombre")){
+document.addEventListener("DOMContentLoaded", function(){
 
-            darkButton.textContent = "Mode clair";
 
-        } else {
+    const darkButton = document.getElementById("darkModeMenu");
 
-            darkButton.textContent = "Mode sombre";
 
-        }
+    if(darkButton){
 
-    });
 
-}
+        darkButton.addEventListener("click", function(){
+
+
+            document.body.classList.toggle("sombre");
 
 
 
-// ===== RECHERCHE =====
+            if(document.body.classList.contains("sombre")){
 
-const form = document.getElementById("searchForm");
-const input = document.getElementById("searchInput");
-const articles = document.querySelectorAll(".card");
+                darkButton.textContent = "Mode clair";
 
+            }
 
-if(form){
+            else{
 
-    form.addEventListener("submit", function(e){
-
-        e.preventDefault();
-
-
-        let recherche = input.value.toLowerCase().trim();
-
-
-        articles.forEach(function(article){
-
-            let texte = article.innerText.toLowerCase();
-
-
-            if(recherche === "" || texte.includes(recherche)){
-
-                article.style.display = "block";
-
-            } else {
-
-                article.style.display = "none";
+                darkButton.textContent = "Mode sombre";
 
             }
 
@@ -111,20 +69,80 @@ if(form){
         });
 
 
-    });
-
-}
+    }
 
 
 
-const darkButton = document.getElementById("darkModeMenu");
+});
 
-console.log(darkButton);
 
-darkButton.addEventListener("click", function(){
 
-    console.log("CLIC MODE SOMBRE");
 
-    document.body.classList.toggle("sombre");
+
+// =========================
+// RECHERCHE
+// =========================
+
+
+document.addEventListener("DOMContentLoaded", function(){
+
+
+    const form = document.getElementById("searchForm");
+
+    const input = document.getElementById("searchInput");
+
+    const articles = document.querySelectorAll(".card");
+
+
+
+    if(form && input){
+
+
+        form.addEventListener("submit", function(e){
+
+
+            e.preventDefault();
+
+
+
+            let recherche = input.value.toLowerCase().trim();
+
+
+
+            articles.forEach(function(article){
+
+
+                let texte = article.innerText.toLowerCase();
+
+
+
+                if(recherche === "" || texte.includes(recherche)){
+
+
+                    article.style.display = "block";
+
+
+                }
+
+                else{
+
+
+                    article.style.display = "none";
+
+
+                }
+
+
+            });
+
+
+
+        });
+
+
+
+    }
+
+
 
 });
