@@ -1137,3 +1137,49 @@ body.sombre .line {
     background:#0b57d0;
 
 }
+
+/* ===== FAVORIS ===== */
+
+.favorite-box {
+
+    text-align:center;
+    margin-top:30px;
+
+}
+
+
+.favorite-btn {
+
+    background:#0b57d0;
+
+    color:white;
+
+    border:none;
+
+    padding:12px 25px;
+
+    border-radius:8px;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.3s;
+
+}
+
+
+.favorite-btn:hover {
+
+    background:#084298;
+
+}
+
+
+.favorite-btn.active {
+
+    background:#16a34a;
+
+}
