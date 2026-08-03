@@ -1313,3 +1313,179 @@ body.sombre .line {
     transform:scale(1.05);
 
 }
+
+/* ===== REACTION ARTICLE ===== */
+
+
+.reaction-box {
+
+    margin-top:30px;
+
+    padding:25px;
+
+    background:#f8fafc;
+
+    border-radius:15px;
+
+    border:1px solid #ddd;
+
+    text-align:center;
+
+}
+
+
+.reaction-box h4 {
+
+    font-size:20px;
+
+    margin-bottom:20px;
+
+    color:#333;
+
+}
+
+
+
+.reaction-buttons {
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:20px;
+
+}
+
+
+
+.like-btn,
+.dislike-btn {
+
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+
+    border:none;
+
+    padding:12px 25px;
+
+    border-radius:30px;
+
+
+    font-size:18px;
+
+    font-weight:bold;
+
+
+    cursor:pointer;
+
+
+    transition:0.3s;
+
+}
+
+
+
+/* POUCE VERT */
+
+.like-btn {
+
+    background:#22c55e;
+
+    color:white;
+
+}
+
+
+
+.like-btn:hover {
+
+    background:#16a34a;
+
+    transform:scale(1.05);
+
+}
+
+
+
+/* POUCE ROUGE */
+
+
+.dislike-btn {
+
+    background:#ef4444;
+
+    color:white;
+
+}
+
+
+.dislike-btn:hover {
+
+    background:#dc2626;
+
+    transform:scale(1.05);
+
+}
+
+
+
+/* animation du pouce */
+
+
+.like-btn.anim {
+
+    animation:popLike 0.4s ease;
+
+}
+
+
+
+@keyframes popLike {
+
+
+0% {
+
+    transform:scale(1);
+
+}
+
+
+50% {
+
+    transform:scale(1.3) rotate(-10deg);
+
+}
+
+
+100% {
+
+    transform:scale(1);
+
+}
+
+
+}
+
+
+
+/* MODE SOMBRE */
+
+body.sombre .reaction-box {
+
+    background:#252525;
+
+    border-color:#444;
+
+}
+
+
+body.sombre .reaction-box h4 {
+
+    color:white;
+
+}
