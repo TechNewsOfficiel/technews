@@ -877,3 +877,17 @@ body.sombre a {
     outline:none;
     box-shadow:none;
 }
+
+#darkMode {
+    appearance:none;
+    -webkit-appearance:none;
+    background:#111827 !important;
+    color:white !important;
+    border:none !important;
+    outline:none;
+    box-shadow:none;
+}
+
+#darkMode:hover {
+    background:#0b57d0 !important;
+}
