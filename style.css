@@ -869,3 +869,76 @@ body.sombre footer {
     background:#084298;
 
 }
+
+/* ========================= */
+/* ===== CORRECTION DARK ==== */
+/* ========================= */
+
+
+/* Toute la zone recherche */
+
+body.sombre .search-bar {
+
+    background:#121212;
+
+}
+
+
+/* Le formulaire recherche */
+
+body.sombre .search-bar form {
+
+    background:#121212;
+
+}
+
+
+/* Champ de recherche */
+
+body.sombre .search-bar input {
+
+    background:#1e1e1e;
+
+    color:white;
+
+    border:1px solid #444;
+
+}
+
+
+/* Texte dans la barre */
+
+body.sombre .search-bar input::placeholder {
+
+    color:#aaa;
+
+}
+
+
+/* Bouton rechercher */
+
+body.sombre .search-bar button {
+
+    background:#0b57d0;
+
+    color:white;
+
+}
+
+
+/* La zone principale derrière les cartes */
+
+body.sombre main {
+
+    background:#121212;
+
+}
+
+
+/* Evite les parties blanches restantes */
+
+body.sombre {
+
+    min-height:100vh;
+
+}
