@@ -739,56 +739,49 @@ nav {
 
 /* Mode sombre */
 
+/* Mode sombre */
+
 body.sombre {
-    background-color: #121212;
-    color: white;
+
+    background-color:#121212;
+
+    color:white;
+
 }
 
 
-/* Change les blocs du site */
-body.sombre header,
+/* Les blocs du site */
+
+body.sombre .header,
 body.sombre nav,
 body.sombre footer,
 body.sombre section,
-body.sombre article {
-    background-color: #1e1e1e;
+body.sombre article,
+body.sombre .card,
+body.sombre .latest {
+
+    background-color:#1e1e1e;
+
 }
 
 
-/* Liens */
+/* Les textes */
+
+body.sombre p {
+
+    color:#ddd;
+
+}
+
+
+/* Les liens */
+
 body.sombre a {
-    color: #66ccff;
-}
 
-
-/* Bouton */
-body.sombre button {
-    background-color: #333;
-    color: white;
-}
-
-    margin:20px;
+    color:#66ccff;
 
 }
 
-
-
-#darkMode:hover,
-#darkModeMenu:hover {
-
-    background:#084298;
-
-}
-
-
-/* Menu sombre */
-
-#darkModeMenu {
-
-    margin:15px 25px;
-    width:230px;
-
-}
 
 /* Bouton mode sombre dans le menu */
 
@@ -822,6 +815,15 @@ body.sombre button {
 #darkMode:hover {
 
     background:#0b57d0;
+
+    color:white;
+
+}
+
+
+/* Bouton en mode sombre */
+
+body.sombre button {
 
     color:white;
 
