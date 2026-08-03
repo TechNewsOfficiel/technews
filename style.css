@@ -732,6 +732,36 @@ nav {
 
     border-top:1px solid #374151;
 
+    /* Mode sombre */
+
+body.sombre {
+    background-color: #121212;
+    color: white;
+}
+
+
+/* Change les blocs du site */
+body.sombre header,
+body.sombre nav,
+body.sombre footer,
+body.sombre section,
+body.sombre article {
+    background-color: #1e1e1e;
+}
+
+
+/* Liens */
+body.sombre a {
+    color: #66ccff;
+}
+
+
+/* Bouton */
+body.sombre button {
+    background-color: #333;
+    color: white;
+}
+
     margin:20px;
 
 }
