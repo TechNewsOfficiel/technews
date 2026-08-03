@@ -54,3 +54,17 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
+
+
+
+const darkButton = document.getElementById("darkModeMenu");
+
+console.log(darkButton);
+
+darkButton.addEventListener("click", function(){
+
+    console.log("CLIC MODE SOMBRE");
+
+    document.body.classList.toggle("sombre");
+
+});
