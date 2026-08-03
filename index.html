@@ -53,10 +53,9 @@ Historique
 Langue
 </a>
 
-<button id="darkModeMenu">
- Mode sombre
+<button id="darkMode">
+Mode sombre
 </button>
-
 
 <a href="#">
 Paramètres
@@ -598,11 +597,15 @@ button.style.display = "block";
 <script src="script.js"></script>
 
 <script>
+
 const darkButton = document.getElementById("darkMode");
 
-darkButton.addEventListener("click", function() {
+darkButton.addEventListener("click", function(){
+
     document.body.classList.toggle("sombre");
+
 });
+
 </script>
  
 </body>
