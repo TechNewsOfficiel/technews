@@ -2,19 +2,26 @@
 
 function toggleMenu(){
 
-    let menu = document.getElementById("side-menu");
-    let button = document.getElementById("menu-btn");
+    const menu = document.getElementById("side-menu");
+    const button = document.getElementById("menu-btn");
+
+    if(!menu) return;
+
 
     menu.classList.toggle("open");
 
 
     if(menu.classList.contains("open")){
 
-        button.style.display = "none";
+        if(button){
+            button.style.display = "none";
+        }
 
     } else {
 
-        button.style.display = "block";
+        if(button){
+            button.style.display = "block";
+        }
 
     }
 
@@ -25,45 +32,48 @@ function toggleMenu(){
 /* ===== RECHERCHE ===== */
 
 const form = document.getElementById("searchForm");
-
 const input = document.getElementById("searchInput");
 
-const articles = document.querySelectorAll(".card");
+
+if(form && input){
 
 
-if(form){
+    form.addEventListener("submit", function(e){
 
-form.addEventListener("submit", function(e){
-
-    e.preventDefault();
+        e.preventDefault();
 
 
-    let recherche = input.value.toLowerCase().trim();
+        const recherche = input.value.toLowerCase().trim();
+
+        const articles = document.querySelectorAll(".card");
 
 
-    articles.forEach(function(article){
+        articles.forEach(function(article){
 
 
-        let texte = article.innerText.toLowerCase();
+            const texte = article.innerText.toLowerCase();
 
 
-        if(recherche === "" || texte.includes(recherche)){
+            if(recherche === "" || texte.includes(recherche)){
 
-            article.style.display = "block";
 
-        }
+                article.style.display = "block";
 
-        else{
 
-            article.style.display = "none";
+            } else {
 
-        }
+
+                article.style.display = "none";
+
+
+            }
+
+
+        });
 
 
     });
 
-
-});
 
 }
 
@@ -71,32 +81,35 @@ form.addEventListener("submit", function(e){
 
 /* ===== MODE SOMBRE ===== */
 
+
 const darkButton = document.getElementById("darkModeMenu");
 
 
 if(darkButton){
 
 
-darkButton.addEventListener("click", function(){
+    darkButton.addEventListener("click", function(){
 
 
-    document.body.classList.toggle("sombre");
+        document.body.classList.toggle("sombre");
 
 
-    if(document.body.classList.contains("sombre")){
-
-        darkButton.innerText = "Mode clair";
-
-    }
-
-    else{
-
-        darkButton.innerText = "Mode sombre";
-
-    }
+        if(document.body.classList.contains("sombre")){
 
 
-});
+            darkButton.textContent = "Mode clair";
+
+
+        } else {
+
+
+            darkButton.textContent = "Mode sombre";
+
+
+        }
+
+
+    });
 
 
 }
