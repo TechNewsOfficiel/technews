@@ -871,3 +871,9 @@ body.sombre a {
     color:white;
 
 }
+#darkMode {
+    appearance:none;
+    -webkit-appearance:none;
+    outline:none;
+    box-shadow:none;
+}
