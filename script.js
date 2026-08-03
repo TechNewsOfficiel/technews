@@ -146,3 +146,111 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
 });
+
+
+// =========================
+// SYSTEME DE FAVORIS
+// =========================
+
+
+document.addEventListener("DOMContentLoaded", function(){
+
+
+const buttons = document.querySelectorAll(".favorite-btn");
+
+
+let favoris = JSON.parse(localStorage.getItem("favoris")) || [];
+
+
+
+buttons.forEach(function(button){
+
+
+let titre = button.dataset.title;
+let lien = button.dataset.link;
+
+
+
+// Vérifie si déjà en favoris
+
+let existe = favoris.some(function(article){
+
+return article.link === lien;
+
+});
+
+
+
+if(existe){
+
+button.textContent = "★ Retirer des favoris";
+
+button.classList.add("active");
+
+}
+
+
+
+
+
+button.addEventListener("click", function(){
+
+
+
+let index = favoris.findIndex(function(article){
+
+return article.link === lien;
+
+});
+
+
+
+if(index === -1){
+
+
+// Ajouter
+
+favoris.push({
+
+title:titre,
+
+link:lien
+
+});
+
+
+button.textContent="★ Retirer des favoris";
+
+button.classList.add("active");
+
+
+}
+
+else{
+
+
+// Retirer
+
+favoris.splice(index,1);
+
+
+button.textContent="☆ Ajouter aux favoris";
+
+button.classList.remove("active");
+
+
+}
+
+
+
+localStorage.setItem("favoris", JSON.stringify(favoris));
+
+
+
+});
+
+
+});
+
+
+});
