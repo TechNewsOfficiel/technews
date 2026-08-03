@@ -1,3 +1,6 @@
+
+alert("script.js fonctionne");
+
 /* ===== MENU LATERAL ===== */
 
 function toggleMenu(){
