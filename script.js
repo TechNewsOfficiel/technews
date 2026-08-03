@@ -5,13 +5,16 @@ function toggleMenu(){
     const menu = document.getElementById("side-menu");
     const button = document.getElementById("menu-btn");
 
+
     menu.classList.toggle("open");
+
 
     if(menu.classList.contains("open")){
 
         button.style.display = "none";
 
-    } else {
+    }
+    else{
 
         button.style.display = "block";
 
@@ -23,65 +26,32 @@ function toggleMenu(){
 
 // ===== MODE SOMBRE =====
 
-const darkButton = document.getElementById("darkModeMenu");
+document.addEventListener("DOMContentLoaded", function(){
 
 
-if(darkButton){
-
-    darkButton.addEventListener("click", function(){
-
-        document.body.classList.toggle("sombre");
+    const darkButton = document.getElementById("darkModeMenu");
 
 
-        if(document.body.classList.contains("sombre")){
-
-            darkButton.textContent = "Mode clair";
-
-        } else {
-
-            darkButton.textContent = "Mode sombre";
-
-        }
-
-    });
-
-}
+    if(darkButton){
 
 
-
-// ===== RECHERCHE =====
-
-const form = document.getElementById("searchForm");
-const input = document.getElementById("searchInput");
-const articles = document.querySelectorAll(".card");
+        darkButton.addEventListener("click", function(){
 
 
-if(form){
-
-    form.addEventListener("submit", function(e){
-
-        e.preventDefault();
+            document.body.classList.toggle("sombre");
 
 
-        let recherche = input.value.toLowerCase().trim();
+            if(document.body.classList.contains("sombre")){
 
 
-        articles.forEach(function(article){
+                darkButton.textContent = "Mode clair";
 
 
-            let texte = article.innerText.toLowerCase();
+            }
+            else{
 
 
-            if(recherche === "" || texte.includes(recherche)){
-
-
-                article.style.display = "block";
-
-
-            } else {
-
-
-                article.style.display = "none";
+                darkButton.textContent = "Mode sombre";
 
 
             }
@@ -90,6 +60,65 @@ if(form){
         });
 
 
+    }
+
+
+
+});
+
+
+
+// ===== RECHERCHE =====
+
+const form = document.getElementById("searchForm");
+
+const input = document.getElementById("searchInput");
+
+const articles = document.querySelectorAll(".card");
+
+
+
+if(form){
+
+
+    form.addEventListener("submit", function(e){
+
+
+        e.preventDefault();
+
+
+        const recherche = input.value.toLowerCase().trim();
+
+
+
+        articles.forEach(function(article){
+
+
+            const texte = article.innerText.toLowerCase();
+
+
+
+            if(texte.includes(recherche) || recherche === ""){
+
+
+                article.style.display="block";
+
+
+            }
+            else{
+
+
+                article.style.display="none";
+
+
+            }
+
+
+        });
+
+
+
     });
+
 
 }
