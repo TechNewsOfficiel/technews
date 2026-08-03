@@ -255,9 +255,6 @@ localStorage.setItem("favoris", JSON.stringify(favoris));
 
 });
 
-// ===== SYSTEME FAVORIS =====
-
-
 function aimerArticle(button){
 
 
@@ -281,54 +278,23 @@ function aimerArticle(button){
             JSON.stringify(favoris)
         );
 
-
     }
 
 
-    button.innerHTML="👍 Aimé";
+
+    button.classList.add("anim");
 
 
-    button.style.background="#15803d";
+    setTimeout(function(){
+
+        button.classList.remove("anim");
+
+    },400);
 
 
-}
 
-
-
-// Retirer des favoris
-
-function retirerFavori(button){
-
-
-    let article = button.closest(".card");
-
-
-    let titre = article.querySelector("h3").innerText;
-
-
-    let favoris = JSON.parse(localStorage.getItem("favoris")) || [];
-
-
-    favoris = favoris.filter(function(item){
-
-        return item !== titre;
-
-    });
-
-
-    localStorage.setItem(
-        "favoris",
-        JSON.stringify(favoris)
-    );
-
-
-    let like = article.querySelector(".like-btn");
-
-
-    like.innerHTML="👍 J'aime";
-
-
-    like.style.background="#16a34a";
+    button.innerHTML="👍 <span>Vous aimez</span>";
 
 
 }
+
