@@ -765,3 +765,34 @@ body.sombre button {
     margin:20px;
 
 }
+
+#darkMode,
+#darkModeMenu {
+
+    background:#0b57d0;
+    color:white;
+    border:none;
+    padding:10px 15px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+
+}
+
+
+#darkMode:hover,
+#darkModeMenu:hover {
+
+    background:#084298;
+
+}
+
+
+/* Menu sombre */
+
+#darkModeMenu {
+
+    margin:15px 25px;
+    width:230px;
+
+}
