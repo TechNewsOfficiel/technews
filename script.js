@@ -293,8 +293,7 @@ function aimerArticle(button){
 
 
 
-    button.innerHTML="👍 <span>Vous aimez</span>";
-
+    button.innerHTML="👍 <span>Vous aimez cet article</span>";
 
 }
 
