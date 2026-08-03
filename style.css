@@ -783,7 +783,7 @@ body.sombre a {
 }
 
 
-/* Bouton mode sombre dans le menu */
+/* Mode sombre dans le menu */
 
 #darkMode {
 
@@ -791,7 +791,7 @@ body.sombre a {
 
     width:100%;
 
-    background:none;
+    background:transparent;
 
     border:none;
 
@@ -815,15 +815,6 @@ body.sombre a {
 #darkMode:hover {
 
     background:#0b57d0;
-
-    color:white;
-
-}
-
-
-/* Bouton en mode sombre */
-
-body.sombre button {
 
     color:white;
 
