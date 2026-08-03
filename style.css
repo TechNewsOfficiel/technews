@@ -732,7 +732,12 @@ nav {
 
     border-top:1px solid #374151;
 
-    /* Mode sombre */
+    margin:20px;
+
+}
+
+
+/* Mode sombre */
 
 body.sombre {
     background-color: #121212;
