@@ -26,99 +26,31 @@ function toggleMenu(){
 
 // ===== MODE SOMBRE =====
 
-document.addEventListener("DOMContentLoaded", function(){
-
+document.addEventListener("DOMContentLoaded", function () {
 
     const darkButton = document.getElementById("darkModeMenu");
 
-
-    if(darkButton){
-
-
-        darkButton.addEventListener("click", function(){
-
-
-            document.body.classList.toggle("sombre");
-
-
-            if(document.body.classList.contains("sombre")){
-
-
-                darkButton.textContent = "Mode clair";
-
-
-            }
-            else{
-
-
-                darkButton.textContent = "Mode sombre";
-
-
-            }
-
-
-        });
-
-
+    if (!darkButton) {
+        console.log("Bouton mode sombre introuvable");
+        return;
     }
 
 
+    darkButton.addEventListener("click", function () {
 
-});
-
-
-
-// ===== RECHERCHE =====
-
-const form = document.getElementById("searchForm");
-
-const input = document.getElementById("searchInput");
-
-const articles = document.querySelectorAll(".card");
+        document.body.classList.toggle("sombre");
 
 
+        if (document.body.classList.contains("sombre")) {
 
-if(form){
+            darkButton.innerText = "Mode clair";
 
+        } else {
 
-    form.addEventListener("submit", function(e){
+            darkButton.innerText = "Mode sombre";
 
-
-        e.preventDefault();
-
-
-        const recherche = input.value.toLowerCase().trim();
-
-
-
-        articles.forEach(function(article){
-
-
-            const texte = article.innerText.toLowerCase();
-
-
-
-            if(texte.includes(recherche) || recherche === ""){
-
-
-                article.style.display="block";
-
-
-            }
-            else{
-
-
-                article.style.display="none";
-
-
-            }
-
-
-        });
-
-
+        }
 
     });
 
-
-}
+});
