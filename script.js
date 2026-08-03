@@ -298,3 +298,35 @@ function aimerArticle(button){
 
 }
 
+function retirerFavori(button){
+
+    let article = button.closest(".card");
+
+    let titre = article.querySelector("h3").innerText;
+
+
+    let favoris = JSON.parse(localStorage.getItem("favoris")) || [];
+
+
+    favoris = favoris.filter(function(item){
+
+        return item !== titre;
+
+    });
+
+
+    localStorage.setItem(
+        "favoris",
+        JSON.stringify(favoris)
+    );
+
+
+    let like = article.querySelector(".like-btn");
+
+
+    like.innerHTML="👍 <span>J'aime</span>";
+
+    like.style.background="#22c55e";
+
+}
+
