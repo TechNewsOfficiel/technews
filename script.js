@@ -254,3 +254,81 @@ localStorage.setItem("favoris", JSON.stringify(favoris));
 
 
 });
+
+// ===== SYSTEME FAVORIS =====
+
+
+function aimerArticle(button){
+
+
+    let article = button.closest(".card");
+
+
+    let titre = article.querySelector("h3").innerText;
+
+
+    let favoris = JSON.parse(localStorage.getItem("favoris")) || [];
+
+
+    if(!favoris.includes(titre)){
+
+
+        favoris.push(titre);
+
+
+        localStorage.setItem(
+            "favoris",
+            JSON.stringify(favoris)
+        );
+
+
+    }
+
+
+    button.innerHTML="👍 Aimé";
+
+
+    button.style.background="#15803d";
+
+
+}
+
+
+
+// Retirer des favoris
+
+function retirerFavori(button){
+
+
+    let article = button.closest(".card");
+
+
+    let titre = article.querySelector("h3").innerText;
+
+
+    let favoris = JSON.parse(localStorage.getItem("favoris")) || [];
+
+
+    favoris = favoris.filter(function(item){
+
+        return item !== titre;
+
+    });
+
+
+    localStorage.setItem(
+        "favoris",
+        JSON.stringify(favoris)
+    );
+
+
+    let like = article.querySelector(".like-btn");
+
+
+    like.innerHTML="👍 J'aime";
+
+
+    like.style.background="#16a34a";
+
+
+}
