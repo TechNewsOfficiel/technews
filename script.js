@@ -1,24 +1,54 @@
 const bouton = document.getElementById("darkMode");
+const boutonMenu = document.getElementById("darkModeMenu");
 
-// Quand on clique sur le bouton
-bouton.addEventListener("click", function () {
+
+function changerMode() {
 
     document.body.classList.toggle("sombre");
 
-    // Change le texte du bouton
     if (document.body.classList.contains("sombre")) {
+
         bouton.textContent = "☀️ Mode clair";
+
+        if (boutonMenu) {
+            boutonMenu.textContent = "☀️ Mode clair";
+        }
+
         localStorage.setItem("theme", "sombre");
+
     } else {
+
         bouton.textContent = "🌙 Mode sombre";
+
+        if (boutonMenu) {
+            boutonMenu.textContent = "🌙 Mode sombre";
+        }
+
         localStorage.setItem("theme", "clair");
+
     }
 
-});
+}
 
 
-// Garde le choix après un changement de page
+bouton.addEventListener("click", changerMode);
+
+
+if (boutonMenu) {
+    boutonMenu.addEventListener("click", changerMode);
+}
+
+
+// Garde le mode quand on change de page
+
 if (localStorage.getItem("theme") === "sombre") {
+
     document.body.classList.add("sombre");
+
     bouton.textContent = "☀️ Mode clair";
+
+    if (boutonMenu) {
+        boutonMenu.textContent = "☀️ Mode clair";
+    }
+
 }
