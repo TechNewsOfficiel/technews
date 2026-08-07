@@ -492,3 +492,35 @@ ajouterVue();
 ajouterUtilisateur();
 
 afficherStatistiques();
+
+function ajouterFavori(titre, lien, image){
+
+    let favoris = JSON.parse(localStorage.getItem("favoris")) || [];
+
+    let existe = favoris.find(article => article.titre === titre);
+
+
+    if(existe){
+
+        alert("Cet article est déjà dans vos favoris ⭐");
+
+        return;
+    }
+
+
+    favoris.push({
+        titre: titre,
+        lien: lien,
+        image: image
+    });
+
+
+    localStorage.setItem(
+        "favoris",
+        JSON.stringify(favoris)
+    );
+
+
+    alert("Article ajouté aux favoris ⭐");
+
+}
