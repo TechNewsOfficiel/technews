@@ -36,5 +36,51 @@
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+const ctx = document.createElement("canvas");
+ctx.id = "viewsChart";
+
+document.querySelector(".graph-container").appendChild(ctx);
+
+new Chart(ctx, {
+    type: "line",
+    data: {
+        labels: ["Lun","Mar","Mer","Jeu","Ven","Sam","Dim"],
+        datasets: [{
+            label: "Vues",
+            data: [350,420,390,650,700,820,980],
+            borderColor: "#ff0000",
+            backgroundColor: "rgba(255,0,0,0.2)",
+            fill: true,
+            tension: 0.4
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                labels: {
+                    color: "white"
+                }
+            }
+        },
+        scales: {
+            x: {
+                ticks: {
+                    color: "white"
+                }
+            },
+            y: {
+                ticks: {
+                    color: "white"
+                }
+            }
+        }
+    }
+});
+</script>
+    
 </body>
 </html>
