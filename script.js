@@ -329,3 +329,166 @@ function retirerFavori(button){
 
 }
 
+// ===============================
+// STATISTIQUES DU SITE
+// ===============================
+
+
+// Création des données si elles n'existent pas
+if(localStorage.getItem("vues") === null){
+    localStorage.setItem("vues", 0);
+}
+
+if(localStorage.getItem("likes") === null){
+    localStorage.setItem("likes", 0);
+}
+
+if(localStorage.getItem("utilisateurs") === null){
+    localStorage.setItem("utilisateurs", 0);
+}
+
+if(localStorage.getItem("articles") === null){
+    localStorage.setItem("articles", 0);
+}
+
+
+
+// ===============================
+// AJOUT D'UNE VUE
+// ===============================
+
+function ajouterVue(){
+
+    let vues = Number(localStorage.getItem("vues"));
+
+    vues++;
+
+    localStorage.setItem("vues", vues);
+}
+
+
+
+// ===============================
+// AJOUT D'UN UTILISATEUR
+// ===============================
+
+function ajouterUtilisateur(){
+
+    let dejaVu = localStorage.getItem("visiteur");
+
+    if(dejaVu === null){
+
+        let utilisateurs =
+        Number(localStorage.getItem("utilisateurs"));
+
+        utilisateurs++;
+
+        localStorage.setItem(
+            "utilisateurs",
+            utilisateurs
+        );
+
+        localStorage.setItem(
+            "visiteur",
+            "oui"
+        );
+    }
+}
+
+
+
+// ===============================
+// SYSTEME DE LIKE
+// ===============================
+
+function aimerArticle(){
+
+    let aimeDeja =
+    localStorage.getItem("aime");
+
+    if(aimeDeja === null){
+
+        let likes =
+        Number(localStorage.getItem("likes"));
+
+        likes++;
+
+        localStorage.setItem(
+            "likes",
+            likes
+        );
+
+        localStorage.setItem(
+            "aime",
+            "oui"
+        );
+
+        alert("Merci pour votre 👍 !");
+
+    }else{
+
+        alert("Vous avez déjà aimé cet article.");
+
+    }
+
+}
+
+
+
+// ===============================
+// AFFICHAGE DES STATISTIQUES
+// ===============================
+
+function afficherStatistiques(){
+
+
+    let vues =
+    document.getElementById("vues");
+
+
+    let likes =
+    document.getElementById("likes");
+
+
+    let utilisateurs =
+    document.getElementById("utilisateurs");
+
+
+
+    if(vues){
+
+        vues.innerHTML =
+        localStorage.getItem("vues");
+
+    }
+
+
+    if(likes){
+
+        likes.innerHTML =
+        localStorage.getItem("likes");
+
+    }
+
+
+    if(utilisateurs){
+
+        utilisateurs.innerHTML =
+        localStorage.getItem("utilisateurs");
+
+    }
+
+}
+
+
+
+// ===============================
+// LANCEMENT AUTOMATIQUE
+// ===============================
+
+
+ajouterVue();
+
+ajouterUtilisateur();
+
+afficherStatistiques();
