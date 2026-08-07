@@ -1,1 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
 
+<head>
+
+<meta charset="UTF-8">
+<title>Mes favoris</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+<h1>⭐ Mes favoris</h1>
+
+<p>Retrouvez vos articles enregistrés</p>
+
+</header>
+
+
+<nav>
+
+<a href="index.html">Accueil</a>
+<a href="ia.html">IA</a>
+<a href="smartphones.html">Smartphones</a>
+<a href="gaming.html">Gaming</a>
+<a href="cybersecurite.html">Cybersécurité</a>
+<a href="favoris.html">⭐ Favoris</a>
+<a href="statistiques.html">📊 Statistiques</a>
+
+</nav>
+
+
+
+<main>
+
+<h2 class="title">Mes articles favoris</h2>
+
+
+<div class="news-grid" id="listeFavoris">
+
+</div>
+
+
+</main>
+
+
+
+<script src="script.js"></script>
+
+
+<script>
+
+let favoris = JSON.parse(localStorage.getItem("favoris")) || [];
+
+let zone = document.getElementById("listeFavoris");
+
+
+if(favoris.length === 0){
+
+    zone.innerHTML = "<p>Aucun article en favoris ⭐</p>";
+
+}
+
+else{
+
+    favoris.forEach(article => {
+
+
+        zone.innerHTML += `
+
+        <div class="card">
+
+            <img src="${article.image}">
+
+            <div class="content">
+
+                <h3>${article.titre}</h3>
+
+                <a href="${article.lien}">
+                Lire l'article
+                </a>
+
+            </div>
+
+        </div>
+
+        `;
+
+
+    });
+
+}
+
+</script>
+
+
+</body>
+
+</html>
