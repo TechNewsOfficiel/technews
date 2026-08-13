@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Créer un compte - TechNews</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body class="account-page">
+
+
+    <div class="account-container">
+
+
+        <!-- LOGO -->
+
+        <a href="index.html" class="account-logo">
+            <span>TECH</span>NEWS
+        </a>
+
+
+        <!-- CARTE -->
+
+        <div class="account-card">
+
+            <h1>Créer un compte</h1>
+
+            <p class="account-subtitle">
+                Rejoins TechNews et retrouve toute l'actualité tech.
+            </p>
+
+
+            <form id="registerForm">
+
+
+                <!-- NOM -->
+
+                <div class="form-group">
+
+                    <label for="username">
+                        Nom d'utilisateur
+                    </label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Ton nom d'utilisateur"
+                        minlength="3"
+                        required
+                        autocomplete="username"
+                    >
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Adresse e-mail
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="exemple@email.com"
+                        required
+                        autocomplete="email"
+                    >
+
+                </div>
+
+
+                <!-- MOT DE PASSE -->
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Mot de passe
+                    </label>
+
+                    <div class="password-container">
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Minimum 8 caractères"
+                            minlength="8"
+                            required
+                            autocomplete="new-password"
+                        >
+
+                        <button
+                            type="button"
+                            class="show-password"
+                            onclick="togglePassword('password', this)"
+                        >
+                            👁
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CONFIRMATION -->
+
+                <div class="form-group">
+
+                    <label for="confirmPassword">
+                        Confirmer le mot de passe
+                    </label>
+
+                    <div class="password-container">
+
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            placeholder="Retape ton mot de passe"
+                            minlength="8"
+                            required
+                            autocomplete="new-password"
+                        >
+
+                        <button
+                            type="button"
+                            class="show-password"
+                            onclick="togglePassword('confirmPassword', this)"
+                        >
+                            👁
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CONDITIONS -->
+
+                <div class="terms">
+
+                    <input
+                        type="checkbox"
+                        id="terms"
+                        required
+                    >
+
+                    <label for="terms">
+                        J'accepte les conditions d'utilisation.
+                    </label>
+
+                </div>
+
+
+                <!-- MESSAGE -->
+
+                <p id="registerMessage" class="form-message"></p>
+
+
+                <!-- BOUTON -->
+
+                <button
+                    type="submit"
+                    class="account-submit"
+                >
+                    Créer mon compte
+                </button>
+
+
+            </form>
+
+
+            <!-- LIEN CONNEXION -->
+
+            <p class="account-footer">
+
+                Tu as déjà un compte ?
+
+                <a href="connexion.html">
+                    Se connecter
+                </a>
+
+            </p>
+
+
+        </div>
+
+
+        <a href="index.html" class="back-home">
+            ← Retour à TechNews
+        </a>
+
+
+    </div>
+
+
+    <script src="account.js"></script>
+
+</body>
+
+</html>
