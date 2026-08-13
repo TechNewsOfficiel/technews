@@ -18,20 +18,20 @@ Les nouveautés récentes dans l'intelligence artificielle.
 
 Contraintes :
 - environ 700 mots
-- titre accrocheur
-- introduction
+- un titre accrocheur
+- une introduction
 - plusieurs sous-titres
 - texte clair et naturel
 - ne pas inventer de chiffres ou de faits précis
 - terminer par une conclusion
 """
 
-response = client.models.generate_content(
-    model="gemini-2.5-flash",
-    contents=prompt
+interaction = client.interactions.create(
+    model="gemini-3.6-flash",
+    input=prompt
 )
 
-article = response.text
+article = interaction.output_text
 
 with open("article-test.md", "w", encoding="utf-8") as f:
     f.write("# Article TechNews\n\n")
