@@ -9,25 +9,33 @@ function toggleMenu(){
 
     if(!menu) return;
 
+    // Ouvre / ferme le menu
     menu.classList.toggle("open");
 
 
     if(menu.classList.contains("open")){
 
+        // Cache le bouton MENU
         if(button){
             button.style.display = "none";
         }
 
+        // BLOQUE LE SCROLL DE LA PAGE
+        document.body.classList.add("menu-open");
+
     } else {
 
+        // Réaffiche le bouton MENU
         if(button){
             button.style.display = "block";
         }
 
+        // AUTORISE À NOUVEAU LE SCROLL DE LA PAGE
+        document.body.classList.remove("menu-open");
+
     }
 
 }
-
 
 
 
