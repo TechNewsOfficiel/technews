@@ -4,9 +4,22 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
+  generer:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Tester GitHub Actions
-        run: echo "Le robot TechNews fonctionne !"
+      - name: Recuperer le site
+        uses: actions/checkout@v4
+
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer les dependances
+        run: pip install google-genai
+
+      - name: Generer l'article
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python generate_article.py
