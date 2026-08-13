@@ -1614,3 +1614,485 @@ body.menu-open {
     background: #084298;
     color: white;
 }
+
+/* ========================================= */
+/* ===== PAGES CONNEXION / INSCRIPTION ===== */
+/* ========================================= */
+
+.account-page {
+
+    min-height: 100vh;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eef5ff,
+            #f8fafc
+        );
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 30px;
+
+}
+
+
+/* CONTENEUR */
+
+.account-container {
+
+    width: 100%;
+
+    max-width: 460px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+}
+
+
+/* LOGO */
+
+.account-logo {
+
+    text-decoration: none;
+
+    font-size: 32px;
+
+    font-weight: 900;
+
+    letter-spacing: -1.5px;
+
+    margin-bottom: 25px;
+
+    color: #111827;
+
+}
+
+
+.account-logo span {
+
+    color: #0b57d0;
+
+}
+
+
+/* CARTE */
+
+.account-card {
+
+    width: 100%;
+
+    background: white;
+
+    padding: 40px;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,0.10);
+
+    border: 1px solid #e5e7eb;
+
+}
+
+
+/* TITRE */
+
+.account-card h1 {
+
+    margin: 0;
+
+    text-align: center;
+
+    font-size: 30px;
+
+    color: #111827;
+
+}
+
+
+/* SOUS-TITRE */
+
+.account-subtitle {
+
+    text-align: center;
+
+    color: #6b7280;
+
+    margin-top: 10px;
+
+    margin-bottom: 30px;
+
+    line-height: 1.5;
+
+}
+
+
+/* GROUPES */
+
+.form-group {
+
+    margin-bottom: 20px;
+
+}
+
+
+/* LABEL */
+
+.form-group label {
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #374151;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+}
+
+
+/* INPUT */
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+
+    width: 100%;
+
+    height: 50px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 10px;
+
+    padding: 0 15px;
+
+    font-size: 15px;
+
+    color: #111827;
+
+    background: #fff;
+
+    outline: none;
+
+    transition: 0.2s;
+
+}
+
+
+/* FOCUS */
+
+.form-group input:focus {
+
+    border-color: #0b57d0;
+
+    box-shadow:
+        0 0 0 3px rgba(11,87,208,0.12);
+
+}
+
+
+/* MOT DE PASSE */
+
+.password-container {
+
+    position: relative;
+
+}
+
+
+.password-container input {
+
+    padding-right: 50px !important;
+
+}
+
+
+.show-password {
+
+    position: absolute;
+
+    right: 10px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 36px;
+
+    height: 36px;
+
+    border: none;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    border-radius: 8px;
+
+    font-size: 17px;
+
+}
+
+
+.show-password:hover {
+
+    background: #f3f4f6;
+
+}
+
+
+/* MOT DE PASSE OUBLIÉ */
+
+.password-label {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+}
+
+
+.password-label label {
+
+    margin-bottom: 8px;
+
+}
+
+
+.password-label a {
+
+    color: #0b57d0;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+}
+
+
+.password-label a:hover {
+
+    text-decoration: underline;
+
+}
+
+
+/* CONDITIONS */
+
+.terms,
+.remember {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    margin: 10px 0 20px;
+
+    color: #6b7280;
+
+    font-size: 13px;
+
+}
+
+
+.terms input,
+.remember input {
+
+    width: 16px;
+
+    height: 16px;
+
+    accent-color: #0b57d0;
+
+}
+
+
+/* BOUTON PRINCIPAL */
+
+.account-submit {
+
+    width: 100%;
+
+    height: 50px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #0b57d0;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.25s;
+
+}
+
+
+.account-submit:hover {
+
+    background: #084298;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 15px rgba(11,87,208,0.25);
+
+}
+
+
+/* MESSAGE */
+
+.form-message {
+
+    display: none;
+
+    padding: 12px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    margin-bottom: 15px;
+
+}
+
+
+.form-message.success {
+
+    display: block;
+
+    background: #dcfce7;
+
+    color: #166534;
+
+}
+
+
+.form-message.error {
+
+    display: block;
+
+    background: #fee2e2;
+
+    color: #991b1b;
+
+}
+
+
+/* PIED DE CARTE */
+
+.account-footer {
+
+    text-align: center;
+
+    margin: 25px 0 0;
+
+    color: #6b7280;
+
+    font-size: 14px;
+
+}
+
+
+.account-footer a {
+
+    color: #0b57d0;
+
+    font-weight: bold;
+
+    text-decoration: none;
+
+}
+
+
+.account-footer a:hover {
+
+    text-decoration: underline;
+
+}
+
+
+/* RETOUR */
+
+.back-home {
+
+    margin-top: 20px;
+
+    color: #6b7280;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+}
+
+
+.back-home:hover {
+
+    color: #0b57d0;
+
+}
+
+
+/* ========================================= */
+/* ================ MOBILE ================= */
+/* ========================================= */
+
+@media(max-width: 600px) {
+
+    .account-page {
+
+        padding: 20px;
+
+        align-items: flex-start;
+
+        padding-top: 40px;
+
+    }
+
+
+    .account-card {
+
+        padding: 28px 22px;
+
+        border-radius: 16px;
+
+    }
+
+
+    .account-card h1 {
+
+        font-size: 26px;
+
+    }
+
+
+    .account-logo {
+
+        font-size: 28px;
+
+    }
+
+}
