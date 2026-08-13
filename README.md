@@ -1,51 +1,51 @@
-# 🚀 TechNews
+# TechNews
 
 Bienvenue sur **TechNews**, un site d'actualité consacré aux nouvelles technologies.
 
-## 📰 Présentation
+## Présentation
 
 TechNews a pour objectif de présenter les dernières informations dans le domaine de la technologie :
 
-- 🤖 Intelligence artificielle
-- 📱 Smartphones
-- 🎮 Jeux vidéo
-- 🔐 Cybersécurité
-- 💻 Innovations numériques
+- Intelligence artificielle
+- Smartphones
+- Jeux vidéo
+- Cybersécurité
+- Innovations numériques
 
 Le site propose des actualités simples à comprendre pour suivre l'évolution du monde tech.
 
-## 🌐 Site en ligne
+## Site en ligne
 
-Le site est disponible ici :
+Le site est disponible ici : 
 
 https://technewsofficiel.github.io/technews/
 
-## 🛠️ Technologies utilisées
+## Technologies utilisées
 
 - HTML5
 - CSS3
 - JavaScript (prévu)
 - GitHub Pages
 
-## ✨ Fonctionnalités actuelles
+## Fonctionnalités actuelles
 
-✅ Page d'accueil moderne  
-✅ Design responsive (ordinateur et mobile)  
-✅ Catégories d'actualités  
-✅ Cartes d'articles avec images  
+Page d'accueil moderne  
+Design responsive (ordinateur et mobile)  
+Catégories d'actualités  
+Cartes d'articles avec images  
 
-## 🔮 Améliorations prévues
+## Améliorations prévues
 
-- 🤖 Résumés automatiques avec une intelligence artificielle
-- 🔔 Notifications des nouvelles actualités
-- 📰 Mise à jour automatique des informations
-- 🔎 Système de recherche
-- 📱 Application mobile
+- Résumés automatiques avec une intelligence artificielle
+- Notifications des nouvelles actualités
+- Mise à jour automatique des informations
+- Système de recherche
+- Application mobile
 
-## 👨‍💻 Auteur
+## Auteur
 
 Projet créé par **TechNewsOfficiel**.
 
 ---
 
-Merci de visiter TechNews 🚀
+Merci de visiter TechNews
