@@ -100,33 +100,54 @@ L'actualité des technologies, de l'IA et du numérique
 
 
 
-<nav>
+<nav class="top-nav">
 
-    <button id="menu-btn" onclick="toggleMenu()">
-        ☰ MENU
-    </button>
+    <!-- GAUCHE : MENU + LOGO -->
+    <div class="nav-brand">
 
-    <a href="index.html">
-        Accueil
-    </a>
+        <button id="menu-btn" onclick="toggleMenu()" aria-label="Ouvrir le menu">
+            ☰
+        </button>
 
-    <a href="ia.html">
-        IA
-    </a>
+        <a href="index.html" class="logo">
+            <span class="logo-tech">TECH</span><span class="logo-news">NEWS</span>
+        </a>
 
-    <a href="smartphones.html">
-        Smartphones
-    </a>
+    </div>
 
-    <a href="gaming.html">
-        Gaming
-    </a>
 
-    <a href="cybersecurite.html">
-        Cybersécurité
-    </a>
+    <!-- CENTRE : CATÉGORIES -->
+    <div class="nav-categories">
 
-    <div class="account-buttons">
+        <a href="index.html" class="active">
+            Accueil
+        </a>
+
+        <a href="ia.html">
+            IA
+        </a>
+
+        <a href="smartphones.html">
+            Smartphones
+        </a>
+
+        <a href="gaming.html">
+            Gaming
+        </a>
+
+        <a href="cybersecurite.html">
+            Cybersécurité
+        </a>
+
+    </div>
+
+
+    <!-- DROITE : RECHERCHE + COMPTE -->
+    <div class="nav-actions">
+
+        <button class="search-button" onclick="focusSearch()">
+            🔍
+        </button>
 
         <a href="connexion.html" class="login-btn">
             Se connecter
