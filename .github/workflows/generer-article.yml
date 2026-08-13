@@ -23,3 +23,10 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python generate_article.py
+      - name: Publier l'article dans GitHub
+        run: |
+          git config user.name "TechNews Bot"
+          git config user.email "actions@github.com"
+          git add article-test.md
+          git commit -m "Ajout d'un nouvel article" || exit 0
+          git push
