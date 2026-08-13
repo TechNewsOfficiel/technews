@@ -1491,3 +1491,62 @@ body.sombre .reaction-box h4 {
     color:white;
 
 }
+
+/* ===== SCROLL DU MENU LATERAL ===== */
+
+#side-menu {
+    position: fixed;
+    top: 0;
+    left: -300px;
+
+    width: 280px;
+    height: 100vh;
+    height: 100dvh;
+
+    background: #111827;
+
+    padding-top: 80px;
+    padding-bottom: 30px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    z-index: 3000;
+
+    transition: left 0.3s ease;
+
+    /* Améliore le défilement sur téléphone */
+    -webkit-overflow-scrolling: touch;
+}
+
+#side-menu.open {
+    left: 0;
+}
+
+
+/* Quand le menu est ouvert,
+   on bloque le scroll de la page */
+
+body.menu-open {
+    overflow: hidden;
+}
+
+
+/* Croix */
+
+#close-menu {
+    position: absolute;
+
+    top: 20px;
+    right: 20px;
+
+    background: transparent;
+    border: none;
+
+    color: white;
+
+    font-size: 38px;
+    cursor: pointer;
+
+    z-index: 10;
+}
