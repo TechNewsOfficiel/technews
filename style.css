@@ -83,17 +83,12 @@ body {
 
 
 nav {
-
-    background:#111827;
-
-    padding:18px;
-
-    display:flex;
-
-    justify-content:center;
-
-    gap:40px;
-
+    background: #111827;
+    padding: 18px 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
 }
 
 
