@@ -668,27 +668,39 @@ nav {
 
 }
 
-/* ===== CORRECTION MENU LATERAL ===== */
-
-
 #side-menu {
     position: fixed;
     top: 0;
     left: -300px;
+
     width: 280px;
     height: 100vh;
+    height: 100dvh;
 
     background: #111827;
 
     padding-top: 80px;
+    padding-bottom: 30px;
 
-    /* Permet de descendre dans le menu */
     overflow-y: auto;
     overflow-x: hidden;
 
-    transition: left 0.3s ease;
+    /* Cache la barre de défilement */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
     z-index: 3000;
+    transition: left 0.3s ease;
+
+    -webkit-overflow-scrolling: touch;
 }
+
+/* Chrome / Edge / Safari */
+#side-menu::-webkit-scrollbar {
+    display: none;
+}
+
+
 
 #side-menu.open {
     left: 0;
