@@ -1562,3 +1562,15 @@ body.menu-open {
 
     z-index: 10;
 }
+
+/* ===== CACHER LA BARRE DU MENU ===== */
+
+#side-menu {
+    overflow-y: auto;
+    scrollbar-width: none;        /* Firefox */
+    -ms-overflow-style: none;     /* Internet Explorer */
+}
+
+#side-menu::-webkit-scrollbar {
+    display: none;                /* Chrome, Edge, Safari */
+}
