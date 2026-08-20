@@ -369,14 +369,120 @@ with open(
 
 
 # =========================
-# MESSAGE
+# AJOUT DE L'ARTICLE A L'ACCUEIL
 # =========================
+
+from html import escape
+
+
+index_path = "index.html"
+
+
+# Vérifier que index.html existe
+if not os.path.exists(index_path):
+
+    raise RuntimeError(
+        "index.html est introuvable."
+    )
+
+
+# Lire index.html
+with open(
+    index_path,
+    "r",
+    encoding="utf-8"
+) as fichier:
+
+    index_html = fichier.read()
+
+
+# Sécuriser les informations
+titre_safe = escape(titre)
+
+chapeau_safe = escape(chapeau)
+
+categorie_safe = escape(categorie)
+
+lien_safe = escape(
+    f"articles/{nom_fichier}",
+    quote=True
+)
+
+image_safe = escape(
+    image,
+    quote=True
+)
+
+
+# Créer la carte
+carte_article = f"""
+
+<article class="card article-genere">
+
+<img
+src="{image_safe}"
+alt="{titre_safe}"
+>
+
+<div class="content">
+
+<small class="article-category">
+{categorie_safe}
+</small>
+
+<h3>
+{titre_safe}
+</h3>
+
+<p>
+{chapeau_safe}
+</p>
+
+<a href="{lien_safe}">
+Lire l'article
+</a>
+
+</div>
+
+</article>
+
+"""
+
+
+# Marqueur dans index.html
+marqueur = '<div id="articles-generes"></div>'
+
+
+# Vérifier que le marqueur existe
+if marqueur not in index_html:
+
+    raise RuntimeError(
+        "Le marqueur articles-generes "
+        "n'existe pas dans index.html."
+    )
+
+
+# Ajouter l'article
+index_html = index_html.replace(
+    marqueur,
+    marqueur + carte_article,
+    1
+)
+
+
+# Sauvegarder index.html
+with open(
+    index_path,
+    "w",
+    encoding="utf-8"
+) as fichier:
+
+    fichier.write(index_html)
+
 
 print("====================================")
 print("Article créé avec succès !")
-print("------------------------------------")
-print(f"Titre     : {titre}")
-print(f"Catégorie : {categorie}")
-print(f"Fichier   : {chemin}")
-print("Catalogue : articles.json")
+print(f"Fichier : {chemin}")
+print(f"Titre   : {titre}")
+print("Article ajouté à l'accueil !")
 print("====================================")
