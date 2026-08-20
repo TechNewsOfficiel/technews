@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Soutenir mon projet</title>
+
+    <meta
+        name="description"
+        content="Soutenez mon projet et participez à son développement."
+    >
+
+    <link rel="stylesheet" href="donation.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+
+        <div class="logo">
+            Mon Projet
+        </div>
+
+        <nav>
+            <a href="#accueil">Accueil</a>
+            <a href="#pourquoi">Pourquoi donner ?</a>
+            <a href="#don">Faire un don</a>
+        </nav>
+
+    </header>
+
+
+    <main>
+
+        <!-- HERO -->
+        <section id="accueil" class="hero">
+
+            <div class="hero-content">
+
+                <span class="badge">
+                    Soutenez le projet
+                </span>
+
+                <h1>
+                    Aidez-moi à faire grandir
+                    <span>ce projet</span>
+                </h1>
+
+                <p>
+                    Votre soutien m'aide à consacrer davantage de temps
+                    au projet, à améliorer le site et à continuer
+                    à proposer de nouvelles fonctionnalités.
+                </p>
+
+                <a href="#don" class="main-button">
+                    Faire un don
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- POURQUOI DONNER -->
+        <section id="pourquoi" class="section">
+
+            <div class="section-title">
+
+                <span>
+                    Votre soutien
+                </span>
+
+                <h2>
+                    À quoi servent les dons ?
+                </h2>
+
+                <p>
+                    Chaque contribution permet de soutenir directement
+                    le développement et la maintenance du projet.
+                </p>
+
+            </div>
+
+
+            <div class="cards">
+
+                <!-- CARTE 1 -->
+                <article class="card">
+
+                    <div class="icon">
+                        01
+                    </div>
+
+                    <h3>
+                        Améliorer le site
+                    </h3>
+
+                    <p>
+                        Ajouter de nouvelles fonctionnalités,
+                        améliorer le design et rendre le site
+                        plus agréable à utiliser.
+                    </p>
+
+                </article>
+
+
+                <!-- CARTE 2 -->
+                <article class="card">
+
+                    <div class="icon">
+                        02
+                    </div>
+
+                    <h3>
+                        Maintenance
+                    </h3>
+
+                    <p>
+                        Payer l'hébergement, les services nécessaires
+                        et maintenir le site en bon état.
+                    </p>
+
+                </article>
+
+
+                <!-- CARTE 3 -->
+                <article class="card">
+
+                    <div class="icon">
+                        03
+                    </div>
+
+                    <h3>
+                        Mon travail
+                    </h3>
+
+                    <p>
+                        Les dons me permettent de consacrer davantage
+                        de temps au projet et de financer mon travail.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- SECTION DON -->
+        <section id="don" class="don-section">
+
+            <div class="don-box">
+
+                <div class="don-header">
+
+                    <div class="don-symbol">
+                        +
+                    </div>
+
+                    <h2>
+                        Faire un don
+                    </h2>
+
+                    <p>
+                        Choisissez le montant que vous souhaitez
+                        donner pour soutenir le projet.
+                    </p>
+
+                </div>
+
+
+                <!-- MONTANTS -->
+                <div class="amounts">
+
+                    <button
+                        class="amount"
+                        data-amount="5"
+                        type="button"
+                    >
+                        5 €
+                    </button>
+
+                    <button
+                        class="amount"
+                        data-amount="10"
+                        type="button"
+                    >
+                        10 €
+                    </button>
+
+                    <button
+                        class="amount"
+                        data-amount="20"
+                        type="button"
+                    >
+                        20 €
+                    </button>
+
+                    <button
+                        class="amount"
+                        data-amount="50"
+                        type="button"
+                    >
+                        50 €
+                    </button>
+
+                    <button
+                        class="amount"
+                        data-amount="100"
+                        type="button"
+                    >
+                        100 €
+                    </button>
+
+                </div>
+
+
+                <!-- MONTANT PERSONNALISÉ -->
+                <div class="custom-amount">
+
+                    <label for="customAmount">
+                        Ou choisissez votre montant
+                    </label>
+
+                    <div class="input-container">
+
+                        <input
+                            type="number"
+                            id="customAmount"
+                            min="1"
+                            max="10000"
+                            step="1"
+                            placeholder="Montant"
+                        >
+
+                        <span>
+                            €
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- BOUTON DE DON -->
+                <button
+                    id="donButton"
+                    class="don-button"
+                    type="button"
+                >
+                    Continuer avec 0 €
+                </button>
+
+
+                <p class="secure">
+                    Paiement sécurisé via votre prestataire de paiement
+                </p>
+
+                <p class="small-text">
+                    Les dons servent notamment à financer le fonctionnement,
+                    la maintenance, les améliorations du site et mon travail
+                    sur le projet.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- SECTION MERCI -->
+        <section class="thanks">
+
+            <div class="thanks-content">
+
+                <div class="big-symbol">
+                    +
+                </div>
+
+                <h2>
+                    Merci pour votre soutien
+                </h2>
+
+                <p>
+                    Même une petite contribution peut faire une grande
+                    différence et m'aider à continuer le projet.
+                </p>
+
+                <a
+                    href="#don"
+                    class="secondary-button"
+                >
+                    Soutenir le projet
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <div class="footer-content">
+
+            <div>
+
+                <strong>
+                    Mon Projet
+                </strong>
+
+                <p>
+                    Merci de contribuer au développement du projet.
+                </p>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <a href="#accueil">
+                    Accueil
+                </a>
+
+                <a href="#pourquoi">
+                    Pourquoi donner
+                </a>
+
+                <a href="#don">
+                    Faire un don
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="copyright">
+            © 2026 Mon Projet — Tous droits réservés.
+        </div>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+    <script>
+
+        const amountButtons =
+            document.querySelectorAll(".amount");
+
+        const customAmount =
+            document.getElementById("customAmount");
+
+        const donButton =
+            document.getElementById("donButton");
+
+        let selectedAmount = 0;
+
+
+        /*
+         * Sélection d'un montant prédéfini
+         */
+        amountButtons.forEach(button => {
+
+            button.addEventListener("click", () => {
+
+                amountButtons.forEach(btn => {
+                    btn.classList.remove("selected");
+                });
+
+                button.classList.add("selected");
+
+                selectedAmount =
+                    Number(button.dataset.amount);
+
+                customAmount.value = "";
+
+                updateButton();
+
+            });
+
+        });
+
+
+        /*
+         * Montant personnalisé
+         */
+        customAmount.addEventListener("input", () => {
+
+            amountButtons.forEach(btn => {
+                btn.classList.remove("selected");
+            });
+
+            selectedAmount =
+                Number(customAmount.value);
+
+            updateButton();
+
+        });
+
+
+        /*
+         * Mise à jour du bouton
+         */
+        function updateButton() {
+
+            if (selectedAmount > 0) {
+
+                donButton.textContent =
+                    "Continuer avec " +
+                    selectedAmount +
+                    " €";
+
+                donButton.classList.add("active");
+
+            } else {
+
+                donButton.textContent =
+                    "Continuer avec 0 €";
+
+                donButton.classList.remove("active");
+
+            }
+
+        }
+
+
+        /*
+         * Bouton de paiement
+         */
+        donButton.addEventListener("click", () => {
+
+            if (selectedAmount <= 0) {
+
+                alert(
+                    "Veuillez choisir un montant."
+                );
+
+                return;
+            }
+
+
+            if (selectedAmount > 10000) {
+
+                alert(
+                    "Le montant maximum est de 10 000 €."
+                );
+
+                return;
+            }
+
+
+            /*
+             * IMPORTANT
+             *
+             * Cette partie devra être remplacée
+             * par ton système de paiement réel.
+             *
+             * Par exemple, avec Stripe :
+             *
+             * window.location.href =
+             * "TON_LIEN_DE_PAIEMENT";
+             */
+
+
+            alert(
+                "Merci pour votre soutien de " +
+                selectedAmount +
+                " €.\n\n" +
+                "Le paiement sera bientôt disponible."
+            );
+
+        });
+
+    </script>
+
+</body>
+</html>
