@@ -1,0 +1,863 @@
+/* =========================================
+   RESET
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    color: #18181b;
+
+    background: #ffffff;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.header {
+    position: sticky;
+
+    top: 0;
+
+    z-index: 1000;
+
+    height: 72px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 7%;
+
+    background:
+        rgba(255, 255, 255, 0.92);
+
+    backdrop-filter: blur(12px);
+
+    border-bottom:
+        1px solid #eeeeee;
+}
+
+
+.logo {
+    font-size: 20px;
+
+    font-weight: 800;
+
+    color: #18181b;
+}
+
+
+nav {
+    display: flex;
+
+    gap: 30px;
+}
+
+
+nav a {
+    color: #555555;
+
+    text-decoration: none;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    transition: 0.2s;
+}
+
+
+nav a:hover {
+    color: #e63965;
+}
+
+
+/* =========================================
+   HERO
+========================================= */
+
+.hero {
+    min-height: 650px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    padding: 80px 20px;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            #ffe5ec,
+            transparent 40%
+        ),
+        radial-gradient(
+            circle at bottom right,
+            #e7e9ff,
+            transparent 40%
+        ),
+        #ffffff;
+}
+
+
+.hero-content {
+    max-width: 800px;
+}
+
+
+.badge {
+    display: inline-block;
+
+    padding: 8px 16px;
+
+    margin-bottom: 25px;
+
+    border-radius: 100px;
+
+    background: #ffe5ec;
+
+    color: #d92f5a;
+
+    font-size: 14px;
+
+    font-weight: 700;
+}
+
+
+.hero h1 {
+    font-size:
+        clamp(42px, 7vw, 76px);
+
+    line-height: 1.05;
+
+    letter-spacing: -3px;
+
+    margin-bottom: 25px;
+}
+
+
+.hero h1 span {
+    color: #e63965;
+}
+
+
+.hero p {
+    max-width: 650px;
+
+    margin:
+        0 auto 35px;
+
+    color: #666666;
+
+    font-size: 19px;
+}
+
+
+/* =========================================
+   BOUTONS
+========================================= */
+
+.main-button,
+.secondary-button {
+    display: inline-block;
+
+    padding:
+        15px 28px;
+
+    border-radius: 12px;
+
+    text-decoration: none;
+
+    font-weight: 800;
+
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+}
+
+
+.main-button {
+    color: white;
+
+    background: #e63965;
+
+    box-shadow:
+        0 10px 30px
+        rgba(230, 57, 101, 0.25);
+}
+
+
+.main-button:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 15px 35px
+        rgba(230, 57, 101, 0.35);
+}
+
+
+.secondary-button {
+    color: #e63965;
+
+    background: #fff0f4;
+}
+
+
+.secondary-button:hover {
+    transform: translateY(-3px);
+}
+
+
+/* =========================================
+   SECTIONS
+========================================= */
+
+.section {
+    padding:
+        100px 7%;
+}
+
+
+.section-title {
+    max-width: 700px;
+
+    margin:
+        0 auto 60px;
+
+    text-align: center;
+}
+
+
+.section-title span {
+    color: #e63965;
+
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+    font-size: 13px;
+
+    letter-spacing: 1px;
+}
+
+
+.section-title h2 {
+    margin:
+        10px 0 15px;
+
+    font-size: 42px;
+
+    letter-spacing: -1px;
+}
+
+
+.section-title p {
+    color: #777777;
+
+    font-size: 17px;
+}
+
+
+/* =========================================
+   CARTES
+========================================= */
+
+.cards {
+    max-width: 1100px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 25px;
+}
+
+
+.card {
+    padding: 35px;
+
+    border:
+        1px solid #eeeeee;
+
+    border-radius: 20px;
+
+    background: white;
+
+    transition:
+        transform 0.25s,
+        box-shadow 0.25s;
+}
+
+
+.card:hover {
+    transform:
+        translateY(-7px);
+
+    box-shadow:
+        0 20px 50px
+        rgba(0, 0, 0, 0.08);
+}
+
+
+.icon {
+    width: 55px;
+
+    height: 55px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-bottom: 20px;
+
+    border-radius: 15px;
+
+    background: #fff0f4;
+
+    color: #e63965;
+
+    font-size: 15px;
+
+    font-weight: 800;
+}
+
+
+.card h3 {
+    margin-bottom: 10px;
+
+    font-size: 21px;
+}
+
+
+.card p {
+    color: #777777;
+}
+
+
+/* =========================================
+   SECTION DON
+========================================= */
+
+.don-section {
+    padding:
+        100px 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff1f5,
+            #f4f4ff
+        );
+}
+
+
+.don-box {
+    max-width: 620px;
+
+    margin: auto;
+
+    padding: 45px;
+
+    border-radius: 25px;
+
+    background: white;
+
+    box-shadow:
+        0 25px 80px
+        rgba(0, 0, 0, 0.08);
+}
+
+
+.don-header {
+    text-align: center;
+
+    margin-bottom: 35px;
+}
+
+
+.don-symbol {
+    display: inline-flex;
+
+    width: 65px;
+
+    height: 65px;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-bottom: 15px;
+
+    border-radius: 50%;
+
+    background: #fff0f4;
+
+    color: #e63965;
+
+    font-size: 30px;
+
+    font-weight: 800;
+}
+
+
+.don-header h2 {
+    font-size: 36px;
+
+    margin-bottom: 8px;
+}
+
+
+.don-header p {
+    color: #777777;
+}
+
+
+/* =========================================
+   MONTANTS
+========================================= */
+
+.amounts {
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, 1fr);
+
+    gap: 10px;
+
+    margin-bottom: 30px;
+}
+
+
+.amount {
+    padding:
+        14px 5px;
+
+    border:
+        2px solid #eeeeee;
+
+    border-radius: 12px;
+
+    background: white;
+
+    color: #333333;
+
+    font-size: 16px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+.amount:hover {
+    border-color: #e63965;
+
+    color: #e63965;
+}
+
+
+.amount.selected {
+    border-color: #e63965;
+
+    background: #e63965;
+
+    color: white;
+}
+
+
+/* =========================================
+   MONTANT PERSONNALISÉ
+========================================= */
+
+.custom-amount {
+    margin-bottom: 25px;
+}
+
+
+.custom-amount label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 14px;
+
+    font-weight: 700;
+}
+
+
+.input-container {
+    position: relative;
+}
+
+
+.input-container input {
+    width: 100%;
+
+    padding:
+        16px 45px 16px 16px;
+
+    border:
+        2px solid #eeeeee;
+
+    border-radius: 12px;
+
+    outline: none;
+
+    font-size: 17px;
+
+    transition: 0.2s;
+}
+
+
+.input-container input:focus {
+    border-color: #e63965;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(230, 57, 101, 0.08);
+}
+
+
+.input-container span {
+    position: absolute;
+
+    right: 17px;
+
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+
+    color: #777777;
+
+    font-weight: 800;
+}
+
+
+/* =========================================
+   BOUTON DON
+========================================= */
+
+.don-button {
+    width: 100%;
+
+    padding: 17px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: #cccccc;
+
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+.don-button.active {
+    background: #e63965;
+
+    box-shadow:
+        0 10px 25px
+        rgba(230, 57, 101, 0.2);
+}
+
+
+.don-button.active:hover {
+    transform:
+        translateY(-2px);
+}
+
+
+.secure {
+    margin-top: 18px;
+
+    text-align: center;
+
+    color: #777777;
+
+    font-size: 13px;
+}
+
+
+.small-text {
+    margin-top: 15px;
+
+    text-align: center;
+
+    color: #999999;
+
+    font-size: 12px;
+}
+
+
+/* =========================================
+   SECTION MERCI
+========================================= */
+
+.thanks {
+    padding:
+        100px 20px;
+
+    text-align: center;
+}
+
+
+.thanks-content {
+    max-width: 600px;
+
+    margin: auto;
+}
+
+
+.big-symbol {
+    font-size: 55px;
+
+    margin-bottom: 15px;
+
+    color: #e63965;
+
+    animation:
+        pulse 1.5s infinite;
+}
+
+
+.thanks h2 {
+    font-size: 38px;
+
+    margin-bottom: 15px;
+}
+
+
+.thanks p {
+    margin-bottom: 30px;
+
+    color: #777777;
+
+    font-size: 17px;
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+footer {
+    padding:
+        50px 7% 25px;
+
+    background: #18181b;
+
+    color: white;
+}
+
+
+.footer-content {
+    max-width: 1100px;
+
+    margin: auto;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 40px;
+}
+
+
+.footer-content strong {
+    font-size: 19px;
+}
+
+
+.footer-content p {
+    margin-top: 8px;
+
+    color: #999999;
+
+    font-size: 14px;
+}
+
+
+.footer-links {
+    display: flex;
+
+    gap: 25px;
+}
+
+
+.footer-links a {
+    color: #cccccc;
+
+    text-decoration: none;
+
+    font-size: 14px;
+}
+
+
+.footer-links a:hover {
+    color: white;
+}
+
+
+.copyright {
+    max-width: 1100px;
+
+    margin:
+        40px auto 0;
+
+    padding-top: 20px;
+
+    border-top:
+        1px solid #333333;
+
+    color: #777777;
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+   ANIMATION
+========================================= */
+
+@keyframes pulse {
+
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.12);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+
+}
+
+
+/* =========================================
+   RESPONSIVE / MOBILE
+========================================= */
+
+@media (max-width: 800px) {
+
+    .header {
+        padding: 0 20px;
+    }
+
+
+    nav {
+        display: none;
+    }
+
+
+    .hero {
+        min-height: 600px;
+
+        padding:
+            60px 20px;
+    }
+
+
+    .hero h1 {
+        font-size: 45px;
+
+        letter-spacing: -2px;
+    }
+
+
+    .hero p {
+        font-size: 17px;
+    }
+
+
+    .section {
+        padding:
+            70px 20px;
+    }
+
+
+    .section-title h2 {
+        font-size: 34px;
+    }
+
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+
+    .don-section {
+        padding:
+            60px 15px;
+    }
+
+
+    .don-box {
+        padding:
+            30px 20px;
+    }
+
+
+    .amounts {
+        grid-template-columns:
+            repeat(3, 1fr);
+    }
+
+
+    .footer-content {
+        flex-direction: column;
+    }
+
+
+    .footer-links {
+        flex-direction: column;
+
+        gap: 12px;
+    }
+
+}
