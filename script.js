@@ -532,3 +532,94 @@ function ajouterFavori(titre, lien, image){
     alert("Article ajouté aux favoris ⭐");
 
 }
+
+// =====================================
+// ARTICLES GENERES AUTOMATIQUEMENT
+// =====================================
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    chargerArticlesGeneres();
+
+});
+
+
+async function chargerArticlesGeneres() {
+
+    const container =
+        document.getElementById("articles");
+
+    if (!container) {
+        return;
+    }
+
+    try {
+
+        const response =
+            await fetch("articles.json");
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Impossible de charger articles.json"
+            );
+
+        }
+
+        const articles =
+            await response.json();
+
+
+        articles.forEach(function (article) {
+
+            const card =
+                document.createElement("article");
+
+            card.className = "card";
+
+
+            card.innerHTML = `
+
+                <img
+                    src="${article.image}"
+                    alt="${article.titre}"
+                >
+
+                <div class="content">
+
+                    <small class="article-category">
+                        ${article.categorie}
+                    </small>
+
+                    <h3>
+                        ${article.titre}
+                    </h3>
+
+                    <p>
+                        ${article.description}
+                    </p>
+
+                    <a href="${article.lien}">
+                        Lire l'article
+                    </a>
+
+                </div>
+
+            `;
+
+
+            container.prepend(card);
+
+        });
+
+
+    } catch (error) {
+
+        console.error(
+            "Erreur lors du chargement des articles :",
+            error
+        );
+
+    }
+
+}
