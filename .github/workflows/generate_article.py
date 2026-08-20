@@ -15,6 +15,7 @@ if not api_key:
 
 client = genai.Client(api_key=api_key)
 
+
 # =========================
 # GENERATION DE L'ARTICLE
 # =========================
@@ -48,6 +49,7 @@ Retourne UNIQUEMENT un JSON valide avec exactement ces champs :
 }
 """
 
+
 response = client.models.generate_content(
     model="gemini-3.6-flash",
     contents=prompt,
@@ -55,6 +57,7 @@ response = client.models.generate_content(
         "response_mime_type": "application/json"
     }
 )
+
 
 texte = response.text.strip()
 
@@ -64,30 +67,38 @@ texte = re.sub(r"\s*```$", "", texte)
 
 data = json.loads(texte)
 
+
 titre = data["titre"]
 categorie = data["categorie"]
 chapeau = data["chapeau"]
 sections = data["sections"]
 conclusion = data["conclusion"]
 
+
 # =========================
-# DATE ET NOM DU FICHIER
+# DATE ET SLUG
 # =========================
 
 date_du_jour = date.today().isoformat()
 
-slug = re.sub(r"[^a-z0-9]+", "-", titre.lower())
+
+slug = re.sub(
+    r"[^a-z0-9]+",
+    "-",
+    titre.lower()
+)
+
 slug = slug.strip("-")
 
-nom_fichier = f"article-{date_du_jour}-{slug}.html"
+
+nom_fichier = (
+    f"article-{date_du_jour}-{slug}.html"
+)
+
 
 # =========================
 # IMAGE
 # =========================
-
-# Image de test pour la catégorie IA.
-# Nous remplacerons ensuite cette partie par une génération
-# automatique d'images.
 
 image = (
     "https://images.unsplash.com/"
@@ -95,13 +106,16 @@ image = (
     "?auto=format&fit=crop&w=1200&q=80"
 )
 
+
 # =========================
 # CONSTRUCTION DU CONTENU
 # =========================
 
 contenu = ""
 
+
 for section in sections:
+
     contenu += f"""
 <h2>
 {section["titre"]}
@@ -109,11 +123,13 @@ for section in sections:
 """
 
     for paragraphe in section["paragraphes"]:
+
         contenu += f"""
 <p>
 {paragraphe}
 </p>
 """
+
 
 contenu += f"""
 <h2>
@@ -125,31 +141,46 @@ Conclusion
 </p>
 """
 
+
 # =========================
 # HTML COMPLET
 # =========================
 
 html = f"""<!DOCTYPE html>
+
 <html lang="fr">
 
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>TechNews - {titre}</title>
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
 
-<link rel="stylesheet" href="../style.css">
+<title>
+TechNews - {titre}
+</title>
+
+<link
+rel="stylesheet"
+href="../style.css"
+>
 
 </head>
 
+
 <body>
+
 
 <header>
 
 <div class="header">
 
-<h1>TechNews</h1>
+<h1>
+TechNews
+</h1>
 
 <p>
 L'actualité des technologies, de l'IA et du numérique
@@ -157,21 +188,38 @@ L'actualité des technologies, de l'IA et du numérique
 
 </div>
 
+
 <nav>
 
-<a href="../index.html">Accueil</a>
-<a href="../ia.html">IA</a>
-<a href="../smartphones.html">Smartphones</a>
-<a href="../jeux.html">Gaming</a>
-<a href="../cybersecurite.html">Cybersécurité</a>
+<a href="../index.html">
+Accueil
+</a>
+
+<a href="../ia.html">
+IA
+</a>
+
+<a href="../smartphones.html">
+Smartphones
+</a>
+
+<a href="../gaming.html">
+Gaming
+</a>
+
+<a href="../cybersecurite.html">
+Cybersécurité
+</a>
 
 </nav>
 
 </header>
 
+
 <main>
 
 <article class="article-page">
+
 
 <img
 src="{image}"
@@ -179,13 +227,16 @@ class="article-image"
 alt="{titre}"
 >
 
+
 <h1>
 {titre}
 </h1>
 
+
 <p class="date">
 {date_du_jour} • {categorie}
 </p>
+
 
 <p class="chapeau">
 
@@ -195,48 +246,14 @@ alt="{titre}"
 
 </p>
 
+
 {contenu}
+
 
 </article>
 
 </main>
 
-<div class="reaction-box">
-
-<h4>
-Votre avis sur cet article ?
-</h4>
-
-<div class="reaction-buttons">
-
-<button class="like-btn" onclick="aimerArticle(this)">
-👍
-<span>J'aime</span>
-</button>
-
-<button class="dislike-btn" onclick="retirerFavori(this)">
-👎
-<span>Je n'aime pas</span>
-</button>
-
-</div>
-
-<div class="favorite-box">
-
-<button
-class="favorite-btn"
-onclick="ajouterFavori(
-'{titre.replace("'", "\\'")}',
-'../ia.html',
-'{image}'
-)"
->
-⭐ Ajouter aux favoris
-</button>
-
-</div>
-
-</div>
 
 <footer>
 
@@ -246,26 +263,120 @@ onclick="ajouterFavori(
 
 </footer>
 
+
 <script src="../script.js"></script>
+
 
 </body>
 
 </html>
 """
 
+
 # =========================
 # CREATION DU DOSSIER
 # =========================
 
-os.makedirs("articles", exist_ok=True)
+os.makedirs(
+    "articles",
+    exist_ok=True
+)
 
-chemin = os.path.join("articles", nom_fichier)
 
-with open(chemin, "w", encoding="utf-8") as fichier:
+chemin = os.path.join(
+    "articles",
+    nom_fichier
+)
+
+
+with open(
+    chemin,
+    "w",
+    encoding="utf-8"
+) as fichier:
+
     fichier.write(html)
+
+
+# =========================
+# CREATION / MISE A JOUR
+# DE ARTICLES.JSON
+# =========================
+
+fichier_json = "articles.json"
+
+
+# Si articles.json existe déjà
+if os.path.exists(fichier_json):
+
+    with open(
+        fichier_json,
+        "r",
+        encoding="utf-8"
+    ) as fichier:
+
+        articles = json.load(fichier)
+
+else:
+
+    articles = []
+
+
+# =========================
+# INFORMATIONS DE L'ARTICLE
+# =========================
+
+article = {
+
+    "titre": titre,
+
+    "description": chapeau,
+
+    "categorie": categorie,
+
+    "date": date_du_jour,
+
+    "image": image,
+
+    "lien": f"articles/{nom_fichier}"
+
+}
+
+
+# Ajouter le nouvel article
+articles.insert(
+    0,
+    article
+)
+
+
+# =========================
+# SAUVEGARDE JSON
+# =========================
+
+with open(
+    fichier_json,
+    "w",
+    encoding="utf-8"
+) as fichier:
+
+    json.dump(
+        articles,
+        fichier,
+        ensure_ascii=False,
+        indent=4
+    )
+
+
+# =========================
+# MESSAGE
+# =========================
 
 print("====================================")
 print("Article créé avec succès !")
-print(f"Fichier : {chemin}")
-print(f"Titre   : {titre}")
+print("------------------------------------")
+print(f"Titre     : {titre}")
+print(f"Catégorie : {categorie}")
+print(f"Fichier   : {chemin}")
+print("Catalogue : articles.json")
 print("====================================")
