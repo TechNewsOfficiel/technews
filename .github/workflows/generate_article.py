@@ -1,11 +1,11 @@
 import os
 import json
 import re
+import base64
 from datetime import date
 from html import escape
 
 from google import genai
-from google.genai import types
 
 
 # ============================================================
@@ -17,154 +17,107 @@ API_KEY = os.environ.get("GEMINI_API_KEY")
 if not API_KEY:
     raise RuntimeError("GEMINI_API_KEY est introuvable.")
 
-
-client = genai.Client(
-    api_key=API_KEY
-)
-
-
-# ============================================================
-# OUTILS
-# ============================================================
-
-def nettoyer_json(texte):
-
-    texte = texte.strip()
-
-    if texte.startswith("```json"):
-        texte = texte[len("```json"):]
-
-    elif texte.startswith("```"):
-        texte = texte[len("```"):]
-
-    if texte.endswith("```"):
-        texte = texte[:-3]
-
-    return texte.strip()
-
-
-def creer_slug(titre):
-
-    titre = titre.lower()
-
-    accents = {
-        "à": "a",
-        "â": "a",
-        "ä": "a",
-        "é": "e",
-        "è": "e",
-        "ê": "e",
-        "ë": "e",
-        "î": "i",
-        "ï": "i",
-        "ô": "o",
-        "ö": "o",
-        "ù": "u",
-        "û": "u",
-        "ü": "u",
-        "ç": "c"
-    }
-
-    for ancien, nouveau in accents.items():
-        titre = titre.replace(ancien, nouveau)
-
-    titre = re.sub(
-        r"[^a-z0-9]+",
-        "-",
-        titre
-    )
-
-    return titre.strip("-")
+client = genai.Client(api_key=API_KEY)
 
 
 # ============================================================
 # DOSSIERS
 # ============================================================
 
-os.makedirs(
-    "articles",
-    exist_ok=True
-)
-
-os.makedirs(
-    "articles/images",
-    exist_ok=True
-)
+os.makedirs("articles", exist_ok=True)
+os.makedirs("articles/images", exist_ok=True)
 
 
 # ============================================================
-# 1. GENERATION DE L'ARTICLE
+# 1. GENERER L'ARTICLE
 # ============================================================
 
-print()
-print("========================================")
-print("GENERATION DE L'ARTICLE")
-print("========================================")
+print("Generation de l'article...")
 
 
-prompt_article = """
-Tu es journaliste pour TechNews, un site français
-consacré à la technologie, à l'intelligence artificielle
-et au numérique.
+prompt = """
+Tu es journaliste pour TechNews, un site français consacré
+aux nouvelles technologies, à l'intelligence artificielle,
+aux smartphones, au gaming et à la cybersécurité.
 
-Crée un article original sur un sujet intéressant
-concernant l'intelligence artificielle.
+Crée un article original et intéressant sur l'intelligence
+artificielle.
 
-Règles :
+L'article doit :
 
-- environ 700 mots
-- français naturel
-- titre sérieux et accrocheur
-- ne fabrique pas de chiffres
-- ne fabrique pas de citations
-- ne présente pas comme certain un fait incertain
-- texte adapté à un site d'actualité technologique
+- être en français
+- faire environ 700 mots
+- avoir un titre intéressant et sérieux
+- avoir un chapeau court
+- contenir plusieurs sections
+- être agréable à lire
+- ne pas inventer de chiffres
+- ne pas inventer de citations
+- ne pas inventer de sources
+- ne pas présenter comme certain quelque chose qui ne l'est pas
 
 Retourne UNIQUEMENT un JSON valide.
 
-Structure obligatoire :
+Format obligatoire :
 
 {
-    "titre": "...",
+    "titre": "Titre de l'article",
     "categorie": "Intelligence artificielle",
-    "chapeau": "...",
+    "chapeau": "Résumé court de l'article",
     "sections": [
         {
-            "titre": "...",
+            "titre": "Titre de la section",
             "paragraphes": [
-                "...",
-                "..."
+                "Premier paragraphe.",
+                "Deuxième paragraphe."
             ]
         }
     ],
-    "conclusion": "..."
+    "conclusion": "Conclusion de l'article."
 }
 """
 
 
-response_article = client.models.generate_content(
-
+response = client.models.generate_content(
     model="gemini-3.6-flash",
-
-    contents=prompt_article,
-
-    config=types.GenerateContentConfig(
-        response_mime_type="application/json"
-    )
+    contents=prompt,
+    config={
+        "response_mime_type": "application/json"
+    }
 )
 
 
-if not response_article.text:
-
+if not response.text:
     raise RuntimeError(
-        "Gemini n'a retourné aucun article."
+        "Gemini n'a retourne aucun article."
     )
 
 
-texte = nettoyer_json(
-    response_article.text
+texte = response.text.strip()
+
+
+# ============================================================
+# NETTOYER LES EVENTUELS BLOCS MARKDOWN
+# ============================================================
+
+texte = re.sub(
+    r"^```json\s*",
+    "",
+    texte
 )
 
+texte = re.sub(
+    r"\s*```$",
+    "",
+    texte
+)
+
+texte = texte.strip()
+
+
+# ============================================================
+# LIRE LE JSON
+# ============================================================
 
 try:
 
@@ -172,51 +125,88 @@ try:
 
 except json.JSONDecodeError as erreur:
 
-    print("Réponse Gemini reçue :")
-    print(response_article.text)
+    print("Réponse de Gemini :")
+    print(texte)
 
     raise RuntimeError(
-        f"JSON invalide : {erreur}"
+        f"Le JSON genere par Gemini est invalide : {erreur}"
     )
 
 
-titre = str(
-    data["titre"]
-).strip()
+# ============================================================
+# RECUPERER LES INFORMATIONS
+# ============================================================
 
-categorie = str(
-    data["categorie"]
-).strip()
+titre = str(data["titre"]).strip()
 
-chapeau = str(
-    data["chapeau"]
-).strip()
+categorie = str(data["categorie"]).strip()
+
+chapeau = str(data["chapeau"]).strip()
 
 sections = data["sections"]
 
-conclusion = str(
-    data["conclusion"]
-).strip()
+conclusion = str(data["conclusion"]).strip()
 
 
-print()
-print("Titre généré :")
-print(titre)
+print(f"Titre : {titre}")
 
 
 # ============================================================
-# 2. NOM DES FICHIERS
+# DATE
 # ============================================================
 
 date_du_jour = date.today().isoformat()
 
-slug = creer_slug(
-    titre
+
+# ============================================================
+# CREER UN SLUG
+# ============================================================
+
+slug = titre.lower()
+
+
+accents = {
+    "à": "a",
+    "â": "a",
+    "ä": "a",
+    "é": "e",
+    "è": "e",
+    "ê": "e",
+    "ë": "e",
+    "î": "i",
+    "ï": "i",
+    "ô": "o",
+    "ö": "o",
+    "ù": "u",
+    "û": "u",
+    "ü": "u",
+    "ç": "c"
+}
+
+
+for ancien, nouveau in accents.items():
+    slug = slug.replace(
+        ancien,
+        nouveau
+    )
+
+
+slug = re.sub(
+    r"[^a-z0-9]+",
+    "-",
+    slug
 )
+
+slug = slug.strip("-")
+
 
 if not slug:
     slug = "article-ia"
 
+
+# ============================================================
+# NOMS DES FICHIERS
+# ============================================================
 
 nom_article = (
     f"article-{date_du_jour}-{slug}.html"
@@ -240,20 +230,17 @@ chemin_image = os.path.join(
 
 
 # ============================================================
-# 3. GENERATION DE L'IMAGE
+# 2. GENERER L'IMAGE AVEC GEMINI
 # ============================================================
 
-print()
-print("========================================")
-print("GENERATION DE L'IMAGE")
-print("========================================")
+print("Generation de l'image...")
 
 
 prompt_image = f"""
 Create a professional editorial image for a French
 technology news website.
 
-The image must visually illustrate this article.
+The image must illustrate this article:
 
 TITLE:
 {titre}
@@ -261,79 +248,78 @@ TITLE:
 SUMMARY:
 {chapeau}
 
-Create an image specifically related to the subject
-described above.
+Create a realistic and modern technology news image
+that clearly matches the subject of the article.
 
 Style:
 
 - professional technology journalism
 - realistic
 - modern
+- cinematic
 - high quality
-- cinematic lighting
-- visually interesting
-- horizontal composition
-- suitable as a news website article thumbnail
+- horizontal 16:9 composition
+- suitable for a website article card
+- visually attractive
+
+IMPORTANT:
+
 - no text
 - no letters
-- no logos
+- no logo
 - no watermark
-
-The image must clearly represent the topic of the article.
 """
 
 
-response_image = client.models.generate_content(
-
+interaction = client.interactions.create(
     model="gemini-3.1-flash-image",
-
-    contents=[
-        prompt_image
-    ],
-
-    config=types.GenerateContentConfig(
-
-        response_modalities=[
-            "IMAGE"
-        ]
-
-    )
+    input=prompt_image,
+    response_format={
+        "type": "image",
+        "aspect_ratio": "16:9",
+        "image_size": "1K"
+    }
 )
 
 
-image_saved = False
-
-
-for part in response_image.parts:
-
-    if part.inline_data is not None:
-
-        image = part.as_image()
-
-        image.save(
-            chemin_image
-        )
-
-        image_saved = True
-
-        print()
-        print("Image générée avec succès.")
-        print(
-            f"Image : {chemin_image}"
-        )
-
-        break
-
-
-if not image_saved:
+if not interaction.output_image:
 
     raise RuntimeError(
-        "Gemini n'a retourné aucune image."
+        "Gemini n'a pas retourne d'image."
+    )
+
+
+image_data = interaction.output_image.data
+
+
+if not image_data:
+
+    raise RuntimeError(
+        "Gemini a retourne une image vide."
     )
 
 
 # ============================================================
-# 4. CONSTRUCTION DU CONTENU
+# SAUVEGARDER L'IMAGE
+# ============================================================
+
+with open(
+    chemin_image,
+    "wb"
+) as fichier:
+
+    fichier.write(
+        base64.b64decode(image_data)
+    )
+
+
+print(
+    f"Image creee : {chemin_image}"
+)
+
+
+# ============================================================
+# 3. CONSTRUIRE LE CONTENU DE L'ARTICLE
 # ============================================================
 
 contenu = ""
@@ -350,6 +336,7 @@ for section in sections:
 {titre_section}
 </h2>
 """
+
 
     for paragraphe in section["paragraphes"]:
 
@@ -376,10 +363,10 @@ Conclusion
 
 
 # ============================================================
-# 5. PAGE ARTICLE
+# 4. CREER LA PAGE HTML
 # ============================================================
 
-image_article = (
+image_dans_article = (
     f"images/{nom_image}"
 )
 
@@ -410,6 +397,7 @@ href="../style.css"
 
 <body>
 
+
 <header>
 
 <div class="header">
@@ -423,6 +411,7 @@ L'actualité des technologies, de l'IA et du numérique
 </p>
 
 </div>
+
 
 <nav>
 
@@ -450,35 +439,45 @@ Cybersécurité
 
 </header>
 
+
 <main>
 
 <article class="article-page">
 
+
 <img
-src="{escape(image_article, quote=True)}"
+src="{escape(image_dans_article, quote=True)}"
 class="article-image"
 alt="{escape(titre, quote=True)}"
 >
+
 
 <h1>
 {escape(titre)}
 </h1>
 
+
 <p class="date">
-{escape(date_du_jour)} • {escape(categorie)}
+{date_du_jour} • {escape(categorie)}
 </p>
 
+
 <p class="chapeau">
+
 <strong>
 {escape(chapeau)}
 </strong>
+
 </p>
 
+
 {contenu}
+
 
 </article>
 
 </main>
+
 
 <footer>
 
@@ -488,7 +487,9 @@ alt="{escape(titre, quote=True)}"
 
 </footer>
 
+
 <script src="../script.js"></script>
+
 
 </body>
 
@@ -507,13 +508,13 @@ with open(
     )
 
 
-print()
-print("Page article créée :")
-print(chemin_article)
+print(
+    f"Article cree : {chemin_article}"
+)
 
 
 # ============================================================
-# 6. ARTICLES.JSON
+# 5. ARTICLES.JSON
 # ============================================================
 
 fichier_json = "articles.json"
@@ -529,11 +530,9 @@ if os.path.exists(fichier_json):
             encoding="utf-8"
         ) as fichier:
 
-            articles = json.load(
-                fichier
-            )
+            articles = json.load(fichier)
 
-    except Exception:
+    except json.JSONDecodeError:
 
         articles = []
 
@@ -542,21 +541,9 @@ else:
     articles = []
 
 
-if not isinstance(
-    articles,
-    list
-):
+if not isinstance(articles, list):
 
     articles = []
-
-
-lien_article = (
-    f"articles/{nom_article}"
-)
-
-image_index = (
-    f"articles/images/{nom_image}"
-)
 
 
 nouvel_article = {
@@ -569,23 +556,14 @@ nouvel_article = {
 
     "date": date_du_jour,
 
-    "image": image_index,
+    "image": (
+        f"articles/images/{nom_image}"
+    ),
 
-    "lien": lien_article
-
+    "lien": (
+        f"articles/{nom_article}"
+    )
 }
-
-
-articles = [
-
-    article
-
-    for article in articles
-
-    if article.get("lien")
-    != lien_article
-
-]
 
 
 articles.insert(
@@ -609,12 +587,12 @@ with open(
 
 
 print(
-    "articles.json mis à jour."
+    "articles.json mis a jour."
 )
 
 
 # ============================================================
-# 7. AJOUT DE LA CARTE SUR INDEX.HTML
+# 6. AJOUTER L'ARTICLE A INDEX.HTML
 # ============================================================
 
 index_path = "index.html"
@@ -644,9 +622,19 @@ marqueur = (
 if marqueur not in index_html:
 
     raise RuntimeError(
-        "Le marqueur articles-generes "
-        "est absent de index.html."
+        "Le marqueur "
+        "articles-generes "
+        "n'existe pas dans index.html."
     )
+
+
+image_accueil = (
+    f"articles/images/{nom_image}"
+)
+
+lien_accueil = (
+    f"articles/{nom_article}"
+)
 
 
 carte_article = f"""
@@ -654,7 +642,7 @@ carte_article = f"""
 <article class="card article-genere">
 
 <img
-src="{escape(image_index, quote=True)}"
+src="{escape(image_accueil, quote=True)}"
 alt="{escape(titre, quote=True)}"
 >
 
@@ -672,7 +660,7 @@ alt="{escape(titre, quote=True)}"
 {escape(chapeau)}
 </p>
 
-<a href="{escape(lien_article, quote=True)}">
+<a href="{escape(lien_accueil, quote=True)}">
 Lire l'article
 </a>
 
@@ -684,13 +672,9 @@ Lire l'article
 
 
 index_html = index_html.replace(
-
     marqueur,
-
     marqueur + carte_article,
-
     1
-
 )
 
 
@@ -700,13 +684,11 @@ with open(
     encoding="utf-8"
 ) as fichier:
 
-    fichier.write(
-        index_html
-    )
+    fichier.write(index_html)
 
 
 print(
-    "index.html mis à jour."
+    "index.html mis a jour."
 )
 
 
@@ -714,25 +696,12 @@ print(
 # FIN
 # ============================================================
 
-print()
+print("")
 print("========================================")
-print("ARTICLE TERMINE AVEC SUCCES")
+print("ARTICLE GENERE AVEC SUCCES")
 print("========================================")
-
-print(
-    f"Article : {chemin_article}"
-)
-
-print(
-    f"Image   : {chemin_image}"
-)
-
-print(
-    "Accueil : index.html"
-)
-
-print(
-    "JSON    : articles.json"
-)
-
+print(f"Article : {chemin_article}")
+print(f"Image   : {chemin_image}")
+print("Accueil : index.html")
+print("JSON    : articles.json")
 print("========================================")
