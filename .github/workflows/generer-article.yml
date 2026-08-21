@@ -104,5 +104,3 @@ jobs:
             git push
 
           fi
-google-genai
-openai
