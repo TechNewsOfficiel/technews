@@ -144,19 +144,72 @@ Style :
 """
 
 
+
+from google import genai
+from google.genai import types
+
+# ...
+
+prompt_image = f"""
+Create a professional editorial image for a French technology news website.
+
+Article title:
+{titre}
+
+Article summary:
+{chapeau}
+
+The image must visually represent the subject of this technology article.
+
+Style:
+- realistic
+- modern technology journalism
+- professional
+- clean
+- cinematic
+- horizontal 16:9
+- no text
+- no letters
+- no logos
+"""
+
+print("Generation de l'image...")
+
 image_response = client.models.generate_content(
     model="gemini-3.1-flash-image",
-    contents=[prompt_image],
+    contents=prompt_image,
     config=types.GenerateContentConfig(
         response_modalities=["Image"],
         response_format={
             "image": {
                 "aspect_ratio": "16:9",
-                "image_size": "2K"
+                "image_size": "1K"
             }
         }
     )
 )
+
+image_saved = False
+
+for part in image_response.parts:
+
+    if part.inline_data is not None:
+
+        image = part.as_image()
+
+        image.save(chemin_image)
+
+        image_saved = True
+
+        print("Image sauvegardee :", chemin_image)
+
+        break
+
+
+if not image_saved:
+    raise RuntimeError(
+        "Gemini n'a pas retourne d'image."
+    )
 
 
 image_saved = False
