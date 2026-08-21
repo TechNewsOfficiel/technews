@@ -1,7 +1,6 @@
 import os
 import json
 import re
-import base64
 from datetime import date
 from html import escape
 
@@ -13,20 +12,19 @@ from google.genai import types
 # CONFIGURATION
 # ============================================================
 
-api_key = os.environ.get("GEMINI_API_KEY")
+API_KEY = os.environ.get("GEMINI_API_KEY")
 
-if not api_key:
-    raise RuntimeError(
-        "GEMINI_API_KEY est introuvable."
-    )
+if not API_KEY:
+    raise RuntimeError("GEMINI_API_KEY est introuvable.")
+
 
 client = genai.Client(
-    api_key=api_key
+    api_key=API_KEY
 )
 
 
 # ============================================================
-# FONCTIONS
+# OUTILS
 # ============================================================
 
 def nettoyer_json(texte):
@@ -34,10 +32,10 @@ def nettoyer_json(texte):
     texte = texte.strip()
 
     if texte.startswith("```json"):
-        texte = texte[7:]
+        texte = texte[len("```json"):]
 
     elif texte.startswith("```"):
-        texte = texte[3:]
+        texte = texte[len("```"):]
 
     if texte.endswith("```"):
         texte = texte[:-3]
@@ -49,7 +47,7 @@ def creer_slug(titre):
 
     titre = titre.lower()
 
-    remplacements = {
+    accents = {
         "à": "a",
         "â": "a",
         "ä": "a",
@@ -67,19 +65,16 @@ def creer_slug(titre):
         "ç": "c"
     }
 
-    for ancien, nouveau in remplacements.items():
-        titre = titre.replace(
-            ancien,
-            nouveau
-        )
+    for ancien, nouveau in accents.items():
+        titre = titre.replace(ancien, nouveau)
 
-    slug = re.sub(
+    titre = re.sub(
         r"[^a-z0-9]+",
         "-",
         titre
     )
 
-    return slug.strip("-")
+    return titre.strip("-")
 
 
 # ============================================================
@@ -98,21 +93,22 @@ os.makedirs(
 
 
 # ============================================================
-# 1. GENERATION ARTICLE
+# 1. GENERATION DE L'ARTICLE
 # ============================================================
 
-print("")
+print()
 print("========================================")
 print("GENERATION DE L'ARTICLE")
 print("========================================")
 
 
 prompt_article = """
-Tu es journaliste pour TechNews, un site français consacré
-à la technologie, à l'intelligence artificielle et au numérique.
+Tu es journaliste pour TechNews, un site français
+consacré à la technologie, à l'intelligence artificielle
+et au numérique.
 
-Crée un article original sur un sujet intéressant concernant
-l'intelligence artificielle.
+Crée un article original sur un sujet intéressant
+concernant l'intelligence artificielle.
 
 Règles :
 
@@ -122,24 +118,26 @@ Règles :
 - ne fabrique pas de chiffres
 - ne fabrique pas de citations
 - ne présente pas comme certain un fait incertain
-- article adapté à un site d'actualité technologique
+- texte adapté à un site d'actualité technologique
 
-Retourne UNIQUEMENT un JSON valide avec exactement cette structure :
+Retourne UNIQUEMENT un JSON valide.
+
+Structure obligatoire :
 
 {
-  "titre": "...",
-  "categorie": "Intelligence artificielle",
-  "chapeau": "...",
-  "sections": [
-    {
-      "titre": "...",
-      "paragraphes": [
-        "...",
-        "..."
-      ]
-    }
-  ],
-  "conclusion": "..."
+    "titre": "...",
+    "categorie": "Intelligence artificielle",
+    "chapeau": "...",
+    "sections": [
+        {
+            "titre": "...",
+            "paragraphes": [
+                "...",
+                "..."
+            ]
+        }
+    ],
+    "conclusion": "..."
 }
 """
 
@@ -159,28 +157,26 @@ response_article = client.models.generate_content(
 if not response_article.text:
 
     raise RuntimeError(
-        "Gemini n'a retourne aucun article."
+        "Gemini n'a retourné aucun article."
     )
 
 
-texte_article = nettoyer_json(
+texte = nettoyer_json(
     response_article.text
 )
 
 
 try:
 
-    data = json.loads(
-        texte_article
-    )
+    data = json.loads(texte)
 
 except json.JSONDecodeError as erreur:
 
-    print("Réponse Gemini :")
+    print("Réponse Gemini reçue :")
     print(response_article.text)
 
     raise RuntimeError(
-        f"JSON article invalide : {erreur}"
+        f"JSON invalide : {erreur}"
     )
 
 
@@ -203,13 +199,13 @@ conclusion = str(
 ).strip()
 
 
-print("")
-print("Titre genere :")
+print()
+print("Titre généré :")
 print(titre)
 
 
 # ============================================================
-# 2. DATE ET NOM
+# 2. NOM DES FICHIERS
 # ============================================================
 
 date_du_jour = date.today().isoformat()
@@ -219,7 +215,6 @@ slug = creer_slug(
 )
 
 if not slug:
-
     slug = "article-ia"
 
 
@@ -248,59 +243,53 @@ chemin_image = os.path.join(
 # 3. GENERATION DE L'IMAGE
 # ============================================================
 
-print("")
+print()
 print("========================================")
 print("GENERATION DE L'IMAGE")
 print("========================================")
 
 
 prompt_image = f"""
-Create a professional editorial image for a technology
-news website.
+Create a professional editorial image for a French
+technology news website.
 
-The image must illustrate this article:
+The image must visually illustrate this article.
 
-Title:
+TITLE:
 {titre}
 
-Summary:
+SUMMARY:
 {chapeau}
 
-Create a realistic, modern and professional technology
-journalism image.
+Create an image specifically related to the subject
+described above.
 
-The subject must clearly relate to the article.
+Style:
 
-Requirements:
-
+- professional technology journalism
 - realistic
-- professional
 - modern
-- cinematic
-- technology / artificial intelligence
+- high quality
+- cinematic lighting
+- visually interesting
 - horizontal composition
+- suitable as a news website article thumbnail
 - no text
-- no words
 - no letters
 - no logos
 - no watermark
+
+The image must clearly represent the topic of the article.
 """
-
-
-# IMPORTANT :
-#
-# AUCUN response_format ici.
-#
-# C'est volontaire.
-# Cela évite complètement l'erreur
-# GenerateContentConfig / response_format.
 
 
 response_image = client.models.generate_content(
 
     model="gemini-3.1-flash-image",
 
-    contents=prompt_image,
+    contents=[
+        prompt_image
+    ],
 
     config=types.GenerateContentConfig(
 
@@ -312,66 +301,39 @@ response_image = client.models.generate_content(
 )
 
 
-# ============================================================
-# 4. RECUPERATION IMAGE
-# ============================================================
-
-image_trouvee = False
+image_saved = False
 
 
 for part in response_image.parts:
 
-    if part.inline_data:
+    if part.inline_data is not None:
 
-        print(
-            "Image recue depuis Gemini."
+        image = part.as_image()
+
+        image.save(
+            chemin_image
         )
 
-        image_bytes = part.inline_data.data
+        image_saved = True
 
-        if not image_bytes:
-
-            raise RuntimeError(
-                "Gemini a retourne une image vide."
-            )
-
-        with open(
-            chemin_image,
-            "wb"
-        ) as fichier:
-
-            fichier.write(
-                image_bytes
-            )
-
-        image_trouvee = True
+        print()
+        print("Image générée avec succès.")
+        print(
+            f"Image : {chemin_image}"
+        )
 
         break
 
 
-if not image_trouvee:
-
-    print("")
-    print(
-        "Réponse Gemini complète :"
-    )
-
-    print(
-        response_image
-    )
+if not image_saved:
 
     raise RuntimeError(
-        "Gemini n'a pas retourne de donnees image."
+        "Gemini n'a retourné aucune image."
     )
-
-
-print("")
-print("Image sauvegardee :")
-print(chemin_image)
 
 
 # ============================================================
-# 5. CONSTRUCTION ARTICLE
+# 4. CONSTRUCTION DU CONTENU
 # ============================================================
 
 contenu = ""
@@ -380,9 +342,7 @@ contenu = ""
 for section in sections:
 
     titre_section = escape(
-        str(
-            section["titre"]
-        )
+        str(section["titre"])
     )
 
     contenu += f"""
@@ -416,10 +376,10 @@ Conclusion
 
 
 # ============================================================
-# 6. PAGE ARTICLE
+# 5. PAGE ARTICLE
 # ============================================================
 
-image_dans_article = (
+image_article = (
     f"images/{nom_image}"
 )
 
@@ -495,9 +455,9 @@ Cybersécurité
 <article class="article-page">
 
 <img
-src="{image_dans_article}"
+src="{escape(image_article, quote=True)}"
 class="article-image"
-alt="{escape(titre)}"
+alt="{escape(titre, quote=True)}"
 >
 
 <h1>
@@ -505,15 +465,13 @@ alt="{escape(titre)}"
 </h1>
 
 <p class="date">
-{date_du_jour} • {escape(categorie)}
+{escape(date_du_jour)} • {escape(categorie)}
 </p>
 
 <p class="chapeau">
-
 <strong>
 {escape(chapeau)}
 </strong>
-
 </p>
 
 {contenu}
@@ -549,21 +507,19 @@ with open(
     )
 
 
-print("")
-print("Article HTML cree :")
+print()
+print("Page article créée :")
 print(chemin_article)
 
 
 # ============================================================
-# 7. ARTICLES.JSON
+# 6. ARTICLES.JSON
 # ============================================================
 
 fichier_json = "articles.json"
 
 
-if os.path.exists(
-    fichier_json
-):
+if os.path.exists(fichier_json):
 
     try:
 
@@ -620,7 +576,6 @@ nouvel_article = {
 }
 
 
-# Eviter les doublons
 articles = [
 
     article
@@ -654,20 +609,18 @@ with open(
 
 
 print(
-    "articles.json mis a jour."
+    "articles.json mis à jour."
 )
 
 
 # ============================================================
-# 8. AJOUT A L'ACCUEIL
+# 7. AJOUT DE LA CARTE SUR INDEX.HTML
 # ============================================================
 
 index_path = "index.html"
 
 
-if not os.path.exists(
-    index_path
-):
+if not os.path.exists(index_path):
 
     raise RuntimeError(
         "index.html est introuvable."
@@ -691,33 +644,9 @@ marqueur = (
 if marqueur not in index_html:
 
     raise RuntimeError(
-        "Le marqueur "
-        '<div id="articles-generes"></div>'
-        " est absent de index.html."
+        "Le marqueur articles-generes "
+        "est absent de index.html."
     )
-
-
-titre_safe = escape(
-    titre
-)
-
-categorie_safe = escape(
-    categorie
-)
-
-chapeau_safe = escape(
-    chapeau
-)
-
-image_safe = escape(
-    image_index,
-    quote=True
-)
-
-lien_safe = escape(
-    lien_article,
-    quote=True
-)
 
 
 carte_article = f"""
@@ -725,25 +654,25 @@ carte_article = f"""
 <article class="card article-genere">
 
 <img
-src="{image_safe}"
-alt="{titre_safe}"
+src="{escape(image_index, quote=True)}"
+alt="{escape(titre, quote=True)}"
 >
 
 <div class="content">
 
 <small class="article-category">
-{categorie_safe}
+{escape(categorie)}
 </small>
 
 <h3>
-{titre_safe}
+{escape(titre)}
 </h3>
 
 <p>
-{chapeau_safe}
+{escape(chapeau)}
 </p>
 
-<a href="{lien_safe}">
+<a href="{escape(lien_article, quote=True)}">
 Lire l'article
 </a>
 
@@ -755,9 +684,13 @@ Lire l'article
 
 
 index_html = index_html.replace(
+
     marqueur,
+
     marqueur + carte_article,
+
     1
+
 )
 
 
@@ -772,11 +705,16 @@ with open(
     )
 
 
+print(
+    "index.html mis à jour."
+)
+
+
 # ============================================================
 # FIN
 # ============================================================
 
-print("")
+print()
 print("========================================")
 print("ARTICLE TERMINE AVEC SUCCES")
 print("========================================")
@@ -790,7 +728,7 @@ print(
 )
 
 print(
-    "Index   : index.html"
+    "Accueil : index.html"
 )
 
 print(
