@@ -1,265 +1,263 @@
 import os
 import json
 import re
+import base64
 from datetime import date
 from html import escape
 
 from google import genai
+from google.genai import types
 
 
 # ============================================================
-# 1. CONNEXION À GEMINI
+# CONFIGURATION
 # ============================================================
 
 api_key = os.environ.get("GEMINI_API_KEY")
 
 if not api_key:
-    raise RuntimeError("La variable GEMINI_API_KEY est introuvable.")
+    raise RuntimeError("GEMINI_API_KEY est introuvable.")
 
 client = genai.Client(api_key=api_key)
 
 
 # ============================================================
-# 2. DEMANDE À GEMINI
+# GENERATION DE L'ARTICLE
 # ============================================================
 
 prompt = """
-Tu es le rédacteur du site TechNews.
+Tu es journaliste pour TechNews, un site français consacré à la technologie.
 
-Écris un article en français sur l'intelligence artificielle et les
-nouvelles technologies.
+Crée un article original sur un sujet intéressant concernant l'intelligence
+artificielle.
 
-L'article doit être intéressant pour les lecteurs d'un site technologique.
+IMPORTANT :
+- Ne fabrique pas de chiffres, de citations ou de faits précis.
+- Le texte doit être naturel et agréable à lire.
+- Environ 700 mots.
+- Le titre doit être accrocheur mais sérieux.
+- Le contenu doit être adapté à un site d'actualité technologique.
 
-Règles :
-- environ 700 mots
-- titre accrocheur mais sérieux
-- introduction courte
-- plusieurs parties avec des sous-titres
-- paragraphes courts
-- conclusion
-- style journalistique naturel
-- ne pas inventer de chiffres
-- ne pas inventer de citations
-- ne pas prétendre qu'une information est récente si tu n'en es pas sûr
-
-Réponds UNIQUEMENT avec ce JSON :
+Retourne UNIQUEMENT un JSON valide avec exactement ces champs :
 
 {
-  "titre": "titre de l'article",
+  "titre": "...",
   "categorie": "Intelligence artificielle",
-  "chapeau": "courte introduction de l'article",
+  "chapeau": "...",
   "sections": [
     {
-      "titre": "titre de la première partie",
-      "paragraphes": [
-        "premier paragraphe",
-        "deuxième paragraphe"
-      ]
-    },
-    {
-      "titre": "titre de la deuxième partie",
-      "paragraphes": [
-        "premier paragraphe",
-        "deuxième paragraphe"
-      ]
+      "titre": "...",
+      "paragraphes": ["...", "..."]
     }
   ],
-  "conclusion": "conclusion de l'article"
+  "conclusion": "..."
 }
 """
 
 
-# ============================================================
-# 3. GÉNÉRATION
-# ============================================================
+print("Generation de l'article...")
 
 response = client.models.generate_content(
     model="gemini-3.6-flash",
-    contents=prompt
+    contents=prompt,
+    config={
+        "response_mime_type": "application/json"
+    }
 )
 
 texte = response.text.strip()
 
-if not texte:
-    raise RuntimeError("Gemini n'a retourné aucun texte.")
+texte = re.sub(r"^```json\s*", "", texte)
+texte = re.sub(r"\s*```$", "", texte)
 
+data = json.loads(texte)
 
-# ============================================================
-# 4. NETTOYAGE DU JSON
-# ============================================================
-
-# Gemini peut parfois entourer le JSON avec ```json ... ```
-if texte.startswith("```"):
-    texte = re.sub(r"^```(?:json)?\s*", "", texte)
-    texte = re.sub(r"\s*```$", "", texte)
-
-try:
-    data = json.loads(texte)
-
-except json.JSONDecodeError as erreur:
-    print("Réponse reçue de Gemini :")
-    print(texte)
-    raise RuntimeError(
-        f"Impossible de lire le JSON généré par Gemini : {erreur}"
-    )
-
-
-# ============================================================
-# 5. VÉRIFICATION
-# ============================================================
-
-champs_obligatoires = [
-    "titre",
-    "categorie",
-    "chapeau",
-    "sections",
-    "conclusion"
-]
-
-for champ in champs_obligatoires:
-    if champ not in data:
-        raise RuntimeError(
-            f"Le champ obligatoire '{champ}' manque dans la réponse Gemini."
-        )
-
-
-titre = str(data["titre"]).strip()
-categorie = str(data["categorie"]).strip()
-chapeau = str(data["chapeau"]).strip()
+titre = data["titre"]
+categorie = data["categorie"]
+chapeau = data["chapeau"]
 sections = data["sections"]
-conclusion = str(data["conclusion"]).strip()
-
-if not titre:
-    raise RuntimeError("Le titre est vide.")
-
-if not sections:
-    raise RuntimeError("Aucune section n'a été générée.")
+conclusion = data["conclusion"]
 
 
 # ============================================================
-# 6. DATE
+# DATE ET SLUG
 # ============================================================
 
-date_du_jour = date.today().strftime("%d/%m/%Y")
+date_du_jour = date.today().isoformat()
 
+slug = re.sub(
+    r"[^a-z0-9]+",
+    "-",
+    titre.lower()
+)
 
-# ============================================================
-# 7. CRÉATION DU NOM DU FICHIER
-# ============================================================
-
-slug = titre.lower()
-
-remplacements = {
-    "à": "a",
-    "â": "a",
-    "ä": "a",
-    "é": "e",
-    "è": "e",
-    "ê": "e",
-    "ë": "e",
-    "î": "i",
-    "ï": "i",
-    "ô": "o",
-    "ö": "o",
-    "ù": "u",
-    "û": "u",
-    "ü": "u",
-    "ç": "c",
-    "œ": "oe",
-    "æ": "ae"
-}
-
-for ancien, nouveau in remplacements.items():
-    slug = slug.replace(ancien, nouveau)
-
-slug = re.sub(r"[^a-z0-9]+", "-", slug)
 slug = slug.strip("-")
 
-# Évite un nom de fichier trop long
-slug = slug[:70].rstrip("-")
-
-date_fichier = date.today().isoformat()
-
-nom_fichier = f"article-{date_fichier}-{slug}.html"
+nom_fichier = f"article-{date_du_jour}-{slug}.html"
 
 
 # ============================================================
-# 8. IMAGE
+# DOSSIER DES IMAGES
 # ============================================================
 
-# Image temporaire pour notre premier test.
-# Elle sera remplacée ensuite par le système d'images automatique.
+os.makedirs(
+    "articles/images",
+    exist_ok=True
+)
 
-image = (
-    "https://images.unsplash.com/"
-    "photo-1677442136019-21780ecad995"
-    "?auto=format&fit=crop&w=1200&q=80"
+nom_image = f"{date_du_jour}-{slug}.png"
+
+chemin_image = os.path.join(
+    "articles",
+    "images",
+    nom_image
 )
 
 
 # ============================================================
-# 9. CONSTRUCTION DES SECTIONS HTML
+# GENERATION DE L'IMAGE
 # ============================================================
 
-contenu_sections = ""
+print("Generation de l'image...")
+
+prompt_image = f"""
+Crée une image réaliste et professionnelle pour un article
+d'actualité technologique.
+
+Titre de l'article :
+{titre}
+
+Sujet :
+{chapeau}
+
+L'image doit représenter visuellement le sujet de l'article.
+
+Style :
+- photographie éditoriale technologique
+- moderne
+- réaliste
+- professionnelle
+- sans texte
+- sans logo
+- format horizontal 16:9
+- adaptée à la couverture d'un article de presse technologique
+"""
+
+
+image_response = client.models.generate_content(
+    model="gemini-3.1-flash-image",
+    contents=[prompt_image],
+    config=types.GenerateContentConfig(
+        response_modalities=["Image"],
+        response_format={
+            "image": {
+                "aspect_ratio": "16:9",
+                "image_size": "2K"
+            }
+        }
+    )
+)
+
+
+image_saved = False
+
+for part in image_response.parts:
+
+    if part.inline_data is not None:
+
+        image = part.as_image()
+
+        image.save(chemin_image)
+
+        image_saved = True
+
+        print(
+            f"Image sauvegardee : {chemin_image}"
+        )
+
+        break
+
+
+if not image_saved:
+
+    raise RuntimeError(
+        "Gemini n'a pas retourne d'image."
+    )
+
+
+# ============================================================
+# CONSTRUCTION DU CONTENU DE L'ARTICLE
+# ============================================================
+
+contenu = ""
 
 for section in sections:
 
-    titre_section = escape(
-        str(section.get("titre", "")).strip()
-    )
-
-    if not titre_section:
-        continue
-
-    contenu_sections += f"""
+    contenu += f"""
 <h2>
-{titre_section}
+{escape(section["titre"])}
 </h2>
 """
 
-    paragraphes = section.get("paragraphes", [])
+    for paragraphe in section["paragraphes"]:
 
-    for paragraphe in paragraphes:
-
-        paragraphe = escape(
-            str(paragraphe).strip()
-        )
-
-        if paragraphe:
-            contenu_sections += f"""
+        contenu += f"""
 <p>
-{paragraphe}
+{escape(paragraphe)}
+</p>
+"""
+
+
+contenu += f"""
+<h2>
+Conclusion
+</h2>
+
+<p>
+{escape(conclusion)}
 </p>
 """
 
 
 # ============================================================
-# 10. PROTECTION DES TEXTES HTML
+# CHEMIN DE L'IMAGE DANS L'ARTICLE
 # ============================================================
 
-titre_html = escape(titre)
-categorie_html = escape(categorie)
-chapeau_html = escape(chapeau)
-conclusion_html = escape(conclusion)
+# L'article est dans articles/
+# L'image est dans articles/images/
+#
+# Donc depuis l'article :
+#
+# images/mon-image.png
+
+image_article = f"images/{nom_image}"
 
 
 # ============================================================
-# 11. HTML DE L'ARTICLE
+# HTML COMPLET
 # ============================================================
 
 html = f"""<!DOCTYPE html>
+
 <html lang="fr">
 
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>TechNews - {titre_html}</title>
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
 
-<link rel="stylesheet" href="../style.css">
+<title>
+TechNews - {escape(titre)}
+</title>
+
+<link
+rel="stylesheet"
+href="../style.css"
+>
 
 </head>
 
@@ -271,7 +269,9 @@ html = f"""<!DOCTYPE html>
 
 <div class="header">
 
-<h1>TechNews</h1>
+<h1>
+TechNews
+</h1>
 
 <p>
 L'actualité des technologies, de l'IA et du numérique
@@ -282,110 +282,68 @@ L'actualité des technologies, de l'IA et du numérique
 
 <nav>
 
-<a href="../index.html">Accueil</a>
-<a href="../ia.html">IA</a>
-<a href="../smartphones.html">Smartphones</a>
-<a href="../jeux.html">Gaming</a>
-<a href="../cybersecurite.html">Cybersécurité</a>
+<a href="../index.html">
+Accueil
+</a>
+
+<a href="../ia.html">
+IA
+</a>
+
+<a href="../smartphones.html">
+Smartphones
+</a>
+
+<a href="../gaming.html">
+Gaming
+</a>
+
+<a href="../cybersecurite.html">
+Cybersécurité
+</a>
 
 </nav>
 
 </header>
 
 
-
 <main>
-
 
 <article class="article-page">
 
 
 <img
-src="{image}"
+src="{image_article}"
 class="article-image"
-alt="{titre_html}"
+alt="{escape(titre)}"
 >
 
 
 <h1>
-{titre_html}
+{escape(titre)}
 </h1>
 
 
 <p class="date">
-{date_du_jour} • {categorie_html}
+{date_du_jour} • {escape(categorie)}
 </p>
 
 
 <p class="chapeau">
 
 <strong>
-{chapeau_html}
+{escape(chapeau)}
 </strong>
 
 </p>
 
 
-{contenu_sections}
-
-
-<h2>
-Conclusion
-</h2>
-
-
-<p>
-{conclusion_html}
-</p>
+{contenu}
 
 
 </article>
 
-
 </main>
-
-
-<div class="reaction-box">
-
-<h4>
-Votre avis sur cet article ?
-</h4>
-
-
-<div class="reaction-buttons">
-
-<button class="like-btn" onclick="aimerArticle(this)">
-👍
-<span>J'aime</span>
-</button>
-
-
-<button class="dislike-btn" onclick="retirerFavori(this)">
-👎
-<span>Je n'aime pas</span>
-</button>
-
-
-</div>
-
-
-<div class="favorite-box">
-
-<button
-class="favorite-btn"
-onclick="ajouterFavori(
-'{titre_html.replace("'", "\\'")}',
-'../ia.html',
-'{image}'
-)"
->
-⭐ Ajouter aux favoris
-</button>
-
-</div>
-
-
-</div>
 
 
 <footer>
@@ -407,23 +365,22 @@ onclick="ajouterFavori(
 
 
 # ============================================================
-# 12. CRÉATION DU DOSSIER ARTICLES
+# CREATION DE L'ARTICLE
 # ============================================================
 
-os.makedirs("articles", exist_ok=True)
+os.makedirs(
+    "articles",
+    exist_ok=True
+)
 
-
-# ============================================================
-# 13. ÉCRITURE DU FICHIER
-# ============================================================
-
-chemin = os.path.join(
+chemin_article = os.path.join(
     "articles",
     nom_fichier
 )
 
+
 with open(
-    chemin,
+    chemin_article,
     "w",
     encoding="utf-8"
 ) as fichier:
@@ -431,18 +388,180 @@ with open(
     fichier.write(html)
 
 
+print(
+    f"Article sauvegarde : {chemin_article}"
+)
+
+
 # ============================================================
-# 14. MESSAGE FINAL
+# ARTICLES.JSON
+# ============================================================
+
+fichier_json = "articles.json"
+
+
+if os.path.exists(fichier_json):
+
+    with open(
+        fichier_json,
+        "r",
+        encoding="utf-8"
+    ) as fichier:
+
+        articles = json.load(fichier)
+
+else:
+
+    articles = []
+
+
+article = {
+
+    "titre": titre,
+
+    "description": chapeau,
+
+    "categorie": categorie,
+
+    "date": date_du_jour,
+
+    "image": f"articles/images/{nom_image}",
+
+    "lien": f"articles/{nom_fichier}"
+
+}
+
+
+articles.insert(
+    0,
+    article
+)
+
+
+with open(
+    fichier_json,
+    "w",
+    encoding="utf-8"
+) as fichier:
+
+    json.dump(
+        articles,
+        fichier,
+        ensure_ascii=False,
+        indent=4
+    )
+
+
+# ============================================================
+# AJOUT A INDEX.HTML
+# ============================================================
+
+index_path = "index.html"
+
+
+if not os.path.exists(index_path):
+
+    raise RuntimeError(
+        "index.html est introuvable."
+    )
+
+
+with open(
+    index_path,
+    "r",
+    encoding="utf-8"
+) as fichier:
+
+    index_html = fichier.read()
+
+
+titre_safe = escape(titre)
+
+chapeau_safe = escape(chapeau)
+
+categorie_safe = escape(categorie)
+
+lien_safe = escape(
+    f"articles/{nom_fichier}",
+    quote=True
+)
+
+image_safe = escape(
+    f"articles/images/{nom_image}",
+    quote=True
+)
+
+
+carte_article = f"""
+
+<article class="card article-genere">
+
+<img
+src="{image_safe}"
+alt="{titre_safe}"
+>
+
+<div class="content">
+
+<small class="article-category">
+{categorie_safe}
+</small>
+
+<h3>
+{titre_safe}
+</h3>
+
+<p>
+{chapeau_safe}
+</p>
+
+<a href="{lien_safe}">
+Lire l'article
+</a>
+
+</div>
+
+</article>
+
+"""
+
+
+marqueur = '<div id="articles-generes"></div>'
+
+
+if marqueur not in index_html:
+
+    raise RuntimeError(
+        "Le marqueur articles-generes n'existe pas dans index.html."
+    )
+
+
+index_html = index_html.replace(
+    marqueur,
+    marqueur + carte_article,
+    1
+)
+
+
+with open(
+    index_path,
+    "w",
+    encoding="utf-8"
+) as fichier:
+
+    fichier.write(index_html)
+
+
+# ============================================================
+# FIN
 # ============================================================
 
 print("")
-print("==============================================")
-print("       ARTICLE TECHNEWS CRÉÉ AVEC SUCCÈS")
-print("==============================================")
-print("")
-print(f"Titre     : {titre}")
-print(f"Catégorie : {categorie}")
-print(f"Date      : {date_du_jour}")
-print(f"Fichier   : {chemin}")
-print("")
-print("==============================================")
+print("====================================")
+print("ARTICLE CREE AVEC SUCCES")
+print("====================================")
+print(f"Titre  : {titre}")
+print(f"Article: {chemin_article}")
+print(f"Image  : {chemin_image}")
+print("Accueil: index.html mis a jour")
+print("====================================")
