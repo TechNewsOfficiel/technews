@@ -2,11 +2,15 @@ import os
 import json
 import re
 from datetime import date
-from google import genai
+from html import escape
 
-# =========================
+from google import genai
+from google.genai import types
+
+
+# ============================================================
 # CONFIGURATION
-# =========================
+# ============================================================
 
 api_key = os.environ.get("GEMINI_API_KEY")
 
@@ -16,9 +20,9 @@ if not api_key:
 client = genai.Client(api_key=api_key)
 
 
-# =========================
+# ============================================================
 # GENERATION DE L'ARTICLE
-# =========================
+# ============================================================
 
 prompt = """
 Tu es journaliste pour TechNews, un site français consacré à la technologie.
@@ -49,6 +53,7 @@ Retourne UNIQUEMENT un JSON valide avec exactement ces champs :
 }
 """
 
+print("Generation de l'article...")
 
 response = client.models.generate_content(
     model="gemini-3.6-flash",
@@ -58,15 +63,12 @@ response = client.models.generate_content(
     }
 )
 
-
 texte = response.text.strip()
 
-# Retirer d'éventuels ```json ... ```
 texte = re.sub(r"^```json\s*", "", texte)
 texte = re.sub(r"\s*```$", "", texte)
 
 data = json.loads(texte)
-
 
 titre = data["titre"]
 categorie = data["categorie"]
@@ -75,12 +77,11 @@ sections = data["sections"]
 conclusion = data["conclusion"]
 
 
-# =========================
-# DATE ET SLUG
-# =========================
+# ============================================================
+# DATE + SLUG
+# ============================================================
 
 date_du_jour = date.today().isoformat()
-
 
 slug = re.sub(
     r"[^a-z0-9]+",
@@ -90,35 +91,112 @@ slug = re.sub(
 
 slug = slug.strip("-")
 
-
-nom_fichier = (
-    f"article-{date_du_jour}-{slug}.html"
-)
+nom_fichier = f"article-{date_du_jour}-{slug}.html"
 
 
-# =========================
+# ============================================================
+# DOSSIERS
+# ============================================================
+
+os.makedirs("articles", exist_ok=True)
+os.makedirs("articles/images", exist_ok=True)
+
+
+# ============================================================
 # IMAGE
-# =========================
+# ============================================================
 
-image = (
-    "https://images.unsplash.com/"
-    "photo-1677442136019-21780ecad995"
-    "?auto=format&fit=crop&w=1200&q=80"
+nom_image = f"{date_du_jour}-{slug}.png"
+
+chemin_image = os.path.join(
+    "articles",
+    "images",
+    nom_image
+)
+
+print("Generation de l'image...")
+
+
+prompt_image = f"""
+Create a professional editorial image for a French technology news website.
+
+Article title:
+{titre}
+
+Article summary:
+{chapeau}
+
+Create an image that visually represents the subject of this article.
+
+Style:
+- realistic
+- professional technology journalism
+- modern
+- cinematic
+- clean
+- horizontal 16:9
+- no text
+- no words
+- no letters
+- no logo
+"""
+
+
+image_config = types.ImageConfig(
+    aspect_ratio="16:9",
+    image_size="1K"
 )
 
 
-# =========================
-# CONSTRUCTION DU CONTENU
-# =========================
+image_response = client.models.generate_content(
+    model="gemini-3.1-flash-image",
+    contents=prompt_image,
+    config=types.GenerateContentConfig(
+        response_modalities=["IMAGE"],
+        image_config=image_config
+    )
+)
+
+
+image_saved = False
+
+
+for part in image_response.parts:
+
+    if part.inline_data is not None:
+
+        image = part.as_image()
+
+        image.save(chemin_image)
+
+        image_saved = True
+
+        print(
+            "Image sauvegardee :",
+            chemin_image
+        )
+
+        break
+
+
+if not image_saved:
+
+    raise RuntimeError(
+        "Gemini n'a pas retourne d'image."
+    )
+
+
+# ============================================================
+# CONTENU ARTICLE
+# ============================================================
 
 contenu = ""
-
 
 for section in sections:
 
     contenu += f"""
 <h2>
-{section["titre"]}
+{escape(section["titre"])}
 </h2>
 """
 
@@ -126,7 +204,7 @@ for section in sections:
 
         contenu += f"""
 <p>
-{paragraphe}
+{escape(paragraphe)}
 </p>
 """
 
@@ -137,14 +215,21 @@ Conclusion
 </h2>
 
 <p>
-{conclusion}
+{escape(conclusion)}
 </p>
 """
 
 
-# =========================
-# HTML COMPLET
-# =========================
+# ============================================================
+# CHEMIN IMAGE DANS ARTICLE
+# ============================================================
+
+image_article = f"images/{nom_image}"
+
+
+# ============================================================
+# HTML ARTICLE
+# ============================================================
 
 html = f"""<!DOCTYPE html>
 
@@ -160,7 +245,7 @@ content="width=device-width, initial-scale=1.0"
 >
 
 <title>
-TechNews - {titre}
+TechNews - {escape(titre)}
 </title>
 
 <link
@@ -170,9 +255,7 @@ href="../style.css"
 
 </head>
 
-
 <body>
-
 
 <header>
 
@@ -187,7 +270,6 @@ L'actualité des technologies, de l'IA et du numérique
 </p>
 
 </div>
-
 
 <nav>
 
@@ -220,35 +302,27 @@ Cybersécurité
 
 <article class="article-page">
 
-
 <img
-src="{image}"
+src="{image_article}"
 class="article-image"
-alt="{titre}"
+alt="{escape(titre)}"
 >
 
-
 <h1>
-{titre}
+{escape(titre)}
 </h1>
 
-
 <p class="date">
-{date_du_jour} • {categorie}
+{date_du_jour} • {escape(categorie)}
 </p>
-
 
 <p class="chapeau">
-
 <strong>
-{chapeau}
+{escape(chapeau)}
 </strong>
-
 </p>
 
-
 {contenu}
-
 
 </article>
 
@@ -263,9 +337,7 @@ alt="{titre}"
 
 </footer>
 
-
 <script src="../script.js"></script>
-
 
 </body>
 
@@ -273,24 +345,17 @@ alt="{titre}"
 """
 
 
-# =========================
-# CREATION DU DOSSIER
-# =========================
+# ============================================================
+# SAUVEGARDE ARTICLE
+# ============================================================
 
-os.makedirs(
-    "articles",
-    exist_ok=True
-)
-
-
-chemin = os.path.join(
+chemin_article = os.path.join(
     "articles",
     nom_fichier
 )
 
-
 with open(
-    chemin,
+    chemin_article,
     "w",
     encoding="utf-8"
 ) as fichier:
@@ -298,15 +363,13 @@ with open(
     fichier.write(html)
 
 
-# =========================
-# CREATION / MISE A JOUR
-# DE ARTICLES.JSON
-# =========================
+# ============================================================
+# ARTICLES.JSON
+# ============================================================
 
 fichier_json = "articles.json"
 
 
-# Si articles.json existe déjà
 if os.path.exists(fichier_json):
 
     with open(
@@ -322,37 +385,18 @@ else:
     articles = []
 
 
-# =========================
-# INFORMATIONS DE L'ARTICLE
-# =========================
-
 article = {
-
     "titre": titre,
-
     "description": chapeau,
-
     "categorie": categorie,
-
     "date": date_du_jour,
-
-    "image": image,
-
+    "image": f"articles/images/{nom_image}",
     "lien": f"articles/{nom_fichier}"
-
 }
 
 
-# Ajouter le nouvel article
-articles.insert(
-    0,
-    article
-)
+articles.insert(0, article)
 
-
-# =========================
-# SAUVEGARDE JSON
-# =========================
 
 with open(
     fichier_json,
@@ -368,17 +412,13 @@ with open(
     )
 
 
-# =========================
-# AJOUT DE L'ARTICLE A L'ACCUEIL
-# =========================
-
-from html import escape
-
+# ============================================================
+# AJOUT A L'ACCUEIL
+# ============================================================
 
 index_path = "index.html"
 
 
-# Vérifier que index.html existe
 if not os.path.exists(index_path):
 
     raise RuntimeError(
@@ -386,7 +426,6 @@ if not os.path.exists(index_path):
     )
 
 
-# Lire index.html
 with open(
     index_path,
     "r",
@@ -396,7 +435,6 @@ with open(
     index_html = fichier.read()
 
 
-# Sécuriser les informations
 titre_safe = escape(titre)
 
 chapeau_safe = escape(chapeau)
@@ -409,12 +447,11 @@ lien_safe = escape(
 )
 
 image_safe = escape(
-    image,
+    f"articles/images/{nom_image}",
     quote=True
 )
 
 
-# Créer la carte
 carte_article = f"""
 
 <article class="card article-genere">
@@ -449,20 +486,16 @@ Lire l'article
 """
 
 
-# Marqueur dans index.html
 marqueur = '<div id="articles-generes"></div>'
 
 
-# Vérifier que le marqueur existe
 if marqueur not in index_html:
 
     raise RuntimeError(
-        "Le marqueur articles-generes "
-        "n'existe pas dans index.html."
+        "Le marqueur articles-generes n'existe pas dans index.html."
     )
 
 
-# Ajouter l'article
 index_html = index_html.replace(
     marqueur,
     marqueur + carte_article,
@@ -470,7 +503,6 @@ index_html = index_html.replace(
 )
 
 
-# Sauvegarder index.html
 with open(
     index_path,
     "w",
@@ -480,9 +512,16 @@ with open(
     fichier.write(index_html)
 
 
+# ============================================================
+# FIN
+# ============================================================
+
+print("")
 print("====================================")
-print("Article créé avec succès !")
-print(f"Fichier : {chemin}")
-print(f"Titre   : {titre}")
-print("Article ajouté à l'accueil !")
+print("ARTICLE CREE AVEC SUCCES")
+print("====================================")
+print("Titre :", titre)
+print("Article :", chemin_article)
+print("Image :", chemin_image)
+print("Accueil : index.html mis a jour")
 print("====================================")
