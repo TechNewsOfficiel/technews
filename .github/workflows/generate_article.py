@@ -1,216 +1,180 @@
 import os
-import json
-import re
-
 from google import genai
-from google.genai import types
 
 
-# ============================================================
-# CONFIGURATION
-# ============================================================
+api_key = os.environ.get("GEMINI_API_KEY")
 
-API_KEY = os.environ.get("GEMINI_API_KEY")
-
-if not API_KEY:
-    raise RuntimeError(
-        "GEMINI_API_KEY est introuvable dans les variables d'environnement."
-    )
-
-client = genai.Client(api_key=API_KEY)
+if not api_key:
+    raise RuntimeError("GEMINI_API_KEY introuvable.")
 
 
-# ============================================================
-# PROMPT
-# ============================================================
+client = genai.Client(api_key=api_key)
+
 
 prompt = """
 Tu es journaliste pour TechNews, un site français
 consacré aux nouvelles technologies.
 
-Rédige un article original sur l'intelligence artificielle.
+Écris un article original d'environ 700 mots sur
+l'intelligence artificielle.
 
 L'article doit :
 
 - être entièrement en français
-- faire environ 700 mots
-- avoir un titre sérieux et intéressant
-- avoir un chapeau de 2 à 3 phrases
-- contenir plusieurs sections
-- être agréable et naturel à lire
+- avoir un titre
+- avoir une introduction
+- contenir plusieurs sous-titres
+- contenir plusieurs paragraphes
+- avoir une conclusion
+- être naturel et agréable à lire
 - ne pas inventer de chiffres
 - ne pas inventer de citations
 - ne pas inventer de sources
-- ne pas présenter comme certain quelque chose d'incertain
 
-Retourne uniquement les données correspondant à la structure JSON demandée.
+Format :
+
+TITRE :
+...
+
+INTRODUCTION :
+...
+
+SOUS-TITRE :
+...
+
+...
+
+CONCLUSION :
+...
+
+Retourne uniquement l'article.
 """
 
 
-# ============================================================
-# GENERATION
-# ============================================================
-
 print("Generation de l'article...")
 
-try:
 
-    response = client.models.generate_content(
-        model="gemini-3.6-flash",
-        contents=prompt,
-        config=types.GenerateContentConfig(
-            response_mime_type="application/json"
-        )
-    )
+response = client.models.generate_content(
+    model="gemini-3.6-flash",
+    contents=prompt
+)
 
-except Exception as erreur:
-
-    print("")
-    print("ERREUR GEMINI")
-    print(erreur)
-    raise
-
-
-# ============================================================
-# VERIFIER LA REPONSE
-# ============================================================
 
 if not response.text:
     raise RuntimeError(
-        "Gemini n'a retourne aucun texte."
-    )
-
-texte = response.text.strip()
-
-
-# ============================================================
-# NETTOYER LES BLOCS MARKDOWN EVENTUELS
-# ============================================================
-
-texte = re.sub(
-    r"^```json\s*",
-    "",
-    texte,
-    flags=re.IGNORECASE
-)
-
-texte = re.sub(
-    r"\s*```$",
-    "",
-    texte
-)
-
-texte = texte.strip()
-
-
-# ============================================================
-# CONVERTIR EN JSON
-# ============================================================
-
-try:
-
-    article = json.loads(texte)
-
-except json.JSONDecodeError as erreur:
-
-    print("")
-    print("REPONSE RECUE DE GEMINI :")
-    print("--------------------------------")
-    print(texte)
-    print("--------------------------------")
-
-    raise RuntimeError(
-        f"Le JSON retourne par Gemini est invalide : {erreur}"
+        "Gemini n'a retourne aucun article."
     )
 
 
-# ============================================================
-# VERIFICATIONS
-# ============================================================
+article = response.text.strip()
 
-champs_obligatoires = [
-    "titre",
-    "categorie",
-    "chapeau",
-    "sections",
-    "conclusion"
-]
-
-for champ in champs_obligatoires:
-
-    if champ not in article:
-
-        raise RuntimeError(
-            f"Le champ '{champ}' manque dans la reponse Gemini."
-        )
-
-
-if not isinstance(article["sections"], list):
-
-    raise RuntimeError(
-        "Le champ 'sections' doit etre une liste."
-    )
-
-
-# ============================================================
-# AFFICHER L'ARTICLE
-# ============================================================
-
-print("")
-print("========================================")
-print("ARTICLE GENERE AVEC SUCCES")
-print("========================================")
-
-print("")
-print("TITRE")
-print(article["titre"])
-
-print("")
-print("CATEGORIE")
-print(article["categorie"])
-
-print("")
-print("CHAPEAU")
-print(article["chapeau"])
-
-print("")
-
-for section in article["sections"]:
-
-    print("----------------------------------------")
-    print(section["titre"])
-    print("----------------------------------------")
-
-    for paragraphe in section["paragraphes"]:
-
-        print(paragraphe)
-        print("")
-
-
-print("----------------------------------------")
-print("CONCLUSION")
-print("----------------------------------------")
-
-print(article["conclusion"])
-
-
-# ============================================================
-# SAUVEGARDER L'ARTICLE
-# ============================================================
 
 with open(
-    "article.json",
+    "article.txt",
     "w",
     encoding="utf-8"
 ) as fichier:
+    fichier.write(article)
 
-    json.dump(
-        article,
-        fichier,
-        ensure_ascii=False,
-        indent=4
+
+print("Article genere avec succes.")
+print("Fichier : article.txt")
+
+import os
+import base64
+from openai import OpenAI
+
+
+api_key = os.environ.get("OPENAI_API_KEY")
+
+if not api_key:
+    raise RuntimeError("OPENAI_API_KEY introuvable.")
+
+
+client = OpenAI(api_key=api_key)
+
+
+# ============================================================
+# LIRE L'ARTICLE
+# ============================================================
+
+with open(
+    "article.txt",
+    "r",
+    encoding="utf-8"
+) as fichier:
+
+    article = fichier.read()
+
+
+# ============================================================
+# PROMPT IMAGE
+# ============================================================
+
+prompt = f"""
+Create a professional editorial image for a French
+technology news website.
+
+The image must illustrate this article:
+
+{article[:4000]}
+
+Style:
+
+- professional technology journalism
+- realistic
+- modern
+- cinematic
+- high quality
+- horizontal composition
+- suitable as a news article hero image
+
+Important:
+
+- no text
+- no letters
+- no logo
+- no watermark
+"""
+
+
+print("Generation de l'image...")
+
+
+result = client.images.generate(
+    model="gpt-image-1",
+    prompt=prompt,
+    size="1536x1024"
+)
+
+
+image_base64 = result.data[0].b64_json
+
+
+if not image_base64:
+    raise RuntimeError(
+        "OpenAI n'a pas retourne d'image."
     )
 
 
-print("")
-print("Article sauvegarde dans : article.json")
+image_data = base64.b64decode(
+    image_base64
+)
+
+
+os.makedirs(
+    "articles/images",
+    exist_ok=True
+)
+
+
+with open(
+    "articles/images/article.png",
+    "wb"
+) as fichier:
+
+    fichier.write(image_data)
+
+
+print("Image generee avec succes.")
+print("Fichier : articles/images/article.png")
