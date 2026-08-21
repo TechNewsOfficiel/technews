@@ -1,11 +1,11 @@
 import os
 import json
 import re
+import base64
 from datetime import date
 from html import escape
 
 from google import genai
-from google.genai import types
 
 
 # ============================================================
@@ -53,7 +53,9 @@ Retourne UNIQUEMENT un JSON valide avec exactement ces champs :
 }
 """
 
-print("Generation de l'article...")
+print("========================================")
+print("GENERATION DE L'ARTICLE")
+print("========================================")
 
 response = client.models.generate_content(
     model="gemini-3.6-flash",
@@ -65,6 +67,7 @@ response = client.models.generate_content(
 
 texte = response.text.strip()
 
+# Enlever éventuellement ```json
 texte = re.sub(r"^```json\s*", "", texte)
 texte = re.sub(r"\s*```$", "", texte)
 
@@ -76,9 +79,12 @@ chapeau = data["chapeau"]
 sections = data["sections"]
 conclusion = data["conclusion"]
 
+print("Article genere :")
+print(titre)
+
 
 # ============================================================
-# DATE + SLUG
+# DATE ET SLUG
 # ============================================================
 
 date_du_jour = date.today().isoformat()
@@ -95,7 +101,7 @@ nom_fichier = f"article-{date_du_jour}-{slug}.html"
 
 
 # ============================================================
-# DOSSIERS
+# CREATION DES DOSSIERS
 # ============================================================
 
 os.makedirs("articles", exist_ok=True)
@@ -103,8 +109,62 @@ os.makedirs("articles/images", exist_ok=True)
 
 
 # ============================================================
-# IMAGE
+# GENERATION DE L'IMAGE
 # ============================================================
+
+print("")
+print("========================================")
+print("GENERATION DE L'IMAGE")
+print("========================================")
+
+prompt_image = f"""
+Create a professional editorial image for a French technology
+news website.
+
+The image must visually represent this article.
+
+Article title:
+{titre}
+
+Article summary:
+{chapeau}
+
+Create a realistic, modern and professional technology
+journalism image.
+
+Requirements:
+- realistic
+- professional
+- modern
+- cinematic
+- suitable for a technology news website
+- horizontal composition
+- no text
+- no words
+- no letters
+- no logos
+"""
+
+interaction = client.interactions.create(
+    model="gemini-3.1-flash-image",
+    input=prompt_image,
+    response_format={
+        "type": "image",
+        "aspect_ratio": "16:9",
+        "image_size": "1K"
+    }
+)
+
+
+# ============================================================
+# VERIFICATION IMAGE
+# ============================================================
+
+if not interaction.output_image:
+    raise RuntimeError(
+        "Gemini n'a pas retourne d'image."
+    )
+
 
 nom_image = f"{date_du_jour}-{slug}.png"
 
@@ -114,80 +174,29 @@ chemin_image = os.path.join(
     nom_image
 )
 
-print("Generation de l'image...")
 
+# ============================================================
+# SAUVEGARDE IMAGE
+# ============================================================
 
-prompt_image = f"""
-Create a professional editorial image for a French technology news website.
+image_data = interaction.output_image.data
 
-Article title:
-{titre}
+with open(
+    chemin_image,
+    "wb"
+) as fichier:
 
-Article summary:
-{chapeau}
-
-Create an image that visually represents the subject of this article.
-
-Style:
-- realistic
-- professional technology journalism
-- modern
-- cinematic
-- clean
-- horizontal 16:9
-- no text
-- no words
-- no letters
-- no logo
-"""
-
-
-image_config = types.ImageConfig(
-    aspect_ratio="16:9",
-    image_size="1K"
-)
-
-
-image_response = client.models.generate_content(
-    model="gemini-3.1-flash-image",
-    contents=prompt_image,
-    config=types.GenerateContentConfig(
-        response_modalities=["IMAGE"],
-        image_config=image_config
+    fichier.write(
+        base64.b64decode(image_data)
     )
-)
 
 
-image_saved = False
-
-
-for part in image_response.parts:
-
-    if part.inline_data is not None:
-
-        image = part.as_image()
-
-        image.save(chemin_image)
-
-        image_saved = True
-
-        print(
-            "Image sauvegardee :",
-            chemin_image
-        )
-
-        break
-
-
-if not image_saved:
-
-    raise RuntimeError(
-        "Gemini n'a pas retourne d'image."
-    )
+print("Image creee avec succes :")
+print(chemin_image)
 
 
 # ============================================================
-# CONTENU ARTICLE
+# CONTENU DE L'ARTICLE
 # ============================================================
 
 contenu = ""
@@ -221,14 +230,14 @@ Conclusion
 
 
 # ============================================================
-# CHEMIN IMAGE DANS ARTICLE
+# CHEMIN IMAGE DANS L'ARTICLE
 # ============================================================
 
 image_article = f"images/{nom_image}"
 
 
 # ============================================================
-# HTML ARTICLE
+# CREATION DU HTML DE L'ARTICLE
 # ============================================================
 
 html = f"""<!DOCTYPE html>
@@ -255,7 +264,9 @@ href="../style.css"
 
 </head>
 
+
 <body>
+
 
 <header>
 
@@ -270,6 +281,7 @@ L'actualité des technologies, de l'IA et du numérique
 </p>
 
 </div>
+
 
 <nav>
 
@@ -302,27 +314,35 @@ Cybersécurité
 
 <article class="article-page">
 
+
 <img
 src="{image_article}"
 class="article-image"
 alt="{escape(titre)}"
 >
 
+
 <h1>
 {escape(titre)}
 </h1>
+
 
 <p class="date">
 {date_du_jour} • {escape(categorie)}
 </p>
 
+
 <p class="chapeau">
+
 <strong>
 {escape(chapeau)}
 </strong>
+
 </p>
 
+
 {contenu}
+
 
 </article>
 
@@ -337,7 +357,9 @@ alt="{escape(titre)}"
 
 </footer>
 
+
 <script src="../script.js"></script>
+
 
 </body>
 
@@ -346,13 +368,14 @@ alt="{escape(titre)}"
 
 
 # ============================================================
-# SAUVEGARDE ARTICLE
+# SAUVEGARDE ARTICLE HTML
 # ============================================================
 
 chemin_article = os.path.join(
     "articles",
     nom_fichier
 )
+
 
 with open(
     chemin_article,
@@ -361,6 +384,11 @@ with open(
 ) as fichier:
 
     fichier.write(html)
+
+
+print("")
+print("Article HTML cree :")
+print(chemin_article)
 
 
 # ============================================================
@@ -386,16 +414,26 @@ else:
 
 
 article = {
+
     "titre": titre,
+
     "description": chapeau,
+
     "categorie": categorie,
+
     "date": date_du_jour,
+
     "image": f"articles/images/{nom_image}",
+
     "lien": f"articles/{nom_fichier}"
+
 }
 
 
-articles.insert(0, article)
+articles.insert(
+    0,
+    article
+)
 
 
 with open(
@@ -413,7 +451,7 @@ with open(
 
 
 # ============================================================
-# AJOUT A L'ACCUEIL
+# AJOUT DE L'ARTICLE SUR INDEX.HTML
 # ============================================================
 
 index_path = "index.html"
@@ -435,6 +473,10 @@ with open(
     index_html = fichier.read()
 
 
+# ============================================================
+# INFORMATIONS SECURISEES
+# ============================================================
+
 titre_safe = escape(titre)
 
 chapeau_safe = escape(chapeau)
@@ -451,6 +493,10 @@ image_safe = escape(
     quote=True
 )
 
+
+# ============================================================
+# CARTE DE L'ARTICLE
+# ============================================================
 
 carte_article = f"""
 
@@ -486,6 +532,10 @@ Lire l'article
 """
 
 
+# ============================================================
+# MARQUEUR
+# ============================================================
+
 marqueur = '<div id="articles-generes"></div>'
 
 
@@ -496,12 +546,20 @@ if marqueur not in index_html:
     )
 
 
+# ============================================================
+# AJOUT
+# ============================================================
+
 index_html = index_html.replace(
     marqueur,
     marqueur + carte_article,
     1
 )
 
+
+# ============================================================
+# SAUVEGARDE INDEX
+# ============================================================
 
 with open(
     index_path,
@@ -517,11 +575,11 @@ with open(
 # ============================================================
 
 print("")
-print("====================================")
-print("ARTICLE CREE AVEC SUCCES")
-print("====================================")
+print("========================================")
+print("ARTICLE TERMINE AVEC SUCCES")
+print("========================================")
 print("Titre :", titre)
-print("Article :", chemin_article)
+print("HTML  :", chemin_article)
 print("Image :", chemin_image)
-print("Accueil : index.html mis a jour")
-print("====================================")
+print("Index : index.html mis a jour")
+print("========================================")
