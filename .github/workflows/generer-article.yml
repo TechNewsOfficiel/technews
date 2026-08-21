@@ -14,7 +14,7 @@ jobs:
 
     steps:
 
-      - name: Recuperer le site
+      - name: Recuperer le projet
         uses: actions/checkout@v5
 
 
@@ -26,44 +26,60 @@ jobs:
 
       - name: Installer Google GenAI
         run: |
+
           python -m pip install --upgrade pip
+
           python -m pip install --upgrade google-genai
 
 
-      - name: Afficher version Google GenAI
+      - name: Afficher la version du SDK
         run: |
+
           python -m pip show google-genai
+
+
+      - name: Verifier qu'il n'y a pas de mauvais response_format
+        run: |
+
+          echo "Recherche de response_format..."
+
+          grep -n "response_format" generate_article.py || true
+
+          echo "Verification terminee."
 
 
       - name: Generer article et image
         env:
+
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+
         run: |
+
           python generate_article.py
 
 
-      - name: Verifier les fichiers
+      - name: Verifier les fichiers generes
         run: |
 
-          echo "=============================="
-          echo "FICHIERS ARTICLES"
-          echo "=============================="
+          echo "================================"
+          echo "ARTICLES"
+          echo "================================"
 
           find articles -maxdepth 2 -type f -print
 
           echo ""
 
-          echo "=============================="
+          echo "================================"
           echo "ARTICLES.JSON"
-          echo "=============================="
+          echo "================================"
 
           cat articles.json
 
           echo ""
 
-          echo "=============================="
+          echo "================================"
           echo "GIT STATUS"
-          echo "=============================="
+          echo "================================"
 
           git status
 
@@ -79,7 +95,7 @@ jobs:
 
           if git diff --cached --quiet; then
 
-            echo "Aucune modification."
+            echo "Aucune modification a enregistrer."
 
           else
 
